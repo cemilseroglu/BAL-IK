@@ -10,7 +10,7 @@ namespace BAL_IK.Model.Entities
     
     public class Personeller:BasePerson
     {
-        [Required]
+        [Required,Key]
         public int PersonelId { get; set; }
         [Required]
         public int YillikIzinHakki { get; set; } //WHAT CAN I DO SOMETİMES?LOOK AT THE TABELA!
@@ -22,9 +22,6 @@ namespace BAL_IK.Model.Entities
         [Required]
         public int DepartmanId { get; set; }
         public Departmanlar Departman { get; set; }
-
-        
-
         public List<Zimmetler> Zimmetler { get; set; }
         public List<Izinler> Izinler { get; set; }
         public List<OzlukBelgesi> OzlukBelgeleri { get; set; } 
