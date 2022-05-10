@@ -1,6 +1,7 @@
 ﻿using BAL_IK.Model.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,9 @@ namespace BAL_IK.Model
 {
     public class Vardiyalar
     {
+        [Required,Key]
         public int VardiyaID { get; set; }
+        [Required]
         public int PersonelID { get; set; }
         public Personeller Personel { get; set; }
         public VardiyaTuru VardiyaTuru { get; set; }
