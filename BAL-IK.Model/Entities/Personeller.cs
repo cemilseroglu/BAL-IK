@@ -17,10 +17,10 @@ namespace BAL_IK.Model.Entities
         public DateTime IseBaslama { get; set; }
         public DateTime IstenAyrilma { get; set; }
         [Required]
-        public int SirketID { get; set; }
+        public int SirketId { get; set; }
         public Sirket Sirket { get; set; }
         [Required]
-        public int DepartmanID { get; set; }
+        public int DepartmanId { get; set; }
         public Departmanlar Departman { get; set; }
         public List<Zimmetler> Zimmetler { get; set; }
         public List<Izinler> Izinler { get; set; }
