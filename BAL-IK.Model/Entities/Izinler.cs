@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,18 +8,28 @@ using System.Threading.Tasks;
 namespace BAL_IK.Model.Entities
 {
     public class Izinler
-    {       
-        public int IzinId { get; set; }   
+    {   
+        [Required,Key]
+        public int IzinId { get; set; } 
+        [Required]
         public int IzinTurId { get; set; }
         public IzinTuru IzinTur { get; set; }
-        public int IzinSuresi { get; set; }    
-        public string ReddilmeNedeni { get; set; }      
+        [Required]
+        public int IzinSuresi { get; set; }   
+        [Required]
+        public string ReddilmeNedeni { get; set; }
+        [Required]
         public DateTime IzinIstemeTarihi { get; set; }
+        [Required]
         public DateTime OnaylanmaTarihi { get; set; }
-        public DateTime IzinBaslangicTarihi { get; set; } 
+        [Required]
+        public DateTime IzinBaslangicTarihi { get; set; }
+        [Required]
         public DateTime IzinBitisTarihi { get; set; }
+        [Required]
         public int PersonelId { get; set; }
         public Personeller Personel { get; set; }
+        [Required]
         public int SirketYoneticisiId { get; set; }
         public SirketYoneticisi SirketYoneticisi { get; set; }    
         public OnayDurumu OnayDurumu { get; set; } 
