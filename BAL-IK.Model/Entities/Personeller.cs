@@ -12,12 +12,15 @@ namespace BAL_IK.Model.Entities
     {
         [Required]
         public int PersonelId { get; set; }
+        [Required]
         public int YillikIzinHakki { get; set; } //WHAT CAN I DO SOMETİMES?LOOK AT THE TABELA!
         public DateTime IseBaslama { get; set; }
         public DateTime IstenAyrilma { get; set; }
-        public int SirketID { get; set; }
+        [Required]
+        public int SirketId { get; set; }
         public Sirket Sirket { get; set; }
-        public int DepartmanID { get; set; }
+        [Required]
+        public int DepartmanId { get; set; }
         public Departmanlar Departman { get; set; }
 
         
