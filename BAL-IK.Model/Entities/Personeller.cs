@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +9,6 @@ namespace BAL_IK.Model.Entities
     
     public class Personeller:BasePerson
     {
-        [Required]
         public int PersonelId { get; set; }
         public int YillikIzinHakki { get; set; } //WHAT CAN I DO SOMETİMES?LOOK AT THE TABELA!
         public DateTime IseBaslama { get; set; }
