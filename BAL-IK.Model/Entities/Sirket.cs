@@ -9,18 +9,22 @@ namespace BAL_IK.Model.Entities
 {
     public class Sirket
     {
+        [Required,Key]
         public int SirketId { get; set; }
-        [Required]
+        [Required,MaxLength(50)]
         public string SirketAdi { get; set; }
+        [Required,MaxLength(250)]
         public string SirketAdresi { get; set; }
+        [MaxLength(13)]
         public string SirketTelefonu { get; set; }
+        [MaxLength(50)]
         public string SirketEmail { get; set; }
         public string SirketLogoURL { get; set; }
-        public Durum Durum { get; set; }
+        public Durum Durum { get; set; } = Durum.Aktif;
         public List<SirketYoneticisi> SirketYoneticileri { get; set; }  
         public List<Personeller> Personeller { get; set; }
         public List<Departmanlar> Departmanlar { get; set; }
-        public DateTime KayitTarihi { get; set; }
+        public DateTime KayitTarihi { get; set; }=DateTime.Now;
         public DateTime UyelikBitisTarihi { get; set; }
     }
 

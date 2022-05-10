@@ -16,9 +16,7 @@ namespace BAL_IK.Model.Entities
         public int SirketID { get; set; }
         public Sirket Sirket { get; set; }
         public int DepartmanID { get; set; }
-        public Departmanlar Departman { get; set; }
-
-        
+        public Departmanlar Departman { get; set; }      
 
         public List<Zimmetler> Zimmetler { get; set; }
         public List<Izinler> Izinler { get; set; }
