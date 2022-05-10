@@ -11,9 +11,9 @@ namespace BAL_IK.Model
     public class Vardiyalar
     {
         [Required,Key]
-        public int VardiyaID { get; set; }
+        public int VardiyaId { get; set; }
         [Required]
-        public int PersonelID { get; set; }
+        public int PersonelId { get; set; }
         public Personeller Personel { get; set; }
         public VardiyaTuru VardiyaTuru { get; set; }
         public DateTime VardiyaBaslangicTarihi { get; set; }
