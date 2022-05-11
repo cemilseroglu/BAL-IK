@@ -12,17 +12,11 @@ namespace BAL_IK.Model
     {
         [Required,Key]
         public int VardiyaId { get; set; }
-        [Required]
-        public int PersonelId { get; set; }
-        public Personeller Personel { get; set; }
-        public VardiyaTuru VardiyaTuru { get; set; }
         public DateTime VardiyaBaslangicTarihi { get; set; }
         public DateTime VardiyaBitisTarihi { get; set; }  //10 gün gece 10 gün gündüz vardiyası şeklinde gibi...
+        public List<Personeller> Personeller { get; set; }
+        public int VardiyaTurId { get; set; }
+        public VardiyaTur VardiyaTur { get; set; }
     }
-
-    public enum VardiyaTuru
-    {
-        GunduzVardiyasi, GeceVardiyasi
-    }
-
+   
 }

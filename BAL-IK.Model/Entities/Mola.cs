@@ -10,18 +10,18 @@ namespace BAL_IK.Model
 {
     public class Mola
     {
+        public Mola()
+        {
+            Personeller=new HashSet<Personeller>();
+        }
         [Required,Key]
         public int MolaId { get; set; }
+        public int MolaTurId { get; set; }
+        public MolaTur MolaTur { get; set; }
         [Required]
-        public MolaAdi MolaAdi { get; set; }
-        [Required]
-        public int PersonelId { get; set; }
-        public Personeller Personel { get; set; }
+        public ICollection<Personeller> Personeller { get; set; }
         public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
         public double MolaSuresi { get; set; }
     }
-    public enum MolaAdi
-    {
-        ÇayMolası, YemekMolası
-    }
+  
 }
