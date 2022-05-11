@@ -12,7 +12,7 @@ namespace BAL_IK.Model
     {
         [Required,Key]
         public int PrimId { get; set; }
-        [Required,Key]
+        [Required]
         public int PrimTuruId { get; set; }
         public PrimTuru PrimTuru { get; set; }
         [Required]

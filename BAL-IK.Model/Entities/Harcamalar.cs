@@ -1,6 +1,7 @@
 ﻿using BAL_IK.Model.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,12 @@ namespace BAL_IK.Model
 {
     public class Harcamalar
     {
-        public int HarcamaID { get; set; }
-        public int PersonelID { get; set; }
+        [Required,Key]
+        public int HarcamaId { get; set; }
+        [Required]
+        public int PersonelId { get; set; }
         public Personeller Personel { get; set; }
+        [Required,MaxLength(100)]
         public string HarcamaIsmi { get; set; }
         public decimal HarcamaTutari { get; set; }
     }

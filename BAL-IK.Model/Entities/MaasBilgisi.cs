@@ -10,9 +10,9 @@ namespace BAL_IK.Model.Entities
     public class MaasBilgisi
     {
         [Required,Key]
-        public int MaasID { get; set; }
+        public int MaasId { get; set; }
         [Required]
-        public int PersonelID { get; set; }
+        public int PersonelId { get; set; }
         public Personeller Personel { get; set; }
         public DateTime VerilisTarihi { get; set; }
         public decimal MaasTutari { get; set; }

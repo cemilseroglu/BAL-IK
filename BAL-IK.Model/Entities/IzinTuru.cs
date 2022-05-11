@@ -11,6 +11,7 @@ namespace BAL_IK.Model.Entities
     {
         [Required,Key]
         public int IzinTurId { get; set; }
+        [MaxLength(30)]
         public string IzinTur { get; set; }
         public List<Izinler> Izinler { get; set; }
     }

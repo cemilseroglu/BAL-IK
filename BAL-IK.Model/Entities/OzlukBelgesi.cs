@@ -11,7 +11,7 @@ namespace BAL_IK.Model.Entities
     {
         
         public int OzlukBelgesiId { get; set; }
-        public int PersonelID { get; set; }
+        public int PersonelId { get; set; }
         public Personeller Personel { get; set; }
         [Required,MaxLength(50)]
         public string OzlukBelgesiAdi { get; set; }

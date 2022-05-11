@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+
     <Folder Include="Areas\Personel\Data\" />
     <Folder Include="Areas\Personel\Models\" />
     <Folder Include="Areas\Personel\Views\" />
