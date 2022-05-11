@@ -9,6 +9,8 @@ namespace BAL_IK.Model.Entities
 {
     public class BasePerson
     {
+        public Guid Guid { get; set; } = Guid.NewGuid();
+
         [Required,MaxLength(50)]
         public string Ad { get; set; }
         [Required, MaxLength(100)]

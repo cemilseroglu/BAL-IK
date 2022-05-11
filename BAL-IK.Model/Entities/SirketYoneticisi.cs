@@ -9,7 +9,7 @@ namespace BAL_IK.Model.Entities
 {
     public class SirketYoneticisi : BasePerson
     {
-        [Required,Key]
+        [Required]
         public int SirketYoneticisiId { get; set; }
         [Required]
         public int SirketId { get; set; }

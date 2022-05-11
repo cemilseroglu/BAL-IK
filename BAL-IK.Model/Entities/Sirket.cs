@@ -26,6 +26,7 @@ namespace BAL_IK.Model.Entities
         public List<Departmanlar> Departmanlar { get; set; }
         public DateTime KayitTarihi { get; set; }=DateTime.Now;
         public DateTime UyelikBitisTarihi { get; set; }
+        public Yorum Yorumu { get; set; }
     }
 
     public enum Durum

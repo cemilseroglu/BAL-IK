@@ -9,7 +9,7 @@ namespace BAL_IK.Model.Entities
 {
     public class SiteYoneticisi:BasePerson
     {
-        [Required,Key]
+        [Required]
         public int SiteYoneticisiId { get; set; } 
     }
 }
