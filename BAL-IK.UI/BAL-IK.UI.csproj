@@ -17,17 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-
     <Folder Include="Areas\Personel\Data\" />
-    <Folder Include="Areas\Personel\Models\" />
     <Folder Include="Areas\Personel\Views\" />
-    <Folder Include="Areas\SirketYoneticisi\Controllers\" />
     <Folder Include="Areas\SirketYoneticisi\Data\" />
-    <Folder Include="Areas\SirketYoneticisi\Models\" />
     <Folder Include="Areas\SirketYoneticisi\Views\" />
-    <Folder Include="Areas\SiteYoneticisi\Controllers\" />
     <Folder Include="Areas\SiteYoneticisi\Data\" />
-    <Folder Include="Areas\SiteYoneticisi\Models\" />
     <Folder Include="Areas\SiteYoneticisi\Views\" />
   </ItemGroup>
 
