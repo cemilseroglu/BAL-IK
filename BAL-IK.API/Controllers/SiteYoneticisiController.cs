@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using static BAL_IK.Model.RequestClass.SiteYoneticisiIslemleriRequest;
+using static BAL_IK.Model.ResponseClass.SiteYoneticisiIslemleriResponse;
 
 namespace BAL_IK.API.Controllers
 {
@@ -21,9 +23,9 @@ namespace BAL_IK.API.Controllers
         }
 
         [HttpGet]
-        public List<SirketYoneticisi> SirketYoneticisiListGetir()
+        public SiteYoneticileriniListeleResponse SiteYoneticiListele()
         {
-            return _sService.SirketYoneticileriGetir();
+            return _sService.SiteYoneticileriniListele();
         }
 
         //[HttpGet("sirketlistele")]
@@ -31,12 +33,12 @@ namespace BAL_IK.API.Controllers
         //{
         //    return _sService.SirketleriGetir();
         //}
-        
+
         [HttpPost]
-        public int SirketYoneticisiEkle(SirketYoneticisi sy)
+        public SiteYoneticisiEkleResponse SirketYoneticisiEkle(SiteYoneticisiEkle sy)
         {
-            return _sService.SirketYoneticisiKaydet(sy);
-            
-        }      
+            return _sService.SiteYoneticisiKaydet(sy);
+
+        }
     }
 }

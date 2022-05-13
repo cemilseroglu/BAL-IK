@@ -5,13 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static BAL_IK.Model.RequestClass.SiteYoneticisiIslemleriRequest;
+using static BAL_IK.Model.ResponseClass.SiteYoneticisiIslemleriResponse;
 
 namespace BAL_IK.Data.Interfaceler
 {
     public interface ISiteYoneticisiService
     {
-        int SiteYoneticisiKaydet(SiteYoneticisiEkle sy);
-        List<SirketYoneticisi> SirketYoneticileriGetir();
+        SiteYoneticisiEkleResponse SiteYoneticisiKaydet(SiteYoneticisiEkle sy);
+        SiteYoneticileriniListeleResponse SiteYoneticileriniListele();
+        //List<SiteYoneticisi> SiteYoneticileriGetir();
         //List<Sirket> SirketleriGetir();
     }
 }
