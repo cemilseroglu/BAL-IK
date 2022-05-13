@@ -22,8 +22,12 @@ namespace BAL_IK.Model.Entities
         public string Sifre { get; set; }
         public string ResimUrl { get; set; }
         public bool AktifMi { get; set; } = true;
-    }
+        public Cinsiyet Cinsiyet { get; set; }
 
+    }
+    public enum Cinsiyet{
+            Kadın,Erkek
+    }
 
 
     
