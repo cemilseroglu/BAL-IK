@@ -15,7 +15,7 @@ namespace BAL_IK.Data.Servisler
     {
         private readonly BAL_IKContext _db;
 
-        public SiteYoneticisiService(BAL_IKContext db)
+        public SiteYoneticisiService(BAL_IKContext db )
         {
             _db = db;
         }
@@ -41,7 +41,9 @@ namespace BAL_IK.Data.Servisler
                     ResimUrl = item.ResimUrl,
                     Guid = item.Guid,
                     Sifre = item.Sifre,
-                    SiteYoneticisiId = item.SiteYoneticisiId
+                    SiteYoneticisiId = item.SiteYoneticisiId,
+                    Cinsiyet = item.Cinsiyet
+                    
                 };
                 liste.SiteYoneticisiListele.Add(resp);
             }
@@ -58,7 +60,8 @@ namespace BAL_IK.Data.Servisler
                 Eposta = sy.Eposta,
                 ResimUrl = sy.ResimUrl,
                 Sifre = sy.Sifre,
-                Soyad = sy.Soyad
+                Soyad = sy.Soyad,
+                Cinsiyet = sy.Cinsiyet
 
             };
             _db.Add(yonetici);

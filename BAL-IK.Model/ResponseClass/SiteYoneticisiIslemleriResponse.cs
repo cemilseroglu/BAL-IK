@@ -28,6 +28,7 @@ namespace BAL_IK.Model.ResponseClass
             public string Sifre { get; set; }
             public string ResimUrl { get; set; }
             public bool AktifMi { get; set; }
+            public Cinsiyet Cinsiyet { get; set; }
         }
     }
 }

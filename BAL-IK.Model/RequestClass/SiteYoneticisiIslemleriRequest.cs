@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BAL_IK.Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,7 +22,8 @@ namespace BAL_IK.Model.RequestClass
             [Required, MaxLength(250)]
             public string Sifre { get; set; }
             public string ResimUrl { get; set; }
-            public bool AktifMi { get; set; } = true;
+            public bool AktifMi { get; set; } 
+            public Cinsiyet Cinsiyet { get; set; }
         }
         
 
