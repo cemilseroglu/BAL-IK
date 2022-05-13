@@ -18,4 +18,11 @@
     <ProjectReference Include="..\BAL-IK.Model\BAL-IK.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaceler\Sirket\" />
+    <Folder Include="Interfaceler\Personeller\" />
+    <Folder Include="Interfaceler\SirketYoneticisi\" />
+    <Folder Include="Servisler\SiteYoneticisi\" />
+  </ItemGroup>
+
 </Project>

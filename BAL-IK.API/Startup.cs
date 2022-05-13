@@ -1,4 +1,6 @@
 using BAL_IK.Data.Context;
+using BAL_IK.Data.Interfaceler;
+using BAL_IK.Data.Servisler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +30,7 @@ namespace BAL_IK.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BAL_IKContext>(ob => ob.UseSqlServer(Configuration.GetConnectionString("conn")));
+            services.AddScoped<ISiteYoneticisiService, SiteYoneticisiService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
