@@ -23,6 +23,7 @@ namespace BAL_IK.Model.RequestClass
             public string ResimUrl { get; set; }
             public bool AktifMi { get; set; } = true;
         }
+        
 
     }
 
