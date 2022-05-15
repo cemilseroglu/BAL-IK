@@ -11,6 +11,8 @@ namespace BAL_IK.Model.ResponseClass
     {
         public class SirketYoneticisiGuncel : BaseResponse
         {
+            public int SirketYoneticisiId { get; set; }
+
             [Required, MaxLength(50)]
             public string Ad { get; set; }   //DisplayName'de buradan verilecek.
             [Required, MaxLength(100)]
