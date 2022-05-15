@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.16" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="RestSharp" Version="106.11.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Areas\Personel\Data\" />
     <Folder Include="Areas\SirketYoneticisi\Data\" />
-    <Folder Include="Areas\SirketYoneticisi\Views\" />
     <Folder Include="Areas\SiteYoneticisi\Data\" />
     <Folder Include="Areas\SiteYoneticisi\Views\" />
   </ItemGroup>
