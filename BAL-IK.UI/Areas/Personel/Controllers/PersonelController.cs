@@ -3,7 +3,7 @@
 namespace BAL_IK.UI.Areas.Personel.Controllers
 {   
     [Area("Personel")]
-    public class HomeController : Controller
+    public class PersonelController : Controller
     {
         public IActionResult Index()
         {
