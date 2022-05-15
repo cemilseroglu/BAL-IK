@@ -35,5 +35,19 @@ namespace BAL_IK.Model.RequestClass
             public Cinsiyet Cinsiyet { get; set; }
 
         }
+        public class PersonelGuncelle
+        {
+            public int PersonelId { get; set; }
+            [Required, MaxLength(50)]
+            public string Ad { get; set; }
+            [Required, MaxLength(100)]
+            public string Soyad { get; set; }
+            public DateTime DogumTarihi { get; set; }
+            [Required, MaxLength(250)]
+            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
+            [Required, MaxLength(250)]
+            public string Sifre { get; set; }
+        }
+
     }
 }

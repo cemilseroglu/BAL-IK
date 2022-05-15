@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest;
 using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse;
 
 namespace BAL_IK.Data.Servisler
@@ -46,7 +47,7 @@ namespace BAL_IK.Data.Servisler
                 resp.Mesaj = ("Başarılı");
                 resp.BasariliMi = true;
                 return resp;
-               
+
             }
             catch (Exception ex)
             {
@@ -56,6 +57,44 @@ namespace BAL_IK.Data.Servisler
             }
 
 
+        }
+
+        public PersonelGuncelleResponse PersonelGuncelleme(PersonelIslemleriRequest.PersonelGuncelle pr)
+        {
+            PersonelGuncelleResponse resp = new PersonelGuncelleResponse();
+
+            try
+            {
+
+                Personeller pergun = _db.Personeller.Find(pr.PersonelId);
+                if (pergun == null)
+                {
+                    resp.Mesaj = "Kullanıcı Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                if (pr.Ad != null)
+                    pergun.Ad = pr.Ad;
+                if (pr.Soyad != null)
+                    pergun.Soyad = pr.Soyad;
+                if (pr.Eposta != null)
+                    pergun.Eposta = pr.Eposta;
+                if (pr.Sifre != null)
+                    pergun.Sifre = pr.Sifre;
+                pergun.DogumTarihi = pr.DogumTarihi;
+                _db.Update(pergun);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarıyla güncellendi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
+            }
         }
 
         public PersonelIslemleriResponse.PersonelListelemeResponse PersonelListeleme()
