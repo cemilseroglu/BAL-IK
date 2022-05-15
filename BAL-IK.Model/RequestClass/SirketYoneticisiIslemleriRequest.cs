@@ -12,6 +12,8 @@ namespace BAL_IK.Model.RequestClass
     {
         public class SirketYoneticisiGuncelle
         {
+            [Required]
+            public int SirketYoneticisiId { get; set; }
             [Required, MaxLength(50)]
             public string Ad { get; set; }   //DisplayName'de buradan verilecek.
             [Required, MaxLength(100)]

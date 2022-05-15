@@ -29,13 +29,14 @@ namespace BAL_IK.Data.Servisler
             {
                 SirketYoneticisi syoneticisi = new SirketYoneticisi()
                 {
+                    SirketYoneticisiId = sirketYoneticisi.SirketYoneticisiId,
                     Ad = sirketYoneticisi.Ad,
                     Soyad = sirketYoneticisi.Soyad,
                     DogumTarihi = sirketYoneticisi.DogumTarihi,
                     Eposta = sirketYoneticisi.Eposta,
                     Sifre = sirketYoneticisi.Sifre
                 };
-                _db.Add(sirketYoneticisi);
+                _db.Update(sirketYoneticisi);
                 _db.SaveChanges();
                 resp.BasariliMi = true;
                 resp.Mesaj = "Başarıyla güncellendi.";
