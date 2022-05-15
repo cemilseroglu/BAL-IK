@@ -27,17 +27,17 @@ namespace BAL_IK.Data.Servisler
 
             try
             {
-                SirketYoneticisi syoneticisi = new SirketYoneticisi()
-                {
-                    SirketYoneticisiId = sirketYoneticisi.SirketYoneticisiId,
-                    Ad = sirketYoneticisi.Ad,
-                    Soyad = sirketYoneticisi.Soyad,
-                    DogumTarihi = sirketYoneticisi.DogumTarihi,
-                    Eposta = sirketYoneticisi.Eposta,
-                    Sifre = sirketYoneticisi.Sifre
-                };
-                _db.Update(sirketYoneticisi);
+                SirketYoneticisi syoneticisi = _db.SirketYoneticileri.Find(sirketYoneticisi.SirketYoneticisiId);
+                if(sirketYoneticisi.Ad!=null)
+                    syoneticisi.Ad = sirketYoneticisi.Ad;                
+                syoneticisi.Soyad = sirketYoneticisi.Soyad;
+                syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;
+                syoneticisi.Eposta = sirketYoneticisi.Eposta;
+                syoneticisi.Sifre = sirketYoneticisi.Sifre;
+               
+                _db.Update(syoneticisi);
                 _db.SaveChanges();
+                resp.SirketYoneticisiId = syoneticisi.SirketYoneticisiId;
                 resp.BasariliMi = true;
                 resp.Mesaj = "Başarıyla güncellendi.";
                 return resp;
