@@ -1,6 +1,7 @@
 using BAL_IK.Data.Context;
 using BAL_IK.Data.Interfaceler;
 using BAL_IK.Data.Interfaceler.Personeller;
+using BAL_IK.Data.Interfaceler.Site;
 using BAL_IK.Data.Servisler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,7 @@ namespace BAL_IK.API
             services.AddDbContext<BAL_IKContext>(ob => ob.UseSqlServer(Configuration.GetConnectionString("conn")));
             services.AddScoped<ISiteYoneticisiService, SiteYoneticisiService>(); 
             services.AddScoped<IPersonellerServis, PersonelService>();
+            services.AddScoped<ISiteLoginServis, SiteLoginServis>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

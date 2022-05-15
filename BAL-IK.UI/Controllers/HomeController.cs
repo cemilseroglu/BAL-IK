@@ -20,6 +20,7 @@ namespace BAL_IK.UI.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 
