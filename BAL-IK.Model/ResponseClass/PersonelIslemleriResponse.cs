@@ -14,6 +14,10 @@ namespace BAL_IK.Model.ResponseClass
         {
 
         }
+        public class PersonelGuncelleResponse : BaseResponse
+        {
+
+        }
         public class PersonelListelemeResponse:BaseResponse
         {
             public List<PersonelResp> PersonelListeleme { get; set; }

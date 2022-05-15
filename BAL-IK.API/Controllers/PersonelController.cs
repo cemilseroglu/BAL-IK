@@ -16,10 +16,15 @@ namespace BAL_IK.API.Controllers
         {
             _pService = pService;
         }
-        [HttpPost]
+        [HttpPost("PersonelEkleme")]
         public  PersonelEkleResponse PersonelEkleme(PersonelEkle pr)
         {
             return _pService.PersonelEkleme(pr);
+        }
+        [HttpPost("PersonelGuncelleme")]
+        public PersonelGuncelleResponse PersonelGuncelleme(PersonelGuncelle pr)
+        {
+            return _pService.PersonelGuncelleme(pr);
         }
     }
 }
