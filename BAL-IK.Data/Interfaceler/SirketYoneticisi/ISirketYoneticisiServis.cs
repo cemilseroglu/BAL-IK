@@ -11,6 +11,7 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
     public interface ISirketYoneticisiServis
     {
         SirketYoneticisiGuncel SirketYoneticisiGuncelle(SirketYoneticisiGuncelle sy);
+        SirketYoneticisiResponse SirketYoneticisiGetir(string guid);
 
     }
 }

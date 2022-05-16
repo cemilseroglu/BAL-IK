@@ -25,5 +25,11 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.SirketYoneticisiGuncelle(req);
         }
+        [HttpGet("SirketYoneticisiGetir")]
+        public SirketYoneticisiResponse SirketYoneticiGetir(string guid)
+        {
+            return _sService.SirketYoneticisiGetir(guid);
+        }
+
     }
 }

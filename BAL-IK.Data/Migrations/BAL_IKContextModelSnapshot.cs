@@ -186,7 +186,7 @@ namespace BAL_IK.Data.Migrations
                     b.Property<int>("Cinsiyet")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmanId")
+                    b.Property<int?>("DepartmanId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DogumTarihi")
@@ -222,7 +222,7 @@ namespace BAL_IK.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("VardiyaId")
+                    b.Property<int?>("VardiyaId")
                         .HasColumnType("int");
 
                     b.Property<int>("YillikIzinHakki")
@@ -338,7 +338,7 @@ namespace BAL_IK.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int>("SirketId")
+                    b.Property<int?>("SirketId")
                         .HasColumnType("int");
 
                     b.Property<string>("Soyad")
@@ -703,9 +703,7 @@ namespace BAL_IK.Data.Migrations
                 {
                     b.HasOne("BAL_IK.Model.Entities.Departmanlar", "Departman")
                         .WithMany("Personelleri")
-                        .HasForeignKey("DepartmanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmanId");
 
                     b.HasOne("BAL_IK.Model.Entities.Sirket", "Sirket")
                         .WithMany("Personeller")
@@ -715,9 +713,7 @@ namespace BAL_IK.Data.Migrations
 
                     b.HasOne("BAL_IK.Model.Vardiyalar", "Vardiya")
                         .WithMany("Personeller")
-                        .HasForeignKey("VardiyaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VardiyaId");
 
                     b.Navigation("Departman");
 
@@ -730,9 +726,7 @@ namespace BAL_IK.Data.Migrations
                 {
                     b.HasOne("BAL_IK.Model.Entities.Sirket", "Sirket")
                         .WithMany("SirketYoneticileri")
-                        .HasForeignKey("SirketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SirketId");
 
                     b.Navigation("Sirket");
                 });

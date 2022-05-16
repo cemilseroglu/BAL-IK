@@ -22,5 +22,10 @@ namespace BAL_IK.API.Controllers
         {
             return _logServis.LoginIslemi(log);
         }
+        [HttpPost("KayitIslemi")]
+        public KayitKullaniciResp KayitIslemi(KayitKullaniciReq req)
+        {            
+            return _logServis.KayitIslemi(req);
+        }
     }
 }

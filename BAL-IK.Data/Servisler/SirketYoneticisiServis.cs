@@ -21,6 +21,51 @@ namespace BAL_IK.Data.Servisler
             _db = db;
         }
 
+
+        public SirketYoneticisiResponse SirketYoneticisiGetir(string guid)
+        {
+            SirketYoneticisiResponse resp = new SirketYoneticisiResponse();
+            if (string.IsNullOrEmpty(guid))
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = "Parametre boş olamaz.";
+                return resp;
+            }
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.FirstOrDefault(x => x.Guid.ToString() == guid);
+                if (sirketYoneticisi == null)
+                {
+                    resp.BasariliMi = false;
+                    resp.Mesaj = "Kullanıcı bulunamadı";
+                    return resp;
+                }
+
+                resp.SirketYoneticisiId = sirketYoneticisi.SirketYoneticisiId;
+                resp.Eposta = sirketYoneticisi.Eposta;
+                resp.Ad = sirketYoneticisi.Ad;
+                resp.Soyad = sirketYoneticisi.Soyad;
+                resp.Cinsiyet = sirketYoneticisi.Cinsiyet;
+                resp.AktifMi = sirketYoneticisi.AktifMi;
+                resp.SirketId = sirketYoneticisi.SirketId;
+                resp.Guid = sirketYoneticisi.Guid;
+                resp.DogumTarihi = sirketYoneticisi.DogumTarihi;
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarılı";
+
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                throw;
+            }
+        }
+
+
         public SirketYoneticisiGuncel SirketYoneticisiGuncelle(SirketYoneticisiIslemleriRequest.SirketYoneticisiGuncelle sirketYoneticisi)
         {
             SirketYoneticisiGuncel resp = new SirketYoneticisiGuncel();
@@ -30,6 +75,7 @@ namespace BAL_IK.Data.Servisler
                 SirketYoneticisi syoneticisi = _db.SirketYoneticileri.Find(sirketYoneticisi.SirketYoneticisiId);
                 if (sirketYoneticisi.Ad != null)
                     syoneticisi.Ad = sirketYoneticisi.Ad;
+
                 if (sirketYoneticisi.Soyad != null)
                     syoneticisi.Soyad = sirketYoneticisi.Soyad;
                 if (sirketYoneticisi.Eposta != null)

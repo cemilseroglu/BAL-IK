@@ -12,6 +12,15 @@ namespace BAL_IK.UI.ServislerUI
 {
     public class SiteLoginServisUI : ISiteLoginServis
     {
+        public KayitKullaniciResp KayitIslemi(LogIslemleriRequest.KayitKullaniciReq req)
+        {
+            var request = new RestRequest("api/Login/KayitIslemi", Method.POST, DataFormat.Json).AddJsonBody(req);
+
+            var response = Globals.ApiClient.Execute<KayitKullaniciResp>(request);
+
+            return response.Data;
+        }
+
         public LogIslemleriResponse.LoginKullanici LoginIslemi(LogIslemleriRequest.LogKullanici log)
         {
             var request = new RestRequest("api/Login", Method.POST, DataFormat.Json).AddJsonBody(log);
