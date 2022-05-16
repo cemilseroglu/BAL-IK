@@ -20,6 +20,8 @@ namespace BAL_IK.UI.Controllers
         {
             //TODO Yönlendirmeler yapılacak.
             var response=_loginService.LoginIslemi(req);
+            if(response==null)
+                return NotFound();
             if(response.BasariliMi==false)
             {
                 ViewBag.Mesaj=response.Mesaj;
@@ -41,6 +43,17 @@ namespace BAL_IK.UI.Controllers
                 return View(req);
             }           
          
+        }
+        public IActionResult KayitOl()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult KayitOl(KayitKullaniciReq req)
+        {
+            var response = _loginService.KayitIslemi(req);
+            ViewBag.Mesaj = response.Mesaj;
+            return View();
         }
     }
 }

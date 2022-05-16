@@ -21,7 +21,7 @@ namespace BAL_IK.Model.Entities
         [Required,MaxLength(250)]
         public string Sifre { get; set; }
         public string ResimUrl { get; set; }
-        public bool AktifMi { get; set; } = true;
+        public bool AktifMi { get; set; } 
         public Cinsiyet Cinsiyet { get; set; }
 
     }

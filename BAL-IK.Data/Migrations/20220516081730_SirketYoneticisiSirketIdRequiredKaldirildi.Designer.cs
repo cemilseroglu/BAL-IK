@@ -4,14 +4,16 @@ using BAL_IK.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BAL_IK.Data.Migrations
 {
     [DbContext(typeof(BAL_IKContext))]
-    partial class BAL_IKContextModelSnapshot : ModelSnapshot
+    [Migration("20220516081730_SirketYoneticisiSirketIdRequiredKaldirildi")]
+    partial class SirketYoneticisiSirketIdRequiredKaldirildi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -338,7 +340,7 @@ namespace BAL_IK.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int?>("SirketId")
+                    b.Property<int>("SirketId")
                         .HasColumnType("int");
 
                     b.Property<string>("Soyad")
@@ -730,7 +732,9 @@ namespace BAL_IK.Data.Migrations
                 {
                     b.HasOne("BAL_IK.Model.Entities.Sirket", "Sirket")
                         .WithMany("SirketYoneticileri")
-                        .HasForeignKey("SirketId");
+                        .HasForeignKey("SirketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Sirket");
                 });

@@ -13,5 +13,9 @@ namespace BAL_IK.Model.ResponseClass
             public string KullaniciTuru { get; set; }
             public string GirisGuid { get; set; }
         }
+        public class KayitKullaniciResp:BaseResponse
+        {
+
+        }
     }
 }
