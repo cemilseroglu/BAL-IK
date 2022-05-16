@@ -1,4 +1,5 @@
 ﻿using BAL_IK.Data.Interfaceler.Site;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static BAL_IK.Model.RequestClass.LogIslemleriRequest;
 namespace BAL_IK.UI.Controllers
@@ -21,7 +22,7 @@ namespace BAL_IK.UI.Controllers
             //TODO Yönlendirmeler yapılacak.
             var response=_loginService.LoginIslemi(req);
             if(response==null)
-                return NotFound();
+                return BadRequest();
             if(response.BasariliMi==false)
             {
                 ViewBag.Mesaj=response.Mesaj;
@@ -29,17 +30,17 @@ namespace BAL_IK.UI.Controllers
             }
             else if(response.KullaniciTuru== "siteYoneticisi")
             {
-                ViewBag.Mesaj = "Giriş yapan kullanıcı bir site yöneticisidir. Guidi: "+response.GirisGuid;
-                return View(req);
+                HttpContext.Session.SetString("siteYoneticisi", response.GirisGuid);
+                return View(req);//site yöneticisi ındexe yonlendirilecek
             }
             else if (response.KullaniciTuru == "personel")
             {
-                ViewBag.Mesaj = "Giriş yapan kullanıcı bir personeldir. Guidi: " + response.GirisGuid;
-                return View(req);
+                HttpContext.Session.SetString("personel", response.GirisGuid);
+                return RedirectToAction("Index", "Personel", new { area = "Personel" });
             }
             else 
             {
-                ViewBag.Mesaj = "Giriş yapan kullanıcı bir sirket Yoneticisidir. Guidi: " + response.GirisGuid;
+                HttpContext.Session.SetString("sirketYoneticisi", response.GirisGuid);
                 return View(req);
             }           
          
