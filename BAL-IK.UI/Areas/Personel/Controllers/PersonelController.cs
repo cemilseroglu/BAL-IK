@@ -9,5 +9,10 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         {
             return View();
         }
+
+        public IActionResult Ayarlar()
+        {
+            return View();
+        }
     }
 }
