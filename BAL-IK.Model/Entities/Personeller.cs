@@ -22,8 +22,8 @@ namespace BAL_IK.Model.Entities
         public DateTime IstenAyrilma { get; set; }
         public int SirketId { get; set; }
         public Sirket Sirket { get; set; }
-        public int DepartmanId { get; set; }
-        public int VardiyaId { get; set; }
+        public int? DepartmanId { get; set; }
+        public int? VardiyaId { get; set; }
         public Vardiyalar Vardiya { get; set; }
         public Departmanlar Departman { get; set; }
         public List<Zimmetler> Zimmetler { get; set; }

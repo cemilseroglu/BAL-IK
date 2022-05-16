@@ -25,8 +25,9 @@ namespace BAL_IK.Model.Entities
         public Cinsiyet Cinsiyet { get; set; }
 
     }
-    public enum Cinsiyet{
-            Kadın,Erkek
+    public enum Cinsiyet
+    {
+          Kadın,Erkek
     }
 
 
