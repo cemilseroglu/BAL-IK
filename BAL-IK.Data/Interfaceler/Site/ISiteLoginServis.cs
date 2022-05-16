@@ -11,5 +11,6 @@ namespace BAL_IK.Data.Interfaceler.Site
     public interface ISiteLoginServis
     {
         LoginKullanici LoginIslemi(LogKullanici log);
+        KayitKullaniciResp KayitIslemi(KayitKullaniciReq req);
     }
 }
