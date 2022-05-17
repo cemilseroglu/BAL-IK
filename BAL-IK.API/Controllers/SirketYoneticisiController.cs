@@ -21,7 +21,7 @@ namespace BAL_IK.API.Controllers
             _sService = sService;
         }
 
-        [HttpPost("SirketYoneticisiGuncelleme")]
+        [HttpPost("SirketYoneticisiGuncelle")]
 
         public SirketYoneticisiGuncel SirketYoneticisiGuncelleme(SirketYoneticisiGuncelle req)
         {
