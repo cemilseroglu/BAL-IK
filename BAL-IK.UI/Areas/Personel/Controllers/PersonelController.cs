@@ -30,7 +30,7 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         }
         public IActionResult Index()
         {
-           var personelGuid= HttpContext.Session.GetString("personel");
+           //var personelGuid= HttpContext.Session.GetString("personel");
          
             return View();
         }
