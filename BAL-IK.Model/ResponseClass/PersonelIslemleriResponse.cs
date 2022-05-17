@@ -23,7 +23,7 @@ namespace BAL_IK.Model.ResponseClass
             public List<PersonelResp> PersonelListeleme { get; set; }
 
         }
-        public class PersonelResp
+        public class PersonelResp:BaseResponse
         {
 
             public Guid Guid { get; set; } 
@@ -39,8 +39,8 @@ namespace BAL_IK.Model.ResponseClass
             public DateTime IseBaslama { get; set; }
             public DateTime IstenAyrilma { get; set; }
             public int SirketId { get; set; }
-            public int DepartmanId { get; set; }
-            public int VardiyaId { get; set; }
+            public int? DepartmanId { get; set; }
+            public int? VardiyaId { get; set; }
             public Cinsiyet Cinsiyet { get; set; }
 
         }

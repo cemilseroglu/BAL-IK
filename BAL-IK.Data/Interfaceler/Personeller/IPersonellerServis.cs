@@ -13,6 +13,7 @@ namespace BAL_IK.Data.Interfaceler.Personeller
         PersonelEkleResponse PersonelEkleme(PersonelEkle pr);
         PersonelListelemeResponse PersonelListeleme();
         PersonelGuncelleResponse PersonelGuncelleme(PersonelGuncelle pr);
+        PersonelResp PersonelGetir(string guid);
     }
 }
 

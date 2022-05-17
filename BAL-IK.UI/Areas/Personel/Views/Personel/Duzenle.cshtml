@@ -2,7 +2,7 @@
 @{
 
 
-    ViewData["Title"] = "Ayarlar";
+    ViewData["Title"] = "Duzenle";
    
 }
 
@@ -171,9 +171,12 @@
                                 <div class="col-md-8 d-flex align-items-center">
                                     <h6 class="mb-0">Profile Information</h6>
                                 </div>
-                                <div class="col-md-4 text-end" >  
-                                    <button type="button" class="btn btn-primary btn-sm"onclick="location.href='@Url.Action("Duzenle", "Personel")'"  >Profil Düzenle</button>
-                                                  
+                                <div class="col-md-4 text-end" >
+                                    <a href="javascript:;">
+                                      @*  <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>*@
+                                       
+                                    </a>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -181,12 +184,32 @@
                             <p class="text-sm">
                                 Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
                             </p>
-                            <hr class="horizontal gray-light my-4">
-                            <ul class="list-group">
-                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; Alec M. Thompson</li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="91f0fdf4f2e5f9fefce1e2feffd1fcf0f8fdbff2fefc">[email&#160;protected]</a></li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
+                            
+    <div class="card card-background">
+  <div class="full-background" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80')"></div>
+  <div class="card-body" >
+    <div class="input-group input-group-outline my-3">
+      <label class="form-label">Ad</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="input-group input-group-outline my-3">
+      <label class="form-label">Soyad</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="input-group input-group-outline my-3">
+      <label class="form-label">E-posta</label>
+      <input type="email" class="form-control">
+    </div>
+    <div class="input-group input-group-outline my-3">
+      <label class="form-label">Şifre</label>
+      <input type="password" class="form-control">
+    </div>
+    <div class="input-group input-group-outline my-3">
+       <button type="button" class="btn btn-outline-secondary">Güncelle</button>
+    </div>
+   
+  </div>
+</div>
                                 <li class="list-group-item border-0 ps-0 pb-0">
                                     <strong class="text-dark text-sm">Social:</strong> &nbsp;
                                     <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
@@ -327,3 +350,5 @@
 </body>
 
 </html>
+
+

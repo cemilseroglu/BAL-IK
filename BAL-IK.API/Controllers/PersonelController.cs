@@ -26,5 +26,10 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.PersonelGuncelleme(pr);
         }
+        [HttpGet("PersonelGetir")]
+        public PersonelResp PersonelGetirme(string guid)
+        {
+            return _pService.PersonelGetir(guid);
+        }
     }
 }
