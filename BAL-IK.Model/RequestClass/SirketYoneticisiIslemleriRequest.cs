@@ -14,15 +14,16 @@ namespace BAL_IK.Model.RequestClass
         {
             [Required]
             public int SirketYoneticisiId { get; set; }
-            [Required, MaxLength(50)]
+            [MaxLength(50)]
             public string Ad { get; set; }   //DisplayName'de buradan verilecek.
-            [Required, MaxLength(100)]
+            [MaxLength(100)]
             public string Soyad { get; set; }
             public DateTime DogumTarihi { get; set; }
-            [Required, MaxLength(250)]
+            [MaxLength(250)]
             public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
-            [Required, MaxLength(250)]
+            [MaxLength(250)]
             public string Sifre { get; set; }
+            public bool AktifMi { get; set; }
         }
 
     }

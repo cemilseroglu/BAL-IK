@@ -21,6 +21,7 @@ namespace BAL_IK.Data.Servisler
             _db = db;
         }
 
+
         public SirketYoneticisiResponse SirketYoneticisiGetir(string guid)
         {
             SirketYoneticisiResponse resp = new SirketYoneticisiResponse();
@@ -64,6 +65,7 @@ namespace BAL_IK.Data.Servisler
             }
         }
 
+
         public SirketYoneticisiGuncel SirketYoneticisiGuncelle(SirketYoneticisiIslemleriRequest.SirketYoneticisiGuncelle sirketYoneticisi)
         {
             SirketYoneticisiGuncel resp = new SirketYoneticisiGuncel();
@@ -73,14 +75,20 @@ namespace BAL_IK.Data.Servisler
                 SirketYoneticisi syoneticisi = _db.SirketYoneticileri.Find(sirketYoneticisi.SirketYoneticisiId);
                 if (sirketYoneticisi.Ad != null)
                     syoneticisi.Ad = sirketYoneticisi.Ad;
-                syoneticisi.Soyad = sirketYoneticisi.Soyad;
-                syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;
-                syoneticisi.Eposta = sirketYoneticisi.Eposta;
-                syoneticisi.Sifre = sirketYoneticisi.Sifre;
+
+                if (sirketYoneticisi.Soyad != null)
+                    syoneticisi.Soyad = sirketYoneticisi.Soyad;
+                if (sirketYoneticisi.Eposta != null)
+                    syoneticisi.Eposta = sirketYoneticisi.Eposta;
+                if (sirketYoneticisi.Sifre != null)
+                    syoneticisi.Sifre = sirketYoneticisi.Sifre;
+                if(syoneticisi.DogumTarihi!=sirketYoneticisi.DogumTarihi)
+                     syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;
+               
+                     syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
 
                 _db.Update(syoneticisi);
-                _db.SaveChanges();
-                resp.SirketYoneticisiId = syoneticisi.SirketYoneticisiId;
+                _db.SaveChanges();             
                 resp.BasariliMi = true;
                 resp.Mesaj = "Başarıyla güncellendi.";
                 return resp;

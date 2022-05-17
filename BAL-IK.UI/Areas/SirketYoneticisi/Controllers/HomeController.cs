@@ -14,5 +14,9 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
         {
             return View();
         }
+        public IActionResult Ayarlar()
+        {
+            return View();
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace BAL_IK.Data.Servisler
             mail.To.Add(email);
 
             mail.Subject = "BAL-IK Kayıt";
-            mail.Body = $"<h1><a href='#'>Deneme Mailidir..<a></h1>";
+            mail.Body = $"<h1><a href='http://localhost:47578/Login/Aktivasyon?guid={guid}'>Hesabınızı Aktif Etmek İçin Lütfen Tıklayın<a></h1>";
 
             mail.IsBodyHtml = true;
             mail.SubjectEncoding = System.Text.Encoding.UTF8;

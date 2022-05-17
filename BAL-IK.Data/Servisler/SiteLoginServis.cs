@@ -81,9 +81,8 @@ namespace BAL_IK.Data.Servisler
                 resp.BasariliMi = false;
                 return resp;
             }
-            //string hashSifre = Tools.CreatePasswordHash(log.Sifre);
-            //TODO Düzelt
-            string hashSifre = log.Sifre;
+            string hashSifre = Tools.CreatePasswordHash(log.Sifre);
+            //string hashSifre=log.Sifre;
             try
             {
                 SiteYoneticisi siteYoneticisi = _db.SiteYoneticileri.FirstOrDefault(x => x.Eposta == log.Email && x.Sifre == hashSifre);
