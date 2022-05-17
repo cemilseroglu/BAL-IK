@@ -1,16 +1,21 @@
-﻿using BAL_IK.Data.Interfaceler.Site;
+﻿using BAL_IK.Data.Interfaceler.SirketYoneticisi;
+using BAL_IK.Data.Interfaceler.Site;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static BAL_IK.Model.RequestClass.LogIslemleriRequest;
+using static BAL_IK.Model.RequestClass.SirketYoneticisiIslemleriRequest;
+
 namespace BAL_IK.UI.Controllers
 {
     public class LoginController : Controller
     {
         private readonly ISiteLoginServis _loginService;
+        private readonly ISirketYoneticisiServis _syService;
 
-        public LoginController(ISiteLoginServis loginService)
+        public LoginController(ISiteLoginServis loginService, ISirketYoneticisiServis syService)
         {
             _loginService = loginService;
+            this._syService = syService;
         }
         public IActionResult Index()
         {
@@ -20,15 +25,15 @@ namespace BAL_IK.UI.Controllers
         public IActionResult Index(LogKullanici req)
         {
             //TODO Yönlendirmeler yapılacak.
-            var response=_loginService.LoginIslemi(req);
-            if(response==null)
+            var response = _loginService.LoginIslemi(req);
+            if (response == null)
                 return BadRequest();
-            if(response.BasariliMi==false)
+            if (response.BasariliMi == false)
             {
-                ViewBag.Mesaj=response.Mesaj;
+                ViewBag.Mesaj = response.Mesaj;
                 return View(req);
             }
-            else if(response.KullaniciTuru== "siteYoneticisi")
+            else if (response.KullaniciTuru == "siteYoneticisi")
             {
                 HttpContext.Session.SetString("siteYoneticisi", response.GirisGuid);
                 return View(req);//site yöneticisi ındexe yonlendirilecek
@@ -38,12 +43,12 @@ namespace BAL_IK.UI.Controllers
                 HttpContext.Session.SetString("personel", response.GirisGuid);
                 return RedirectToAction("Index", "Personel", new { area = "Personel" });
             }
-            else 
+            else
             {
                 HttpContext.Session.SetString("sirketYoneticisi", response.GirisGuid);
                 return View(req);
-            }           
-         
+            }
+
         }
         public IActionResult KayitOl()
         {
@@ -54,6 +59,25 @@ namespace BAL_IK.UI.Controllers
         {
             var response = _loginService.KayitIslemi(req);
             ViewBag.Mesaj = response.Mesaj;
+            return View();
+        }
+        public IActionResult Aktivasyon(string guid)
+        {
+            var response = _syService.SirketYoneticisiGetir(guid);
+            SirketYoneticisiGuncelle sirketYoneticisi = new SirketYoneticisiGuncelle();
+            sirketYoneticisi.SirketYoneticisiId = response.SirketYoneticisiId;
+            sirketYoneticisi.AktifMi = true;
+            var responseGuncel = _syService.SirketYoneticisiGuncelle(sirketYoneticisi);
+            if (response.BasariliMi != true || responseGuncel.BasariliMi != true)
+            {
+                ViewBag.Mesaj = "Aktivasyon sırasında bir hata oluştu";
+                ViewBag.Onay = false;
+            }
+            else
+            {
+                ViewBag.Mesaj = "Merhaba Sayın " + response.Ad + " hesabınız aktif edilmiştir. Giriş Yapabilirsiniz.";
+                ViewBag.Onay = true;
+            }
             return View();
         }
     }

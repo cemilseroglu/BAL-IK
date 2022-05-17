@@ -1,12 +1,5 @@
-@using BAL_IK.Model.RequestClass
-@using BAL_IK.Model.ResponseClass
-@using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest
-@model PersonelGuncelle
-@{
-
-
-    ViewData["Title"] = "Duzenle";
-
+﻿@{
+    ViewData["Title"] = "Ayarlar";
 }
 
 <!DOCTYPE html>
@@ -15,8 +8,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="~/Personeller/Ayarlar/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="~/Personeller/Ayarlar/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/SirketYoneticisi/Ayarlar/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="~/SirketYoneticisi/Ayarlar/img/favicon.png">
 
     <title>
         Material Dashboard 2 by Creative Tim
@@ -45,14 +38,14 @@
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
-    <link href="~/Personeller/Ayarlar/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="~/Personeller/Ayarlar/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="~/SirketYoneticisi/Ayarlar/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="~/SirketYoneticisi/Ayarlar/css/nucleo-svg.css" rel="stylesheet" />
 
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-    <link id="pagestyle" href="~/Personeller/Ayarlar/css/material-dashboard.min.css?v=3.0.2" rel="stylesheet" />
+    <link id="pagestyle" href="~/SirketYoneticisi/Ayarlar/css/material-dashboard.min.css?v=3.0.2" rel="stylesheet" />
 
     <style>
         .async-hide {
@@ -128,7 +121,7 @@
             <div class="row gx-4 mb-2">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="~/Personeller/Ayarlar/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        <img src="~/SirketYoneticisi/Ayarlar/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -166,7 +159,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-12 col-xl-4">
                 <div class="card card-plain h-100">
                     <div class="card-header pb-0 p-3">
@@ -176,10 +168,8 @@
                             </div>
                             <div class="col-md-4 text-end">
                                 <a href="javascript:;">
-                                    @*  <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>*@
-
+                                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
                                 </a>
-
                             </div>
                         </div>
                     </div>
@@ -187,85 +177,72 @@
                         <p class="text-sm">
                             Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
                         </p>
-                        <form method="post" asp-action="Duzenle" asp-controller="Personel" class="text-start">
-                            <div class="card card-background">
-                                <div class="full-background" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80')"></div>
-                                <div class="card-body">
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Ad</label>
-                                        <input asp-for=Ad type="email" class="form-control" />
-                                    </div>
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Soyad</label>
-                                        <input asp-for=Soyad type="email"  class="form-control">
-                                    </div>
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">E-posta</label>
-                                        <input asp-for=Eposta type="email" class="form-control">
-                                    </div>
-                                    <div class="input-group input-group-outline my-3">
-                                        <label class="form-label">Şifre</label>
-                                         <input asp-for=Sifre type="password" class="form-control">
-                                    </div>
-                                    <div class="input-group input-group-outline my-3">
-                                        <button type="button" class="btn btn-outline-secondary">Güncelle</button>
-                                    </div>
-
+                        <div class="card card-background">
+                            <div class="full-background" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80')"></div>
+                            <div class="card-body">
+                                <div class="input-group input-group-outline my-3">
+                                    <label class="form-label">Search</label>
+                                    <input @*asp-for="SirketYoneticisiResponse.Ad"*@ type="text" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline my-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline my-3">
+                                    <label class="form-label">Url</label>
+                                    <input type="url" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline my-3">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline my-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline my-3">
+                                    <label class="form-label">Number</label>
+                                    <input type="number" class="form-control">
                                 </div>
                             </div>
-                        </form>
-
-                        <li class="list-group-item border-0 ps-0 pb-0">
-                            <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                            <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                <i class="fab fa-facebook fa-lg"></i>
-                            </a>
-                            <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                <i class="fab fa-twitter fa-lg"></i>
-                            </a>
-                            <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                <i class="fab fa-instagram fa-lg"></i>
-                            </a>
-                        </li>
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="footer py-4  ">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6 mb-lg-0 mb-4">
-                        <div class="copyright text-center text-sm text-muted text-lg-start">
-                            ©
-                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>, made with <i class="fa fa-heart"></i> by
-                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a> for a better web.
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                            </li>
-                        </ul>
+    </div>
+    <footer class="footer py-4  ">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-6 mb-lg-0 mb-4">
+                    <div class="copyright text-center text-sm text-muted text-lg-start">
+                        ©
+                        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>, made with <i class="fa fa-heart"></i> by
+                        <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a> for a better web.
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                        <li class="nav-item">
+                            <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
-        </footer>
-    </div>
+        </div>
+    </footer>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             <i class="material-icons py-2">settings</i>
@@ -336,10 +313,10 @@
         </div>
     </div>
 
-    <script src="~/Personeller/Ayarlar/js/core/popper.min.js"></script>
-    <script src="~/Personeller/Ayarlar/js/core/bootstrap.min.js"></script>
-    <script src="~/Personeller/Ayarlar/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="~/Personeller/Ayarlar/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="~/SirketYoneticisi/Ayarlar/js/core/popper.min.js"></script>
+    <script src="~/SirketYoneticisi/Ayarlar/js/core/bootstrap.min.js"></script>
+    <script src="~/SirketYoneticisi/Ayarlar/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="~/SirketYoneticisi/Ayarlar/js/plugins/smooth-scrollbar.min.js"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -352,10 +329,7 @@
 
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <script src="~/Personeller/Ayarlar/js/material-dashboard.min.js?v=3.0.2"></script>
+    <script src="~/SirketYoneticisi/Ayarlar/js/material-dashboard.min.js?v=3.0.2"></script>
 </body>
 
 </html>
-
-
- 
