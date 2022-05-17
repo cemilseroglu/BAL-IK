@@ -4,14 +4,16 @@ using BAL_IK.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BAL_IK.Data.Migrations
 {
     [DbContext(typeof(BAL_IKContext))]
-    partial class BAL_IKContextModelSnapshot : ModelSnapshot
+    [Migration("20220517131739_testLogin")]
+    partial class testLogin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -398,20 +400,6 @@ namespace BAL_IK.Data.Migrations
                     b.HasKey("SiteYoneticisiId");
 
                     b.ToTable("SiteYoneticileri");
-
-                    b.HasData(
-                        new
-                        {
-                            SiteYoneticisiId = 1,
-                            Ad = "BALIK",
-                            AktifMi = true,
-                            Cinsiyet = 0,
-                            DogumTarihi = new DateTime(2022, 5, 17, 17, 49, 3, 770, DateTimeKind.Local).AddTicks(2493),
-                            Eposta = "admin@bal-ik.com",
-                            Guid = new Guid("c96ce224-3473-4d45-93fd-56b5f1d594ac"),
-                            Sifre = "123456",
-                            Soyad = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("BAL_IK.Model.Entities.VardiyaTur", b =>

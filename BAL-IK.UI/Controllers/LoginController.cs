@@ -36,7 +36,7 @@ namespace BAL_IK.UI.Controllers
             else if (response.KullaniciTuru == "siteYoneticisi")
             {
                 HttpContext.Session.SetString("siteYoneticisi", response.GirisGuid);
-                return View(req);//site yöneticisi ındexe yonlendirilecek
+                return RedirectToAction("Index", "Home", new { area = "SiteYoneticisi" });
             }
             else if (response.KullaniciTuru == "personel")
             {
@@ -46,7 +46,8 @@ namespace BAL_IK.UI.Controllers
             else
             {
                 HttpContext.Session.SetString("sirketYoneticisi", response.GirisGuid);
-                return View(req);
+                return RedirectToAction("Index", "Home", new { area = "SirketYoneticisi" });  
+
             }
 
         }
