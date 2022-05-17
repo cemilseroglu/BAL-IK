@@ -1,3 +1,4 @@
+using BAL_IK.Data.Interfaceler.Sirket;
 using BAL_IK.Data.Interfaceler.SirketYoneticisi;
 using BAL_IK.Data.Interfaceler.Site;
 using BAL_IK.Data.Servisler;
@@ -30,6 +31,7 @@ namespace BAL_IK.UI
             services.AddControllersWithViews();
             services.AddScoped<ISiteLoginServis, SiteLoginServisUI>();
             services.AddScoped<ISirketYoneticisiServis, SirketYoneticisiServisUI>();
+            services.AddScoped<ISirketServis, SirketServisUI>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

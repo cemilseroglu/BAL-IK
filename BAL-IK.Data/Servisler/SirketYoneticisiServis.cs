@@ -75,7 +75,6 @@ namespace BAL_IK.Data.Servisler
                 SirketYoneticisi syoneticisi = _db.SirketYoneticileri.Find(sirketYoneticisi.SirketYoneticisiId);
                 if (sirketYoneticisi.Ad != null)
                     syoneticisi.Ad = sirketYoneticisi.Ad;
-
                 if (sirketYoneticisi.Soyad != null)
                     syoneticisi.Soyad = sirketYoneticisi.Soyad;
                 if (sirketYoneticisi.Eposta != null)
@@ -83,9 +82,10 @@ namespace BAL_IK.Data.Servisler
                 if (sirketYoneticisi.Sifre != null)
                     syoneticisi.Sifre = sirketYoneticisi.Sifre;
                 if(syoneticisi.DogumTarihi!=sirketYoneticisi.DogumTarihi)
-                     syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;
-               
-                     syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
+                     syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;               
+               syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
+                if (sirketYoneticisi.SirketId != null)
+                    syoneticisi.SirketId = sirketYoneticisi.SirketId;
 
                 _db.Update(syoneticisi);
                 _db.SaveChanges();             
