@@ -59,6 +59,52 @@ namespace BAL_IK.Data.Servisler
 
         }
 
+        public PersonelResp PersonelGetir(string guid)
+        {
+            PersonelResp resp = new PersonelResp();
+            if(string.IsNullOrEmpty(guid))
+            {
+                resp.Mesaj = "Parametre boş olamaz.";
+                resp.BasariliMi = false;
+                return resp;
+
+            }
+            try
+            {
+                Personeller personeller = _db.Personeller.FirstOrDefault(x => x.Guid.ToString() == guid);
+                if(personeller == null)
+                {
+                    resp.Mesaj = "Kullanıcı Bulunamadı";
+                    resp.BasariliMi= false;
+                    return resp;
+                }
+                resp.PersonelId = personeller.PersonelId;
+                resp.Eposta = personeller.Eposta;
+                resp.Cinsiyet=personeller.Cinsiyet;
+                resp.Ad=personeller.Ad;
+                resp.Soyad=personeller.Soyad;
+                resp.AktifMi=personeller.AktifMi;
+                resp.DepartmanId=personeller.DepartmanId;
+                resp.DogumTarihi = personeller.DogumTarihi;
+                resp.SirketId=personeller.SirketId; 
+                resp.VardiyaId=personeller.VardiyaId;
+                resp.YillikIzinHakki = personeller.YillikIzinHakki;
+                resp.IseBaslama=personeller.IseBaslama;
+                resp.IstenAyrilma = personeller.IstenAyrilma;
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarılı";
+                resp.Guid=personeller.Guid; 
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                throw;
+            }
+
+        }
+
         public PersonelGuncelleResponse PersonelGuncelleme(PersonelIslemleriRequest.PersonelGuncelle pr)
         {
             PersonelGuncelleResponse resp = new PersonelGuncelleResponse();
