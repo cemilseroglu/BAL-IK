@@ -46,6 +46,13 @@ namespace BAL_IK.UI.Controllers
             else
             {
                 HttpContext.Session.SetString("sirketYoneticisi", response.GirisGuid);
+
+                var responseSy= _syService.SirketYoneticisiGetir(response.GirisGuid);
+                if(responseSy.SirketId==null)
+                {
+                    return RedirectToAction("Index", "Sirket");
+                }            
+
                 return RedirectToAction("Index", "Home", new { area = "SirketYoneticisi" });  
 
             }

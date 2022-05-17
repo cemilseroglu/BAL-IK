@@ -19,14 +19,15 @@ namespace BAL_IK.Model.Entities
         public string SirketTelefonu { get; set; }
         [MaxLength(50)]
         public string SirketEmail { get; set; }
-        public string SirketLogoURL { get; set; }
+        public string SirketLogoURL { get; set; } = "defaultsirket.png";
         public OdemePlani OdemePlani { get; set; }
-        public Durum Durum { get; set; } = Durum.Aktif;
+        public Durum Durum { get; set; } = Durum.Pasif;            
         public List<SirketYoneticisi> SirketYoneticileri { get; set; }
         public List<Personeller> Personeller { get; set; }
         public List<Departmanlar> Departmanlar { get; set; }
         public DateTime KayitTarihi { get; set; } = DateTime.Now;
         public DateTime UyelikBitisTarihi { get; set; }
+        public int? YorumId { get; set;}
         public Yorum Yorumu { get; set; }
     }
 

@@ -24,6 +24,7 @@ namespace BAL_IK.Model.RequestClass
             [MaxLength(250)]
             public string Sifre { get; set; }
             public bool AktifMi { get; set; }
+            public int? SirketId { get; set; }
         }
 
     }

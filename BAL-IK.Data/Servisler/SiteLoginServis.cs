@@ -3,6 +3,7 @@ using BAL_IK.Data.Interfaceler.Site;
 using BAL_IK.Model.Entities;
 using BAL_IK.Model.RequestClass;
 using BAL_IK.Model.ResponseClass;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,8 +87,8 @@ namespace BAL_IK.Data.Servisler
             try
             {
                 SiteYoneticisi siteYoneticisi = _db.SiteYoneticileri.FirstOrDefault(x => x.Eposta == log.Email && x.Sifre == hashSifre);
-                Personeller personel= _db.Personeller.FirstOrDefault(x => x.Eposta == log.Email && x.Sifre == hashSifre);
-                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.FirstOrDefault(x => x.Eposta == log.Email && x.Sifre == hashSifre);
+                Personeller personel= _db.Personeller.Include(x=>x.Sirket).FirstOrDefault(x => x.Eposta == log.Email && x.Sifre == hashSifre);
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Eposta == log.Email && x.Sifre == hashSifre);
                
                 if (siteYoneticisi!=null)
                 {
@@ -101,6 +102,12 @@ namespace BAL_IK.Data.Servisler
                         resp.Mesaj = "Hesabınız aktif değildir lütfen yöneticinize danışın.";
                         return resp;
                     }
+                    else if (personel.Sirket.Durum == Durum.Pasif)
+                    {
+                        resp.BasariliMi = false;
+                        resp.Mesaj = "Şirketiniz Pasif Durumdadır.";
+                        return resp;
+                    }
                     return response("personel", personel.Guid.ToString());
                 }
                 else if(sirketYoneticisi!=null)
@@ -110,6 +117,12 @@ namespace BAL_IK.Data.Servisler
                     {
                         resp.BasariliMi = false;
                         resp.Mesaj = "Hesabınız aktif değildir lütfen aktivasyonu sağlayın.";
+                        return resp;
+                    }
+                    else if(sirketYoneticisi.SirketId!=null && sirketYoneticisi.Sirket.Durum==Durum.Pasif)
+                    {
+                        resp.BasariliMi=false;
+                        resp.Mesaj = "Şirketiniz henüz onaylanmamıştır.";
                         return resp;
                     }
                     return response("sirketYoneticisi", sirketYoneticisi.Guid.ToString());
