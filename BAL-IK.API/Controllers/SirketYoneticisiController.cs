@@ -20,7 +20,9 @@ namespace BAL_IK.API.Controllers
         {
             _sService = sService;
         }
+
         [HttpPost("SirketYoneticisiGuncelleme")]
+
         public SirketYoneticisiGuncel SirketYoneticisiGuncelleme(SirketYoneticisiGuncelle req)
         {
             return _sService.SirketYoneticisiGuncelle(req);

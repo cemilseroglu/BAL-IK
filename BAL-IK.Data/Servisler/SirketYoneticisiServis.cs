@@ -82,17 +82,13 @@ namespace BAL_IK.Data.Servisler
                     syoneticisi.Eposta = sirketYoneticisi.Eposta;
                 if (sirketYoneticisi.Sifre != null)
                     syoneticisi.Sifre = sirketYoneticisi.Sifre;
-                syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;
-
+                if(syoneticisi.DogumTarihi!=sirketYoneticisi.DogumTarihi)
+                     syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;
+               
+                     syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
 
                 _db.Update(syoneticisi);
-                _db.SaveChanges();
-                resp.SirketYoneticisiId = syoneticisi.SirketYoneticisiId;
-                resp.Ad = syoneticisi.Ad;
-                resp.Soyad = syoneticisi.Soyad;
-                resp.DogumTarihi = syoneticisi.DogumTarihi;
-                resp.Eposta = syoneticisi.Eposta;
-                resp.Sifre = syoneticisi.Sifre;
+                _db.SaveChanges();             
                 resp.BasariliMi = true;
                 resp.Mesaj = "Başarıyla güncellendi.";
                 return resp;

@@ -1,4 +1,5 @@
-﻿using BAL_IK.UI.Filters;
+﻿using BAL_IK.Data.Interfaceler.Personeller;
+using BAL_IK.UI.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,25 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
     //[Personel]
     public class PersonelController : Controller
     {
+
+        private readonly IPersonellerServis _personelService;
+
+        public PersonelController(IPersonellerServis personelService)
+        {
+            this._personelService = personelService;
+        }
+        public IActionResult Index(string guid)
+        {
+            var response = _personelService.PersonelGetir(guid);
+            if (response == null)
+                return BadRequest();
+            if (response.BasariliMi == false)
+            {
+                ViewBag.Mesaj = response.Mesaj;
+                return View(guid);
+            }
+            return View();
+        }
         public IActionResult Index()
         {
            //var personelGuid= HttpContext.Session.GetString("personel");
@@ -19,5 +39,10 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         {
             return View();
         }
+        public IActionResult Duzenle()
+        {
+            return View();
+        }
+
     }
 }
