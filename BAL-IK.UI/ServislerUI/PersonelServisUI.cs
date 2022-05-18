@@ -17,7 +17,7 @@ namespace BAL_IK.UI.ServislerUI
 
         public PersonelIslemleriResponse.PersonelResp PersonelGetir(string guid)
         {
-            var request = new RestRequest("api/Personel/PersonelGetirme", Method.GET, DataFormat.Json).AddParameter("guid",guid);
+            var request = new RestRequest("api/Personel/PersonelGetir", Method.GET, DataFormat.Json).AddParameter("guid",guid);
             var response = Globals.ApiClient.Execute<PersonelResp>(request);
 
                 return response.Data;

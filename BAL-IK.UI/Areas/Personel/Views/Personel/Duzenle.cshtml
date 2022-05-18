@@ -1,4 +1,7 @@
-﻿
+@using BAL_IK.Model.RequestClass
+@using BAL_IK.Model.ResponseClass
+@using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest
+@model PersonelGuncelle
 @{
 
 
@@ -125,16 +128,16 @@
             <div class="row gx-4 mb-2">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="~/Personeller/Ayarlar/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                         <img src="~/Personeller/Ayarlar/img/zyro-image.png" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            Richard Davis
+                           @Model.Ad @Model.Soyad
                         </h5>
                         <p class="mb-0 font-weight-normal text-sm">
-                            CEO / Co-Founder
+                            Software Developer
                         </p>
                     </div>
                 </div>
@@ -184,32 +187,35 @@
                         <p class="text-sm">
                             Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
                         </p>
+                        <form method="post" asp-action="Duzenle" asp-controller="Personel" class="text-start">
+                            <input hidden asp-for="PersonelId" />
+                            <div class="card card-background">
+                                <div class="full-background" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80')"></div>
+                                <div class="card-body">
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Ad</label>
+                                        <input asp-for=Ad type="text" class="form-control" />
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Soyad</label>
+                                        <input asp-for=Soyad type="text"  class="form-control">
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">E-posta</label>
+                                        <input asp-for=Eposta type="email" class="form-control">
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Şifre</label>
+                                         <input asp-for=Sifre type="password" class="form-control">
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <button class="btn btn-outline-secondary">Güncelle</button>
+                                    </div>
 
-                        <div class="card card-background">
-                            <div class="full-background" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80')"></div>
-                            <div class="card-body">
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Ad</label>
-                                    <input type="text" class="form-control">
                                 </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Soyad</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">E-posta</label>
-                                    <input type="email" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Şifre</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <button type="button" class="btn btn-outline-secondary">Güncelle</button>
-                                </div>
-
                             </div>
-                        </div>
+                        </form>
+
                         <li class="list-group-item border-0 ps-0 pb-0">
                             <strong class="text-dark text-sm">Social:</strong> &nbsp;
                             <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
@@ -221,7 +227,8 @@
                             <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
                                 <i class="fab fa-instagram fa-lg"></i>
                             </a>
-                        </li>                        
+                        </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -257,6 +264,7 @@
                     </div>
                 </div>
             </div>
+
         </footer>
     </div>
     <div class="fixed-plugin">
@@ -351,3 +359,4 @@
 </html>
 
 
+ 
