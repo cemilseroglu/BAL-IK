@@ -3,6 +3,7 @@ using BAL_IK.Data.Interfaceler.SirketYoneticisi;
 using BAL_IK.Model.Entities;
 using BAL_IK.Model.RequestClass;
 using BAL_IK.Model.ResponseClass;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,7 +73,7 @@ namespace BAL_IK.Data.Servisler
 
             try
             {
-                SirketYoneticisi syoneticisi = _db.SirketYoneticileri.Find(sirketYoneticisi.SirketYoneticisiId);
+                SirketYoneticisi syoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.SirketYoneticisiId == sirketYoneticisi.SirketYoneticisiId);
                 if (sirketYoneticisi.Ad != null)
                     syoneticisi.Ad = sirketYoneticisi.Ad;
                 if (sirketYoneticisi.Soyad != null)
@@ -81,14 +82,21 @@ namespace BAL_IK.Data.Servisler
                     syoneticisi.Eposta = sirketYoneticisi.Eposta;
                 if (sirketYoneticisi.Sifre != null)
                     syoneticisi.Sifre = sirketYoneticisi.Sifre;
+
                 if(syoneticisi.DogumTarihi!=sirketYoneticisi.DogumTarihi)
                      syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;               
                syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
                 if (sirketYoneticisi.SirketId != null)
                     syoneticisi.SirketId = sirketYoneticisi.SirketId;
 
+
+                syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
+                if (syoneticisi.AktifMi == false)
+                {
+                    syoneticisi.Sirket.Durum = Durum.Pasif;
+                }
                 _db.Update(syoneticisi);
-                _db.SaveChanges();             
+                _db.SaveChanges();
                 resp.BasariliMi = true;
                 resp.Mesaj = "Başarıyla güncellendi.";
                 return resp;
@@ -102,5 +110,6 @@ namespace BAL_IK.Data.Servisler
             }
 
         }
+
     }
 }
