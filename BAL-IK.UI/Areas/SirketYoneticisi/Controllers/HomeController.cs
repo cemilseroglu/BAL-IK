@@ -24,7 +24,7 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
         {
             //var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
             return View();
-        }
+        }       
         public IActionResult Index(string guid)
         {
             var response = _sirketYoneticisiServis.SirketYoneticisiGetir(guid);
