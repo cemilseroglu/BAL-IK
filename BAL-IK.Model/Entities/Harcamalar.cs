@@ -18,6 +18,7 @@ namespace BAL_IK.Model
         [Required,MaxLength(100)]
         public string HarcamaIsmi { get; set; }
         public decimal HarcamaTutari { get; set; }
+        public string DosyaYolu { get; set; }
     }
 
 }

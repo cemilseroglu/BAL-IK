@@ -31,5 +31,10 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.PersonelGetir(guid);
         }
+        [HttpPost("HarcamaEkleme")]
+        public  PersonelHarcamaEkle HarcamaEkleme(HarcamaEkle pr)
+        {
+            return _pService.HarcamaEkleme(pr);
+        }
     }
 }

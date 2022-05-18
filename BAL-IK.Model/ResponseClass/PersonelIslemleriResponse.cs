@@ -44,5 +44,16 @@ namespace BAL_IK.Model.ResponseClass
             public Cinsiyet Cinsiyet { get; set; }
 
         }
+        public class PersonelHarcamaEkle:BaseResponse
+        {
+            [Required, Key]
+            public int HarcamaId { get; set; }
+            [Required]
+            public int PersonelId { get; set; }
+            public Personeller Personel { get; set; }
+            [Required, MaxLength(100)]
+            public string HarcamaIsmi { get; set; }
+            public decimal HarcamaTutari { get; set; }
+        }
     }
 }
