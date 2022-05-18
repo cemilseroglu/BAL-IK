@@ -1,5 +1,9 @@
 
+using BAL_IK.Data.Interfaceler.Sirket;
+
+
 using BAL_IK.Data.Interfaceler.Personeller;
+
 
 using BAL_IK.Data.Interfaceler.SirketYoneticisi;
 
@@ -37,6 +41,10 @@ namespace BAL_IK.UI
             services.AddScoped<IPersonellerServis, PersonelServisUI>();
 
             services.AddScoped<ISirketYoneticisiServis, SirketYoneticisiServisUI>();
+
+            services.AddScoped<ISirketServis, SirketServisUI>();
+
+
 
         }
 

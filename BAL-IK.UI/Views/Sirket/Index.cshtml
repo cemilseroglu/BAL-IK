@@ -1,0 +1,50 @@
+﻿@using BAL_IK.UI.ViewModels
+@{
+    Layout = "_AccountLayout";
+    TempData["title"] = "Şirketinizi Oluşturun";
+}
+
+@model SirketViewModel
+
+@if (ViewBag.SMesaj == null)
+{
+    <form method="post" asp-action=Index class="text-start" enctype="multipart/form-data">
+        <div class="input-group input-group-outline my-3">
+            <label class="form-label">Şirket Adı</label>
+            <input required asp-for="SirketAdi" class="form-control">
+        </div>
+        <div class="input-group input-group-outline mb-3">
+            <label class="form-label">Şirket Email</label>
+            <input required asp-for="SirketEmail" type="email" class="form-control">
+        </div>
+        <div class="input-group input-group-outline mb-3">
+            <label class="form-label">Şirket Adresi</label>
+            <input required asp-for="SirketAdresi" class="form-control">
+        </div>
+        <div class="input-group input-group-outline mb-3">
+            <label class="form-label">Şirket Telefonu</label>
+            <input required asp-for="SirketTelefonu" type="tel" class="form-control">
+        </div>
+        <div class="input-group input-group-outline mb-3">
+            <label>Şirket Logosu (Opsiyonel)</label><br />
+            <input asp-for=SirketLogosu type="file" class="form-control-file justify-content-center btn btn-primary" id="resim">
+            <span asp-validation-for=SirketLogosu></span>
+        </div>
+        <div class="input-group input-group-outline">
+            <label>Ödeme Planınız </label>
+        </div>
+        <div class="input-group input-group-outline mb-3">
+            <select asp-for=OdemePlani asp-items="Html.GetEnumSelectList<OdemePlani>()" class="3col active form-control">
+            </select>
+        </div>
+        <div class="text-center">
+            <button class="btn bg-gradient-primary w-100 my-4 mb-2">Şirketi Oluştur</button>
+        </div>
+    </form>
+}
+else
+{
+    @ViewBag.SMesaj;
+    <br />
+    <a asp-action=Index asp-controller=Home>Ana Sayfaya Dön.</a>
+}

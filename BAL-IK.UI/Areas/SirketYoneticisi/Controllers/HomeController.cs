@@ -27,8 +27,10 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
             var response = _sirketYoneticisiServis.SirketYoneticisiGetir(sirketYoneticisiGuid);
             TempData["isim"] = response.Ad;
             return View();
+
         }
         [HttpPost]
+
         public IActionResult Index(string guid)
         {
             var response = _sirketYoneticisiServis.SirketYoneticisiGetir(guid);

@@ -76,15 +76,19 @@ namespace BAL_IK.Data.Servisler
                 SirketYoneticisi syoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.SirketYoneticisiId == sirketYoneticisi.SirketYoneticisiId);
                 if (sirketYoneticisi.Ad != null)
                     syoneticisi.Ad = sirketYoneticisi.Ad;
-
                 if (sirketYoneticisi.Soyad != null)
                     syoneticisi.Soyad = sirketYoneticisi.Soyad;
                 if (sirketYoneticisi.Eposta != null)
                     syoneticisi.Eposta = sirketYoneticisi.Eposta;
                 if (sirketYoneticisi.Sifre != null)
                     syoneticisi.Sifre = sirketYoneticisi.Sifre;
-                if (syoneticisi.DogumTarihi != sirketYoneticisi.DogumTarihi)
-                    syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;
+
+                if(syoneticisi.DogumTarihi!=sirketYoneticisi.DogumTarihi)
+                     syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;               
+               syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
+                if (sirketYoneticisi.SirketId != null)
+                    syoneticisi.SirketId = sirketYoneticisi.SirketId;
+
 
                 syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
                 if (syoneticisi.AktifMi == false)
