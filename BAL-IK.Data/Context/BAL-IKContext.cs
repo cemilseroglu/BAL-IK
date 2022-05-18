@@ -41,6 +41,20 @@ namespace BAL_IK.Data.Context
                 .HasOne<Yorum>(x => x.Yorumu)
                 .WithOne(s => s.Sirket)
                 .HasForeignKey<Yorum>(x => x.SirketId);
+
+            modelBuilder.Entity<SiteYoneticisi>().HasData(new SiteYoneticisi()
+            {
+                SiteYoneticisiId = 1,
+                Ad = "BALIK",
+                Soyad = "Admin",
+                Cinsiyet = 0,
+                AktifMi = true,
+                DogumTarihi = DateTime.Now,
+                Eposta = "admin@bal-ik.com",
+                Guid = new Guid("c96ce224-3473-4d45-93fd-56b5f1d594ac"),
+                ResimUrl = null,
+                Sifre = "123456"
+        });
         }
     }
 }
