@@ -36,21 +36,30 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
     
         public IActionResult Index()
         {
-
-           
-
-           //var personelGuid= HttpContext.Session.GetString("personel");
-
+           var personelGuid= HttpContext.Session.GetString("personel");
+            var response = _personelService.PersonelGetir(personelGuid);
+            TempData["isim"] = response.Ad;
            return View();
         }
 
         public IActionResult Ayarlar()
         {
-            return View();
+
+            var personelGuid = HttpContext.Session.GetString("personel");
+            var response = _personelService.PersonelGetir(personelGuid);
+            
+            return View(response);
         }
         public IActionResult Duzenle()
         {
-            return View();
+            var personelGuid = HttpContext.Session.GetString("personel");
+            var response = _personelService.PersonelGetir(personelGuid);
+            PersonelGuncelle per = new PersonelGuncelle();  
+            per.PersonelId=response.PersonelId;
+            per.Ad = response.Ad;
+            per.Soyad = response.Soyad;
+            per.Eposta = response.Eposta;
+            return View(per);
         }
         [HttpPost]
         public IActionResult Duzenle(PersonelGuncelle pr)

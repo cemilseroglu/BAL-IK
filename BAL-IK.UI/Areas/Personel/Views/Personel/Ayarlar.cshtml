@@ -1,4 +1,7 @@
-﻿
+﻿@using BAL_IK.Model.RequestClass
+@using BAL_IK.Model.ResponseClass
+@using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse
+@model PersonelResp
 @{
 
 
@@ -125,16 +128,16 @@
                 <div class="row gx-4 mb-2">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
-                            <img src="~/Personeller/Ayarlar/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                            <img src="~/Personeller/Ayarlar/img/zyro-image.png" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                         </div>
                     </div>
                     <div class="col-auto my-auto">
                         <div class="h-100">
                             <h5 class="mb-1">
-                                Richard Davis
+                               @Model.Ad @Model.Soyad
                             </h5>
                             <p class="mb-0 font-weight-normal text-sm">
-                                CEO / Co-Founder
+                                Software Developer
                             </p>
                         </div>
                     </div>
@@ -169,7 +172,7 @@
                         <div class="card-header pb-0 p-3">
                             <div class="row">
                                 <div class="col-md-8 d-flex align-items-center">
-                                    <h6 class="mb-0">Profile Information</h6>
+                                    <h6 class="mb-0">Hakkımda</h6>
                                 </div>
                                 <div class="col-md-4 text-end" >  
                                     <button type="button" class="btn btn-primary btn-sm"onclick="location.href='@Url.Action("Duzenle", "Personel")'"  >Profil Düzenle</button>
@@ -177,16 +180,20 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-body p-3">
                             <p class="text-sm">
-                                Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
+                                “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”
                             </p>
                             <hr class="horizontal gray-light my-4">
                             <ul class="list-group">
-                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; Alec M. Thompson</li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="91f0fdf4f2e5f9fefce1e2feffd1fcf0f8fdbff2fefc">[email&#160;protected]</a></li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Ad:</strong> &nbsp; @Model.Ad</li>
+                                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Soyad:</strong> &nbsp; @Model.Soyad</li>
+                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; @Model.Eposta</li>
+                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Doğum Tarihi:</strong> &nbsp; @Model.DogumTarihi</li>
+                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">İşe Başlama:</strong> &nbsp; @Model.IseBaslama</li>
+                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cinsiyet:</strong> &nbsp; @Model.Cinsiyet</li>
+                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Konum:</strong> &nbsp; Ankara</li>
                                 <li class="list-group-item border-0 ps-0 pb-0">
                                     <strong class="text-dark text-sm">Social:</strong> &nbsp;
                                     <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
