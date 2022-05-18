@@ -12,7 +12,7 @@ using static BAL_IK.Model.RequestClass.SirketYoneticisiIslemleriRequest;
 namespace BAL_IK.UI.Areas.SirketYoneticisi
 {
     [Area("SirketYoneticisi")]
-    //[SirketYoneticisi]
+    [SirketYoneticisi]
     public class HomeController : Controller
     {
         private readonly ISirketYoneticisiServis _sirketYoneticisiServis;
