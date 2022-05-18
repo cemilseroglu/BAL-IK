@@ -1,5 +1,6 @@
 ﻿using BAL_IK.Data.Context;
 using BAL_IK.Data.Interfaceler.Personeller;
+using BAL_IK.Model;
 using BAL_IK.Model.Entities;
 using BAL_IK.Model.RequestClass;
 using BAL_IK.Model.ResponseClass;
@@ -21,6 +22,34 @@ namespace BAL_IK.Data.Servisler
         {
             _db = db;
         }
+
+        public PersonelHarcamaEkle HarcamaEkleme(HarcamaEkle pr)
+        {
+            PersonelHarcamaEkle resp = new PersonelHarcamaEkle();
+            try
+            {
+                Harcamalar harcama = new Harcamalar()
+                {                  
+                    HarcamaIsmi = pr.HarcamaIsmi,
+                    HarcamaTutari = pr.HarcamaTutari,                  
+                    PersonelId = pr.PersonelId,
+                    DosyaYolu = pr.DosyaYolu
+                };
+                _db.Add(harcama);
+                _db.SaveChanges();
+                resp.Mesaj = ("Başarılı");
+                resp.BasariliMi = true;
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
         {
             PersonelEkleResponse resp = new PersonelEkleResponse();

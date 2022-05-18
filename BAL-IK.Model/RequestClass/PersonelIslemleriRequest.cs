@@ -48,6 +48,15 @@ namespace BAL_IK.Model.RequestClass
             [MaxLength(250)]
             public string Sifre { get; set; }
         }
+        public class HarcamaEkle
+        {
+
+
+            public string DosyaYolu { get; set; }
+            public int PersonelId { get; set; }       
+            public string HarcamaIsmi { get; set; }
+            public decimal HarcamaTutari { get; set; }
+        }
 
     }
 }
