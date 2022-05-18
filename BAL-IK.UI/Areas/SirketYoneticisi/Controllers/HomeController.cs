@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static BAL_IK.Model.RequestClass.SirketYoneticisiIslemleriRequest;
 
 namespace BAL_IK.UI.Areas.SirketYoneticisi
 {
@@ -22,9 +23,14 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
         }
         public IActionResult Index()
         {
-            //var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
+            var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
+            var response = _sirketYoneticisiServis.SirketYoneticisiGetir(sirketYoneticisiGuid);
+            TempData["isim"] = response.Ad;
             return View();
-        }       
+
+        }
+        [HttpPost]
+
         public IActionResult Index(string guid)
         {
             var response = _sirketYoneticisiServis.SirketYoneticisiGetir(guid);
@@ -39,10 +45,26 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
         }
         public IActionResult Ayarlar()
         {
-            return View();
+            var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
+            var response = _sirketYoneticisiServis.SirketYoneticisiGetir(sirketYoneticisiGuid);
+            return View(response);
         }
         public IActionResult Duzenle()
         {
+            var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
+            var response = _sirketYoneticisiServis.SirketYoneticisiGetir(sirketYoneticisiGuid);
+            SirketYoneticisiGuncelle syg = new SirketYoneticisiGuncelle();
+            syg.SirketYoneticisiId = response.SirketYoneticisiId;
+            syg.Ad = response.Ad;
+            syg.Soyad = response.Soyad;
+            syg.Eposta = response.Eposta;
+            return View(syg);
+        }
+        [HttpPost]
+        public IActionResult Duzenle(SirketYoneticisiGuncelle guncelle)
+        {
+            var response = _sirketYoneticisiServis.SirketYoneticisiGuncelle(guncelle);
+            ViewBag.Mesaj = response.Mesaj;
             return View();
         }
     }
