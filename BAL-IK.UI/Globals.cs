@@ -7,5 +7,5 @@ namespace BAL_IK.UI
         {
             public static RestClient ApiClient { get; private set; } = new RestClient("http://localhost:46375/");
         }
-    
+   
 }

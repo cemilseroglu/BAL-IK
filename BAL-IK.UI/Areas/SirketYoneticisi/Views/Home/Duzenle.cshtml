@@ -1,5 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Ayarlar";
+﻿
+@using BAL_IK.Model.ResponseClass
+@using BAL_IK.Model.RequestClass
+@using static BAL_IK.Model.RequestClass.SirketYoneticisiIslemleriRequest
+@model SirketYoneticisiGuncelle
+@{
+    ViewData["Title"] = "Düzenle";
 }
 
 <!DOCTYPE html>
@@ -177,35 +182,37 @@
                         <p class="text-sm">
                             Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
                         </p>
-                        <div class="card card-background">
-                            <div class="full-background" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80')"></div>
-                            <div class="card-body">
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Search</label>
-                                    <input @*asp-for="SirketYoneticisiResponse.Ad"*@ type="text" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Url</label>
-                                    <input type="url" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Phone</label>
-                                    <input type="tel" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Password</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline my-3">
-                                    <label class="form-label">Number</label>
-                                    <input type="number" class="form-control">
+                        <form method="post" asp-action="Duzenle" asp-controller="Home" class="text-start">
+                            <input hidden asp-for="SirketYoneticisiId">
+                            <div class="card card-background">
+                                <div class="full-background" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80')"></div>
+                                <div class="card-body">
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Ad</label>
+                                        <input asp-for="Ad" type="text" class="form-control">
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Soyad</label>
+                                        <input asp-for="Soyad" type="text" class="form-control">
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">E-Mail</label>
+                                        <input asp-for="Eposta" type="email" class="form-control">
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Şifre</label>
+                                        <input asp-for="Sifre" type="password" class="form-control">
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <label class="form-label">Kullanıcı Aktif Mi</label>
+                                        <input asp-for="AktifMi" type="text" class="form-control">
+                                    </div>
+                                    <div class="input-group input-group-outline my-3">
+                                        <button class="btn btn-outline-secondary">Güncelle</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

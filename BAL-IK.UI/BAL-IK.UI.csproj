@@ -22,6 +22,9 @@
     <Folder Include="Areas\SirketYoneticisi\Data\" />
     <Folder Include="Areas\SiteYoneticisi\Data\" />
     <Folder Include="Areas\SiteYoneticisi\Views\" />
+    <Folder Include="wwwroot\Uploads\" />
+    <Folder Include="wwwroot\SiteYoneticisi\" />
+
   </ItemGroup>
 
 </Project>
