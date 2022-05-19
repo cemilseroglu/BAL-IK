@@ -46,12 +46,9 @@ namespace BAL_IK.Model.ResponseClass
         }
         public class PersonelHarcamaEkle:BaseResponse
         {
-            [Required, Key]
-            public int HarcamaId { get; set; }
-            [Required]
-            public int PersonelId { get; set; }
-            public Personeller Personel { get; set; }
-            [Required, MaxLength(100)]
+            public string DosyaYolu { get; set; }
+            public int HarcamaId { get; set; }        
+            public int PersonelId { get; set; }        
             public string HarcamaIsmi { get; set; }
             public decimal HarcamaTutari { get; set; }
         }

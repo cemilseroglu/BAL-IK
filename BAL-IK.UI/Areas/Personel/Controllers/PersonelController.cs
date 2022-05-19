@@ -1,5 +1,6 @@
 using BAL_IK.Data.Interfaceler.Personeller;
 using BAL_IK.UI.Filters;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest;
@@ -68,6 +69,27 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             ViewBag.Mesaj = response.Mesaj;
             return View();
         }
-
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("personel");
+       
+            return RedirectToAction("Index", "Home", new { Area = "" });
+        }
+        public IActionResult Harcamalar()
+        {
+            var personelGuid = HttpContext.Session.GetString("personel");
+            var response = _personelService.PersonelGetir(personelGuid);
+            HarcamaEkle per = new HarcamaEkle();
+            per.PersonelId = response.PersonelId;
+            return View(per);
+        }
+        [HttpPost]
+        public IActionResult Harcamalar(HarcamaEkle pr)
+        {
+            var response= _personelService.HarcamaEkleme(pr);
+            ViewBag.Mesaj = response.Mesaj;
+            return View();
+        }
     }
 }
