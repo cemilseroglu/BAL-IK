@@ -20,7 +20,7 @@ namespace BAL_IK.UI.Controllers
 
         public IActionResult Index()
         {
-
+            //TODO YORUMLAR BURADAN GİDECEK
             return View();
         }
 

@@ -24,7 +24,7 @@ namespace BAL_IK.UI.Controllers
         [HttpPost]
         public IActionResult Index(LogKullanici req)
         {
-            //TODO Yönlendirmeler yapılacak.
+           
             var response = _loginService.LoginIslemi(req);
             if (response == null)
                 return BadRequest();
