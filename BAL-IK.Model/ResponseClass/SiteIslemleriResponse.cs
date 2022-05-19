@@ -9,17 +9,17 @@ namespace BAL_IK.Model.ResponseClass
 {
     public class SiteIslemleriResponse
     {
-        public class YorumlarResponse
+        public class YorumlarResponse : BaseResponse
         {
             public List<YorumResponse> Yorumlar { get; set; }
         }
-        public class YorumResponse
+        public class YorumResponse : BaseResponse
         {
             public int YorumId { get; set; }
             public string YorumBaslik { get; set; }
             public string YorumIcerik { get; set; }
-            public int SirketId { get; set; }          
-            public DateTime OlusturulmaTarihi { get; set; } 
+            public int SirketId { get; set; }
+            public DateTime OlusturulmaTarihi { get; set; }
         }
     }
 }

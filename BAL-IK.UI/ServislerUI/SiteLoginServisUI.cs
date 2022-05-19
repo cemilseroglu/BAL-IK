@@ -29,5 +29,10 @@ namespace BAL_IK.UI.ServislerUI
 
             return response.Data;
         }
+
+        public SiteIslemleriResponse.YorumlarResponse YorumlariGetir()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
