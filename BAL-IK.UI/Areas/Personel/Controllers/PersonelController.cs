@@ -80,9 +80,9 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         {
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);
-            HarcamaEkle per = new HarcamaEkle();
-            per.PersonelId = response.PersonelId;
-            return View(per);
+            HarcamaEkle harcama = new HarcamaEkle();
+          harcama.PersonelId = response.PersonelId;
+            return View(harcama);
         }
         [HttpPost]
         public IActionResult Harcamalar(HarcamaEkle pr)
