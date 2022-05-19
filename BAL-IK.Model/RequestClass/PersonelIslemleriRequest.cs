@@ -50,8 +50,6 @@ namespace BAL_IK.Model.RequestClass
         }
         public class HarcamaEkle
         {
-
-
             public string DosyaYolu { get; set; }
             public int PersonelId { get; set; }       
             public string HarcamaIsmi { get; set; }

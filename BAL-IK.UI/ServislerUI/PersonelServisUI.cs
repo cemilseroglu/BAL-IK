@@ -10,7 +10,9 @@ namespace BAL_IK.UI.ServislerUI
     {
         public PersonelHarcamaEkle HarcamaEkleme(PersonelIslemleriRequest.HarcamaEkle pr)
         {
-            throw new System.NotImplementedException();
+            var request = new RestRequest("api/Personel/HarcamaEkleme", Method.POST, DataFormat.Json).AddJsonBody(pr);
+            var response = Globals.ApiClient.Execute<PersonelHarcamaEkle>(request);
+            return response.Data;
         }
 
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
