@@ -1,6 +1,8 @@
 using BAL_IK.Data.Interfaceler.Personeller;
 using BAL_IK.UI.Filters;
+using BAL_IK.UI.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest;
@@ -13,10 +15,12 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
     {
 
         private readonly IPersonellerServis _personelService;
+        private readonly IWebHostEnvironment _env;
 
-        public PersonelController(IPersonellerServis personelService)
+        public PersonelController(IPersonellerServis personelService , IWebHostEnvironment env)
         {
             this._personelService = personelService;
+            this._env = env;
         }
       [HttpPost]
         public IActionResult Index(string guid)
@@ -80,16 +84,25 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         {
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);
-            HarcamaEkle harcama = new HarcamaEkle();
+            HarcamaViewModel harcama = new HarcamaViewModel();
           harcama.PersonelId = response.PersonelId;
             return View(harcama);
         }
         [HttpPost]
-        public IActionResult Harcamalar(HarcamaEkle pr)
+        public IActionResult Harcamalar(HarcamaViewModel harcama)
         {
-            var response= _personelService.HarcamaEkleme(pr);
+            HarcamaEkle harcamaekle = new HarcamaEkle();
+            harcamaekle.PersonelId = harcama.PersonelId;
+                harcamaekle.HarcamaTutari=harcama.HarcamaTutari;
+            harcamaekle.HarcamaIsmi=harcama.HarcamaIsmi;
+            if (harcama.DosyaYolu != null)
+            {
+                harcamaekle.DosyaYolu = Tools.resimKaydet(harcama.DosyaYolu, _env);
+            }
+            var response= _personelService.HarcamaEkleme(harcamaekle);
             ViewBag.Mesaj = response.Mesaj;
             return View();
         }
+
     }
 }
