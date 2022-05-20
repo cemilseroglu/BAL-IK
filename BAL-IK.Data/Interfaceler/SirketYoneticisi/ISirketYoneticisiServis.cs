@@ -12,6 +12,7 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
     {
         SirketYoneticisiGuncel SirketYoneticisiGuncelle(SirketYoneticisiGuncelle sy);
         SirketYoneticisiResponse SirketYoneticisiGetir(string guid);
+        HarcamalarResponse HarcamalariGetir(string guid);
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BAL_IK.Data.Context;
 using BAL_IK.Data.Interfaceler.SirketYoneticisi;
+using BAL_IK.Model;
 using BAL_IK.Model.Entities;
 using BAL_IK.Model.RequestClass;
 using BAL_IK.Model.ResponseClass;
@@ -83,9 +84,9 @@ namespace BAL_IK.Data.Servisler
                 if (sirketYoneticisi.Sifre != null)
                     syoneticisi.Sifre = sirketYoneticisi.Sifre;
 
-                if(syoneticisi.DogumTarihi!=sirketYoneticisi.DogumTarihi)
-                     syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;               
-               syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
+                if (syoneticisi.DogumTarihi != sirketYoneticisi.DogumTarihi)
+                    syoneticisi.DogumTarihi = sirketYoneticisi.DogumTarihi;
+                syoneticisi.AktifMi = sirketYoneticisi.AktifMi;
                 if (sirketYoneticisi.SirketId != null)
                     syoneticisi.SirketId = sirketYoneticisi.SirketId;
 
@@ -110,6 +111,60 @@ namespace BAL_IK.Data.Servisler
             }
 
         }
+        public HarcamalarResponse HarcamalariGetir(string guid)
+        {
+            HarcamalarResponse resp = new HarcamalarResponse();
+            resp.Harcamalar = new List<HarcamaResponse>();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == guid);
+                List<Harcamalar> harcamalar = _db.Harcamalar.Include(x => x.Personel).Where(x => x.Personel.SirketId == sirketYoneticisi.SirketId).ToList();
+
+                foreach (var harcama in harcamalar)
+                {
+                    HarcamaResponse harcamaResponse = new HarcamaResponse()
+                    {
+                        BasariliMi = true,
+                        PersonelId = harcama.PersonelId,
+                        HarcamaId = harcama.HarcamaId,
+                        HarcamaIsmi = harcama.HarcamaIsmi,
+                        DosyaYolu = harcama.DosyaYolu,
+                        HarcamaTutari = harcama.HarcamaTutari,
+                        OlusturulmaZamani = harcama.OlusturulmaZamani,
+                        OnayDurumu = harcama.OnayDurumu,
+                        Mesaj = "Başarılı",                     
+
+                    };
+                    harcamaResponse.Personel.Ad = harcama.Personel.Ad;
+                    harcamaResponse.Personel.AktifMi = harcama.Personel.AktifMi;
+                    harcamaResponse.Personel.Cinsiyet = harcama.Personel.Cinsiyet;
+                   // harcamaResponse.Personel.DepartmanId = harcama.Personel.DepartmanId;
+                    harcamaResponse.Personel.DogumTarihi = harcama.Personel.DogumTarihi;
+                    harcamaResponse.Personel.Eposta = harcama.Personel.Eposta;
+                    harcamaResponse.Personel.Guid = harcama.Personel.Guid;
+                    harcamaResponse.Personel.IseBaslama = harcama.Personel.IseBaslama;
+                    harcamaResponse.Personel.IstenAyrilma = harcama.Personel.IstenAyrilma;
+                    harcamaResponse.Personel.PersonelId = harcama.PersonelId;
+                    harcamaResponse.Personel.Soyad = harcama.Personel.Soyad;
+                    harcamaResponse.Personel.SirketId = harcama.Personel.SirketId;
+                   // harcamaResponse.Personel.VardiyaId = harcama.Personel.VardiyaId;
+                    harcamaResponse.Personel.YillikIzinHakki = harcama.Personel.YillikIzinHakki;
+                    resp.Harcamalar.Add(harcamaResponse);
+                }
+                resp.Mesaj = "Harcamalar başarıyla getirildi";
+                resp.BasariliMi = true;
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = "Hata" + ex.Message;
+                return resp;
+            }
+        }
+
 
     }
 }

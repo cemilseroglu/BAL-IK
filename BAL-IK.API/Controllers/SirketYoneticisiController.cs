@@ -32,6 +32,12 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.SirketYoneticisiGetir(guid);
         }
+        [HttpGet("HarcamalariGetir")]
+        public HarcamalarResponse HarcamalariGetir(string guid)
+        {
+            return _sService.HarcamalariGetir(guid);
+        }
+
 
     }
 }

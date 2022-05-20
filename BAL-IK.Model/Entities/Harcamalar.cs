@@ -18,7 +18,9 @@ namespace BAL_IK.Model
         [Required,MaxLength(100)]
         public string HarcamaIsmi { get; set; }
         public decimal HarcamaTutari { get; set; }
+        public DateTime OlusturulmaZamani { get; set; } = DateTime.Now;
         public string DosyaYolu { get; set; }
+        public bool OnayDurumu { get; set; } = false;
     }
 
 }
