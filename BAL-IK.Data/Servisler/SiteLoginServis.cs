@@ -168,7 +168,9 @@ namespace BAL_IK.Data.Servisler
                         OlusturulmaTarihi = yorum.OlusturulmaTarihi,
                         YorumBaslik = yorum.YorumBaslik,
                         YorumIcerik = yorum.YorumIcerik,
-                        YorumId = yorum.YorumId                        
+                        YorumId = yorum.YorumId,
+                        SirketAdi=yorum.Sirket.SirketAdi,
+                        SirketLogoYolu=yorum.Sirket.SirketLogoURL
                     };
                     eklenecekYorum.BasariliMi = true;
                     

@@ -1,8 +1,34 @@
-﻿@{
+﻿@using static BAL_IK.Model.ResponseClass.SiteIslemleriResponse
+@{
     ViewData["Title"] = "Home Page";
 }
-
+@model YorumlarResponse
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@section Yorumlar
+{
+    
+    @if(Model.Yorumlar.Count>0){
+        foreach (var yorum in @Model.Yorumlar.Take(5))
+        {
+<div class="testimonial-item bg-transparent border rounded text-white p-4">
+    <i class="fa fa-quote-left fa-2x mb-3"></i>
+    <a asp-action="YorumDetay" asp-controller="Home" asp-route-SirketId="@yorum.SirketId">@if(@yorum.YorumIcerik.Length>100)
+         @yorum.YorumIcerik.Substring(0,100)
+         else
+          @yorum.YorumIcerik
+    </a>
+    <div class="d-flex align-items-center">
+        <img class="img-fluid flex-shrink-0 rounded-circle" src="~/Uploads/@yorum.SirketLogoYolu" style="width: 50px; height: 50px;">
+        <div class="ps-3">
+            <h6 class="text-white mb-1">@yorum.SirketAdi</h6>
+            <small>@yorum.YorumBaslik</small>
+        </div>
+    </div>
+</div>
+        }
+    }
+}

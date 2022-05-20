@@ -1,0 +1,10 @@
+﻿@using static BAL_IK.Model.ResponseClass.SiteIslemleriResponse
+@model YorumResponse
+@{
+    Layout = "_AccountLayout";
+    TempData["title"] = @Model.YorumBaslik;
+}
+
+<p ><img class="img-fluid flex-shrink-0 rounded-circle" src="~/Uploads/@Model.SirketLogoYolu" style="width: 50px; height: 50px;">@Model.SirketAdi</p>
+<p>@Model.YorumIcerik</p>
+<p class=text-center><a asp-action="Index" asp-controller="Home">Ana Sayfa</a></p>

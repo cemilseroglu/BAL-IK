@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static BAL_IK.Model.ResponseClass.LogIslemleriResponse;
+using static BAL_IK.Model.ResponseClass.SiteIslemleriResponse;
 
 namespace BAL_IK.UI.ServislerUI
 {
@@ -32,7 +33,11 @@ namespace BAL_IK.UI.ServislerUI
 
         public SiteIslemleriResponse.YorumlarResponse YorumlariGetir()
         {
-            throw new NotImplementedException();
+            var request = new RestRequest("api/Site/YorumlariGetir", Method.GET, DataFormat.Json);
+
+            var response = Globals.ApiClient.Execute<YorumlarResponse>(request);
+
+            return response.Data;
         }
     }
 }

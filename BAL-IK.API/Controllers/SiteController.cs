@@ -17,7 +17,7 @@ namespace BAL_IK.API.Controllers
         }
 
         [HttpGet("YorumlariGetir")]
-        public YorumlarResponse YorumlariGetir()
+        public YorumlarResponse YorumGetir()
         {
             return _logServis.YorumlariGetir();
         }
