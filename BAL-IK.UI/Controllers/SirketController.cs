@@ -61,7 +61,7 @@ namespace BAL_IK.UI.Controllers
                 sirketYoneticisi.SirketId = responseSirket.SirketId;
                 sirketYoneticisi.AktifMi = true;
                 var responseGuncel = _syServis.SirketYoneticisiGuncelle(sirketYoneticisi);
-                ViewBag.SMesaj = responseSirket.Mesaj+" Şirketinizin onaylandıktan sonra sisteme giriş yapabileceksiniz.";
+                ViewBag.SMesaj = responseSirket.Mesaj+" Şirketinizin onaylandıktan sonra sisteme giriş yapabileceksiniz."; //TODO: Validation işlemleri
             }
             return View();
         }
