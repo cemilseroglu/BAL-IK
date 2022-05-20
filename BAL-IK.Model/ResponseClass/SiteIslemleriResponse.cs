@@ -19,6 +19,8 @@ namespace BAL_IK.Model.ResponseClass
             public string YorumBaslik { get; set; }
             public string YorumIcerik { get; set; }
             public int SirketId { get; set; }
+            public string SirketAdi { get; set; }
+            public string SirketLogoYolu { get; set; }
             public DateTime OlusturulmaTarihi { get; set; }
         }
     }
