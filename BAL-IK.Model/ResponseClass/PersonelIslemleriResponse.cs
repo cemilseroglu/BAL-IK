@@ -23,6 +23,10 @@ namespace BAL_IK.Model.ResponseClass
             public List<PersonelResp> PersonelListeleme { get; set; }
 
         }
+        public class HarcamaListelemeResponse:BaseResponse
+        {
+            public List<HarcamaListeleResponse> HarcamaListele { get; set; }
+        }
         public class PersonelResp:BaseResponse
         {
 
@@ -49,6 +53,14 @@ namespace BAL_IK.Model.ResponseClass
             public string DosyaYolu { get; set; }
             public int HarcamaId { get; set; }        
             public int PersonelId { get; set; }        
+            public string HarcamaIsmi { get; set; }
+            public decimal HarcamaTutari { get; set; }
+        }
+        public class HarcamaListeleResponse : BaseResponse
+        {
+            public string DosyaYolu { get; set; }
+            public int HarcamaId { get; set; }
+            public int PersonelId { get; set; }
             public string HarcamaIsmi { get; set; }
             public decimal HarcamaTutari { get; set; }
         }

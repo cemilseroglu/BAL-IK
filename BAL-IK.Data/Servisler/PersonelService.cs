@@ -4,6 +4,7 @@ using BAL_IK.Model;
 using BAL_IK.Model.Entities;
 using BAL_IK.Model.RequestClass;
 using BAL_IK.Model.ResponseClass;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,39 @@ namespace BAL_IK.Data.Servisler
                 resp.Mesaj = ex.Message;
                 resp.BasariliMi = false;
                 return resp;
+            }
+        }
+
+        public PersonelIslemleriResponse.HarcamaListelemeResponse HarcamalarıGetir()
+        {
+            HarcamaListelemeResponse harcamaList = new HarcamaListelemeResponse();
+            try
+            {
+                harcamaList.HarcamaListele = new List<HarcamaListeleResponse>();
+                foreach (var harcamalar in _db.Harcamalar.Include(x=>x.Personel).ToList())
+                {
+                    HarcamaListeleResponse harcama = new HarcamaListeleResponse()
+                    {
+                        HarcamaId = harcamalar.HarcamaId,
+                        DosyaYolu = harcamalar.DosyaYolu,
+                        HarcamaIsmi = harcamalar.HarcamaIsmi,
+                        HarcamaTutari = harcamalar.HarcamaTutari,
+
+
+                    };
+                    harcama.BasariliMi = true;
+                    harcamaList.HarcamaListele.Add(harcama);
+
+                }
+                harcamaList.Mesaj = "Başarılı";
+                harcamaList.BasariliMi = true;
+                return harcamaList;
+            }
+            catch (Exception)
+            {
+                harcamaList.Mesaj = "harcamaları getirirken hata oluştu";
+                harcamaList.BasariliMi = false;
+                return harcamaList;
             }
         }
 
@@ -172,7 +206,7 @@ namespace BAL_IK.Data.Servisler
             }
         }
 
-        public PersonelIslemleriResponse.PersonelListelemeResponse PersonelListeleme()
+        public PersonelListelemeResponse PersonelListeleme()
         {
             throw new NotImplementedException();
         }

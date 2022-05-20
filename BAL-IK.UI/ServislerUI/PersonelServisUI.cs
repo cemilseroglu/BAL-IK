@@ -15,6 +15,13 @@ namespace BAL_IK.UI.ServislerUI
             return response.Data;
         }
 
+        public HarcamaListelemeResponse HarcamalarıGetir()
+        {
+            var request = new RestRequest("api/Personel/HarcamalarıGetir", Method.GET, DataFormat.Json);
+            var response= Globals.ApiClient.Execute<HarcamaListelemeResponse>(request);
+            return response.Data;
+        }
+
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
         {
             var request = new RestRequest("api/Personel/PersonelEkleme",Method.POST,DataFormat.Json).AddJsonBody(pr);
