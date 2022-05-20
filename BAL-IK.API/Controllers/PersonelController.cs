@@ -36,5 +36,10 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.HarcamaEkleme(pr);
         }
+        [HttpGet("HarcamalarıGetir")]
+        public HarcamaListelemeResponse HarcamaGetir()
+        {
+            return _pService.HarcamalarıGetir();
+        }
     }
 }
