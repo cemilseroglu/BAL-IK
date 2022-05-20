@@ -4,14 +4,16 @@ using BAL_IK.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BAL_IK.Data.Migrations
 {
     [DbContext(typeof(BAL_IKContext))]
-    partial class BAL_IKContextModelSnapshot : ModelSnapshot
+    [Migration("20220520113423_Harcama Bool Eklendi")]
+    partial class HarcamaBoolEklendi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,7 +205,7 @@ namespace BAL_IK.Data.Migrations
                     b.Property<DateTime>("IseBaslama")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("IstenAyrilma")
+                    b.Property<DateTime>("IstenAyrilma")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ResimUrl")
@@ -409,7 +411,7 @@ namespace BAL_IK.Data.Migrations
                             Ad = "BALIK",
                             AktifMi = true,
                             Cinsiyet = 0,
-                            DogumTarihi = new DateTime(2022, 5, 20, 15, 42, 27, 993, DateTimeKind.Local).AddTicks(1576),
+                            DogumTarihi = new DateTime(2022, 5, 20, 14, 34, 22, 542, DateTimeKind.Local).AddTicks(4424),
                             Eposta = "admin@bal-ik.com",
                             Guid = new Guid("c96ce224-3473-4d45-93fd-56b5f1d594ac"),
                             Sifre = "123456",
@@ -535,9 +537,6 @@ namespace BAL_IK.Data.Migrations
 
                     b.Property<decimal>("HarcamaTutari")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("OlusturulmaZamani")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("OnayDurumu")
                         .HasColumnType("bit");

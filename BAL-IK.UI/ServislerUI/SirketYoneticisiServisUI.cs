@@ -8,6 +8,15 @@ namespace BAL_IK.UI.ServislerUI
 {
     public class SirketYoneticisiServisUI : ISirketYoneticisiServis
     {
+        public HarcamalarResponse HarcamalariGetir(string guid)
+        {
+            var request = new RestRequest("/api/SirketYoneticisi/HarcamalariGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+
+            var response = Globals.ApiClient.Execute<HarcamalarResponse>(request);
+
+            return response.Data;
+        }
+
         public SirketYoneticisiIslemleriResponse.SirketYoneticisiResponse SirketYoneticisiGetir(string guid)
         {
             var request = new RestRequest("api/SirketYoneticisi/SirketYoneticisiGetir", Method.GET, DataFormat.Json).AddParameter("guid",guid);
