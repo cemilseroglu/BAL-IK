@@ -27,5 +27,17 @@ namespace BAL_IK.Model.RequestClass
             public int? SirketId { get; set; }
         }
 
+        public class ZimmetEkleRequest
+        {
+            public int ZimmetTuruId { get; set; }
+            public int PersonelId { get; set; }
+        }    
+        
+        public class ZimmetGuncelleRequest
+        {
+            public int ZimmetId { get; set; }
+            public int ZimmetTuruId { get; set; }
+        }
+
     }
 }

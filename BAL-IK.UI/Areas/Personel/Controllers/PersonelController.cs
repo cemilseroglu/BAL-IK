@@ -86,12 +86,12 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         public IActionResult Harcamalar()
         {
             HarcamaListelemeResponse harcamaListesi = new HarcamaListelemeResponse();
-            harcamaListesi = _personelService.HarcamalarýGetir();
+            harcamaListesi = _personelService.HarcamalarÄ±Getir();
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);
             HarcamaViewModel harcama = new HarcamaViewModel();
             harcama.PersonelId = response.PersonelId;
-            var resp = _personelService.HarcamalarýGetir();
+            var resp = _personelService.HarcamalarÄ±Getir();
             harcama.HarcamaListele = resp.HarcamaListele;
          
             return View(harcama);
@@ -99,7 +99,7 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         [HttpPost]
         public IActionResult Harcamalar(HarcamaViewModel harcama)
         {
-            var harcamaListesi = _personelService.HarcamalarýGetir();
+            var harcamaListesi = _personelService.HarcamalarÄ±Getir();
             HarcamaEkle harcamaekle = new HarcamaEkle();
             harcamaekle.PersonelId = harcama.PersonelId;
                 harcamaekle.HarcamaTutari=harcama.HarcamaTutari;
@@ -110,7 +110,7 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             }
             var response= _personelService.HarcamaEkleme(harcamaekle);
             ViewBag.Mesaj = response.Mesaj;
-            var resp = _personelService.HarcamalarýGetir();
+            var resp = _personelService.HarcamalarÄ±Getir();
             harcama.HarcamaListele = resp.HarcamaListele;
             return View(harcama);
         }

@@ -15,7 +15,7 @@ namespace BAL_IK.Model.Entities
         public int ZimmetTuruId { get; set; }
         public ZimmetTuru ZimmetTuru { get; set; }
         public DateTime ZimmetTarihi { get; set; }
-        public DateTime ZimmetTeslimTarihi { get; set; }
+        public DateTime? ZimmetTeslimTarihi { get; set; }
         public bool TeslimEdildiMi { get; set; } = false;
         [Required]
         public int PersonelId { get; set; }

@@ -24,4 +24,5 @@ namespace BAL_IK.Model.RequestClass
     {
         Aylik, Yillik
     }
+
 }
