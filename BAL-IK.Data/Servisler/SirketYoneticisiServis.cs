@@ -165,6 +165,40 @@ namespace BAL_IK.Data.Servisler
             }
         }
 
+        public string HarcamaOnayla(int id, bool durum)
+        {
+            try
+            {
+                Harcamalar harcama = _db.Harcamalar.Find(id);
+                if (harcama == null)
+                    return "Bir Hata Oluştu";
+                harcama.OnayDurumu=durum;
+                _db.Update(harcama);
+                MaasBilgisi maasBilgisi = _db.MaasBilgileri.FirstOrDefault(x => x.PersonelId == harcama.PersonelId && x.AlacagiTarih.Month == DateTime.Now.AddMonths(1).Month);
+                if(maasBilgisi==null)
+                {
+                    return "Başarısız";
+                }
+                Personeller personel = _db.Personeller.Find(harcama.PersonelId);
+                if(durum==true)
+                {
+                 maasBilgisi.MaasTutari += harcama.HarcamaTutari;
+                    Tools.MailGonder(personel.Eposta,"Harcama Onayı",$"<p>Merhaba Sayın {personel.Ad}</p><p>{harcama.HarcamaIsmi} adlı {harcama.HarcamaTutari} TL Tutarlı harcamanız, {maasBilgisi.AlacagiTarih.ToShortDateString()} zamanında alacağınız maaşınıza eklenmiştir.<br/> O tarihte alacağınız maaş tutarı: {maasBilgisi.MaasTutari} TL</p><p>İyi Günler, İyi Çalışmalar.</p>");
+                }
+                else
+                {
+                 maasBilgisi.MaasTutari -= harcama.HarcamaTutari;
+                    Tools.MailGonder(personel.Eposta, "Harcama İptali", $"<p>Merhaba Sayın {personel.Ad}</p><p>{harcama.HarcamaIsmi} adlı {harcama.HarcamaTutari} TL Tutarlı harcama tutarı iptal edilmiştir, {maasBilgisi.AlacagiTarih.ToShortDateString()} zamanında alacağınız maaşınızdan bu işlem çıkarılmıştır.<br/> O tarihte alacağınız maaş tutarı: {maasBilgisi.MaasTutari} TL</p><p>İyi Günler, İyi Çalışmalar.</p>");
+                }
 
+                _db.Update(maasBilgisi);
+                _db.SaveChanges();
+                return "Harcama durumu değişti.";
+            }
+            catch (Exception ex)
+            {                
+                return "Başarısız" + ex.Message;
+            }
+        }
     }
 }

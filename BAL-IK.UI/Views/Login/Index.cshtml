@@ -8,21 +8,33 @@
     TempData["title"] = "Giriş";
 }
 
-                <form method="post" asp-action="Index" asp-controller="Login" class="text-start">
-                  <div class="input-group input-group-outline my-3">
-                    <label class="form-label">Email</label>
-                    <input asp-for=Email type="email" class="form-control">
-                  </div>
-                  <div class="input-group input-group-outline mb-3">
-                    <label class="form-label">Şifre</label>
-                    <input asp-for=Sifre type="password" class="form-control">
-                  </div>              
-                  <div class="text-center">
-                    <button  class="btn bg-gradient-primary w-100 my-4 mb-2">Giriş Yap</button>
-                  </div>
-                  <p class="mt-4 text-sm text-center">
-                    Hala hesabın yok mu ?
-                    <a asp-action="KayitOl" asp-controller="Login" class="text-primary text-gradient font-weight-bold">Kayıt Ol</a>
-                  </p>
-                </form>
-            
+<form  method="post" asp-action="Index" asp-controller="Login" class="text-start">
+    <div class="input-group input-group-outline my-3">
+        <label class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control">
+    </div>
+    <div class="input-group input-group-outline mb-3">
+        <label class="form-label">Şifre</label>
+        <input asp-for=Sifre type="password" class="form-control">
+    </div>
+    <div class="text-center">
+        <button  class="btn bg-gradient-primary w-100 my-4 mb-2">Giriş Yap</button>
+    </div>
+    <p class="mt-4 text-sm text-center">
+        Hala hesabın yok mu ?
+        <a asp-action="KayitOl" asp-controller="Login" class="text-primary text-gradient font-weight-bold">Kayıt Ol</a>
+    </p>
+</form>
+
+<script>
+                       function submitForm() {
+       // Get the first form with the name
+       // Usually the form name is not repeated
+       // but duplicate names are possible in HTML
+       // Therefore to work around the issue, enforce the correct index
+       var frm = document.getElementsByName('loginform')[0];
+       frm.submit(); // Submit the form
+       frm.reset();  // Reset all form data
+       return false; // Prevent page refresh
+    }
+</script>
