@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace BAL_IK.Data.Servisler
 {
@@ -22,7 +24,7 @@ namespace BAL_IK.Data.Servisler
 
             return sifreHash;
         }
-        public static string MailGonder(string email, string guid)
+        public static string MailGonder(string email, string guid)  //TODO : parametreler düzeltilecek.
         {
 
             SmtpClient smtp = new SmtpClient();

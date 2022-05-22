@@ -22,23 +22,32 @@ namespace BAL_IK.API.Controllers
             _sService = sService;
         }
 
-        [HttpGet]
+        [HttpGet("SiteYoneticiListele")]
         public SiteYoneticileriniListeleResponse SiteYoneticiListele()
         {
             return _sService.SiteYoneticileriniListele();
         }
+        
 
-        //[HttpGet("sirketlistele")]
-        //public List<Sirket> SirketListGetir()
-        //{
-        //    return _sService.SirketleriGetir();
-        //}
 
-        [HttpPost]
+        [HttpPost("SirketYoneticisiEkle")]
         public SiteYoneticisiEkleResponse SirketYoneticisiEkle(SiteYoneticisiEkle sy)
         {
             return _sService.SiteYoneticisiKaydet(sy);
 
+        }
+
+
+        [HttpPost("SiteYoneticisiGuncelleme")]
+        public SiteYoneticisiGuncelleResponse SiteYoneticisiGuncelleme(SiteYoneticisiGuncelle sy)
+        {
+            return _sService.SiteYoneticisiGuncelleme(sy);
+        }
+
+        [HttpGet("SiteYoneticisiGetir")]
+        public SiteYoneticisiResp SiteYoneticisiGetir(string guid)
+        {
+            return _sService.SiteYoneticisiGetir(guid);
         }
     }
 }

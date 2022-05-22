@@ -17,7 +17,7 @@ namespace BAL_IK.Model.ResponseClass
         {
             public List<SiteYoneticisiResp> SiteYoneticisiListele { get; set; }
         }
-        public class SiteYoneticisiResp
+        public class SiteYoneticisiResp:BaseResponse
         {
             public int SiteYoneticisiId { get; set; }
             public Guid Guid { get; set; }
@@ -29,6 +29,11 @@ namespace BAL_IK.Model.ResponseClass
             public string ResimUrl { get; set; }
             public bool AktifMi { get; set; }
             public Cinsiyet Cinsiyet { get; set; }
+        }
+
+        public class SiteYoneticisiGuncelleResponse : BaseResponse
+        {
+
         }
     }
 }
