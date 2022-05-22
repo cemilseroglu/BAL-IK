@@ -1,11 +1,13 @@
 ﻿@using static BAL_IK.Model.ResponseClass.SirketYoneticisiIslemleriResponse
 @model HarcamalarResponse
 @{
+    string onay;
+    string degisiklik;
 }
 
 <table class="table">
     <thead>
-        <tr>
+        <tr>           
             <th scope="col">Personel Adı</th>
             <th scope="col">Harcama Adı</th>
             <th scope="col">Tutarı</th>
@@ -17,22 +19,82 @@
     <tbody>
         @if (Model.Harcamalar.Count > 0)
         {
-            @foreach (var harcama in Model.Harcamalar)
+            @foreach (var harcama in Model.Harcamalar.OrderByDescending(x=>x.OlusturulmaZamani))
             {
+
+                if (harcama.OnayDurumu == true)
+                    onay = "checked";
+
+                else
+                    onay = "";
+                if (harcama.OlusturulmaZamani.Month != DateTime.Now.Month)
+                    degisiklik = "disabled";
+                else
+                    degisiklik = "";
+
+
+
                 <tr>
                     <td>@harcama.Personel.Ad</td>
                     <td>@harcama.HarcamaIsmi</td>
                     <td>@harcama.HarcamaTutari</td>
                     <td>@harcama.OlusturulmaZamani.ToShortDateString()</td>
-                    <td><a asp-action="BelgeGoruntule" asp-controller="Personeller" asp-route-belge="@harcama.DosyaYolu"  target=”_blank”>Belgeyi Görüntüle</a></td>
-                    <td>@harcama.OnayDurumu</td>         
-                    
+                    <td><a asp-action="BelgeGoruntule" asp-controller="Personeller" asp-route-belge="@harcama.DosyaYolu" target=”_blank”>Belgeyi Görüntüle</a></td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input"  type="checkbox" id="kutu" @degisiklik  @onay onchange="onChange(this,@harcama.HarcamaId)">
+                            <label class="form-check-label" for="kutu">Harcama Onayı</label>
+                        </div>
+                    </td>
+
                 </tr>
             }
         }
 
     </tbody>
 </table>
+
+@section scripts
+{
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+   
+        const kutu=document.getElementById("kutu").value;
+
+   function onChange(element,id) {
+    	console.log('Agreement changed to ' + element.checked + id);  
+        if(element.checked) {
+                  $.ajax(
+             { 
+            url:'http://localhost:46375/api/SirketYoneticisi/HarcamaOnay?id='+id+'&durum=true',
+            method:"POST",
+            success: function(data)
+            {
+             console.log(data)
+
+            },
+           
+             });  
+        }  
+        else
+        {
+            $.ajax(
+             { 
+            url:'http://localhost:46375/api/SirketYoneticisi/HarcamaOnay?id='+id+'&durum=false',
+            method:"POST",
+            success: function(data)
+            {
+             console.log(data)
+
+            },
+           
+             });  
+        }
+   }
+
+</script>
+}
+
 
 
 
