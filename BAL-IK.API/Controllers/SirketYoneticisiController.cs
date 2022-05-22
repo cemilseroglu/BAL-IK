@@ -37,6 +37,11 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.HarcamalariGetir(guid);
         }
+        [HttpPost("HarcamaOnay")]
+        public string HarcamaOnayi(int id,bool durum)
+        {
+            return _sService.HarcamaOnayla(id, durum);
+        }
 
 
     }

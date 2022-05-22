@@ -17,6 +17,15 @@ namespace BAL_IK.UI.ServislerUI
             return response.Data;
         }
 
+        public string HarcamaOnayla(int id, bool durum)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/HarcamaOnay", Method.POST, DataFormat.Json).AddParameter("id", id).AddParameter("durum",durum);
+
+            var response = Globals.ApiClient.Execute<string>(request);
+
+            return response.Data;
+        }
+
         public SirketYoneticisiIslemleriResponse.SirketYoneticisiResponse SirketYoneticisiGetir(string guid)
         {
             var request = new RestRequest("api/SirketYoneticisi/SirketYoneticisiGetir", Method.GET, DataFormat.Json).AddParameter("guid",guid);

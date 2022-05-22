@@ -58,7 +58,7 @@ namespace BAL_IK.Data.Servisler
                 yeniSirketYoneticisi.Soyad = req.Soyad;
                 _db.Add(yeniSirketYoneticisi);
                 _db.SaveChanges();
-                resp.Mesaj = Tools.MailGonder(yeniSirketYoneticisi.Eposta, yeniSirketYoneticisi.Guid.ToString());
+                resp.Mesaj = Tools.MailGonder(yeniSirketYoneticisi.Eposta, "BAL-IK Kayıt", $"<h1><a href='http://localhost:47578/Login/Aktivasyon?guid={yeniSirketYoneticisi.Guid}'>Hesabınızı Aktif Etmek İçin Lütfen Tıklayın<a></h1>");
                 resp.BasariliMi = true;
                 return resp;
 

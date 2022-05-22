@@ -4,14 +4,16 @@ using BAL_IK.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BAL_IK.Data.Migrations
 {
     [DbContext(typeof(BAL_IKContext))]
-    partial class BAL_IKContextModelSnapshot : ModelSnapshot
+    [Migration("20220522102646_maasbilgisi")]
+    partial class maasbilgisi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,14 +120,14 @@ namespace BAL_IK.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AlacagiTarih")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("MaasTutari")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("VerilisTarihi")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("MaasId");
 
@@ -221,9 +223,6 @@ namespace BAL_IK.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<decimal>("TemelMaasBilgisi")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("VardiyaId")
                         .HasColumnType("int");
@@ -412,7 +411,7 @@ namespace BAL_IK.Data.Migrations
                             Ad = "BALIK",
                             AktifMi = true,
                             Cinsiyet = 0,
-                            DogumTarihi = new DateTime(2022, 5, 22, 13, 37, 23, 88, DateTimeKind.Local).AddTicks(9405),
+                            DogumTarihi = new DateTime(2022, 5, 22, 13, 26, 46, 210, DateTimeKind.Local).AddTicks(953),
                             Eposta = "admin@bal-ik.com",
                             Guid = new Guid("c96ce224-3473-4d45-93fd-56b5f1d594ac"),
                             Sifre = "123456",

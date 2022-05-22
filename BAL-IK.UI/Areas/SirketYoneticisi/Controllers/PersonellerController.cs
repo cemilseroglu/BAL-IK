@@ -17,8 +17,7 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         }
         public IActionResult Index()
         {
-            return View();
-            //TODO Şirket Yöneticisi Personel İşlemlerinin yapılacağı controller.
+            return View();            
         }
         public IActionResult HarcamalarYonetim()
         {

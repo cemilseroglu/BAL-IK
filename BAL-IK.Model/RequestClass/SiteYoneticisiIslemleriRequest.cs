@@ -25,8 +25,20 @@ namespace BAL_IK.Model.RequestClass
             public bool AktifMi { get; set; } 
             public Cinsiyet Cinsiyet { get; set; }
         }
-        
 
+        public class SiteYoneticisiGuncelle
+        {
+            public int SiteYoneticisiId { get; set; }
+            [MaxLength(50)]
+            public string Ad { get; set; }
+            [MaxLength(100)]
+            public string Soyad { get; set; }
+            public DateTime DogumTarihi { get; set; }
+            [MaxLength(250)]
+            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
+            [MaxLength(250)]
+            public string Sifre { get; set; }
+        }
     }
 
     
