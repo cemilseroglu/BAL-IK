@@ -1,0 +1,75 @@
+﻿@using static BAL_IK.Model.ResponseClass.SiteYoneticisiIslemleriResponse
+@model SiteYoneticisiResp
+@{
+
+    ViewData["Title"] = "Profil";
+    Layout = "~/Areas/SiteYoneticisi/Views/Shared/_LayoutSiteYoneticisi.cshtml";
+}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Sayfalar</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Profil</li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Profil</h6>
+            </nav>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                    <div class="input-group input-group-outline">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid px-2 px-md-4">
+            <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+                <span class="mask  bg-gradient-primary  opacity-6"></span>
+            </div>
+            <div class="card card-body mx-3 mx-md-4 mt-n6">
+                <div class="row gx-4 mb-2">
+                    <div class="col-auto">
+                        <div class="avatar avatar-xl position-relative">
+                            <img src="~/img/10.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        </div>
+                    </div>
+                    <div class="col-auto my-auto">
+                        <div class="h-100">
+                            <h5 class="mb-1">
+                                BAL-IK Admin
+                            </h5>
+                            <p class="mb-0 font-weight-normal text-sm">
+                                BAL-IK / Site Yöneticisi
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-12 col-xl-4">
+                            <p class="text-dark">Profil bilgileri</p>
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="SiteYoneticisiId" />
+                        <div class="m-2 text-black text-start">
+                            <label asp-for="Eposta">Email</label>
+                            <input asp-for="Eposta" type="text" class="form-control bg-dark text-white" value="@Model.Eposta" readonly/>
+                            <span asp-validation-for="Eposta" class="text-danger"></span>
+                            <label asp-for="Ad">Ad</label>
+                            <input asp-for="Ad" type="text" class="form-control bg-dark text-white" value="@Model.Ad" readonly />
+                            <span asp-validation-for="Ad" class="text-danger"></span>
+                            <label asp-for="Soyad">Soyad</label>
+                            <input asp-for="Soyad" type="text" class="form-control bg-dark text-white" value="@Model.Soyad" readonly />
+                            <span asp-validation-for="Soyad" class="text-danger"></span>
+                            <label asp-for="DogumTarihi">Kuruluş Tarihi</label>
+                            <input asp-for="DogumTarihi" type="date" class="form-control bg-dark text-white" placeholder="@Model.DogumTarihi.ToShortDateString()" readonly/>
+                            <span asp-validation-for="DogumTarihi" class="text-danger"></span>
+                        </div>
+                           <button type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("Duzenle", "Home")'"  >Profil Düzenle</button>
+                    </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>

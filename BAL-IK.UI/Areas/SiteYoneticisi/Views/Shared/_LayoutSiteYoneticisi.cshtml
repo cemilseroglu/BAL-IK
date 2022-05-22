@@ -5,8 +5,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="apple-touch-icon" sizes="76x76" href="../SirketYoneticisi/img/apple-icon.png">
-<link rel="icon" type="image/png" href="../SirketYoneticisi/img/favicon.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../SiteYoneticisi/img/apple-icon.png">
+<link rel="icon" type="image/png" href="../SiteYoneticisi/img/favicon.png">
 <title>
     Material Dashboard 2 by Creative Tim
   </title>
@@ -34,14 +34,14 @@
 
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
-<link href="../SirketYoneticisi/css/nucleo-icons.css" rel="stylesheet" />
-<link href="../SirketYoneticisi/css/nucleo-svg.css" rel="stylesheet" />
+<link href="~/SiteYoneticisi/css/nucleo-icons.css" rel="stylesheet" />
+<link href="~/SiteYoneticisi/css/nucleo-svg.css" rel="stylesheet" />
 
 <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-<link id="pagestyle" href="../SirketYoneticisi/css/material-dashboard.min.css?v=3.0.2" rel="stylesheet" />
+<link id="pagestyle" href="~/SiteYoneticisi/css/material-dashboard.min.css?v=3.0.2" rel="stylesheet" />
 
 <style>
     .async-hide {
@@ -107,17 +107,20 @@
   </script>
 
 </head>
-</aside>
- <partial name="PartialViews/NavPartial"/>
+
+
+<body class="g-sidenav-show  bg-gray-200">
+
  <div class="container">
+      <partial name="PartialViews/NavPartial"/>
      @RenderBody()
  </div>
  
-<script src="../SirketYoneticisi/js/core/popper.min.js"></script>
-<script src="../SirketYoneticisi/js/core/bootstrap.min.js"></script>
-<script src="../SirketYoneticisi/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="../SirketYoneticisi/js/plugins/smooth-scrollbar.min.js"></script>
-<script src="../SirketYoneticisi/js/plugins/chartjs.min.js"></script>
+<script src="../SiteYoneticisi/js/core/popper.min.js"></script>
+<script src="../SiteYoneticisi/js/core/bootstrap.min.js"></script>
+<script src="../SiteYoneticisi/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../SiteYoneticisi/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="../SiteYoneticisi/js/plugins/chartjs.min.js"></script>
 <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -377,4 +380,7 @@
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-<script src="../SirketYoneticisi/js/material-dashboard.min.js?v=3.0.2"></script>
+<script src="../SiteYoneticisi/js/material-dashboard.min.js?v=3.0.2"></script>
+
+</body>
+</html>
