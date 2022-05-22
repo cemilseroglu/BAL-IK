@@ -1,7 +1,9 @@
 ﻿using BAL_IK.Data.Interfaceler.SirketYoneticisi;
 using BAL_IK.UI.Filters;
+using BAL_IK.UI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static BAL_IK.Model.RequestClass.SirketYoneticisiIslemleriRequest;
 
 namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
 {
@@ -17,15 +19,10 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         }
         public IActionResult Index()
         {
-            return View();            
+            return View();
         }
         public IActionResult HarcamalarYonetim()
         {
-            //TODO HARCAMALAR
-            //1. Harcamalar Listelenecek. Harcamalar Getir API/Harcamalara ulaşma şekli ŞirkeyYöneticisi>Şirket>Personeller>(Tamamladı)
-            //2. Harcama onaylama API yazılacak Onaylandığı zaman ait olduğu zamanın personelin maaş bilgisine eklenecek.(Maaş kısmının oluşturulması lazım tamamlanabilmesi için)
-           
-
             var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
             var response = _syServis.HarcamalariGetir(sirketYoneticisiGuid);
             return View(response);
@@ -34,6 +31,25 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         {
             ViewBag.belge = belge;
             return View();
+        }
+        public IActionResult ZimmetYonetim()
+        {
+            var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
+            ZimmetSirketYoneticisiViewModel wmZimmet =new ZimmetSirketYoneticisiViewModel();
+            wmZimmet.Personeller = _syServis.PersonelleriGetir().Personeller;
+            wmZimmet.ZimmetTurleri=_syServis.ZimmetTurleriniGetir().ZimmetTurleri;
+            wmZimmet.Zimmetler = _syServis.ZimmetleriGetir(sirketYoneticisiGuid).Zimmetler;
+            
+            return View(wmZimmet);
+        }
+        [HttpPost]
+        public IActionResult ZimmetYonetim(ZimmetSirketYoneticisiViewModel wmZimmet)
+        {
+            ZimmetEkleRequest req = new ZimmetEkleRequest();
+            req.PersonelId = wmZimmet.PersonelId;
+            req.ZimmetTuruId = wmZimmet.ZimmetTurId;
+            var response = _syServis.ZimmetEkle(req);
+            return RedirectToAction("ZimmetYonetim");
         }
     }
 }
