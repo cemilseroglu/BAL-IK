@@ -11,19 +11,19 @@
     <form method="post" asp-action=Index class="text-start" enctype="multipart/form-data">
         <div class="input-group input-group-outline my-3">
             <label class="form-label">Şirket Adı</label>
-            <input required asp-for="SirketAdi" class="form-control">
+            <input id="kutu" required asp-for="SirketAdi" class="form-control">
         </div>
         <div class="input-group input-group-outline mb-3">
             <label class="form-label">Şirket Email</label>
-            <input required asp-for="SirketEmail" type="email" class="form-control">
+            <input id="kutu1" required asp-for="SirketEmail" type="email" class="form-control">
         </div>
         <div class="input-group input-group-outline mb-3">
             <label class="form-label">Şirket Adresi</label>
-            <input required asp-for="SirketAdresi" class="form-control">
+            <input id="kutu2" required asp-for="SirketAdresi" class="form-control">
         </div>
         <div class="input-group input-group-outline mb-3">
             <label class="form-label">Şirket Telefonu</label>
-            <input required asp-for="SirketTelefonu" type="tel" class="form-control">
+            <input id="kutu3" required asp-for="SirketTelefonu" type="tel" class="form-control">
         </div>
         <div class="input-group input-group-outline mb-3">
             <label>Şirket Logosu (Opsiyonel)</label><br />
@@ -48,3 +48,12 @@ else
     <br />
     <a asp-action=Index asp-controller=Home>Ana Sayfaya Dön.</a>
 }
+
+<script>
+                       function Temizle(){
+                        document.getElementById('kutu').value="";
+                        document.getElementById('kutu1').value="";
+                        document.getElementById('kutu2').value="";
+                        document.getElementById('kutu3').value="";
+                    }
+</script>

@@ -1,4 +1,5 @@
 using BAL_IK.Data.Interfaceler.Personeller;
+using BAL_IK.Model.ResponseClass;
 using BAL_IK.UI.Filters;
 using BAL_IK.UI.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest;
+using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse;
 
 namespace BAL_IK.UI.Areas.Personel.Controllers
 {   
@@ -16,6 +18,7 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
 
         private readonly IPersonellerServis _personelService;
         private readonly IWebHostEnvironment _env;
+     
 
         public PersonelController(IPersonellerServis personelService , IWebHostEnvironment env)
         {
@@ -82,15 +85,21 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         }
         public IActionResult Harcamalar()
         {
+            HarcamaListelemeResponse harcamaListesi = new HarcamaListelemeResponse();
+            harcamaListesi = _personelService.HarcamalarýGetir();
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);
             HarcamaViewModel harcama = new HarcamaViewModel();
-          harcama.PersonelId = response.PersonelId;
+            harcama.PersonelId = response.PersonelId;
+            var resp = _personelService.HarcamalarýGetir();
+            harcama.HarcamaListele = resp.HarcamaListele;
+         
             return View(harcama);
         }
         [HttpPost]
         public IActionResult Harcamalar(HarcamaViewModel harcama)
         {
+            var harcamaListesi = _personelService.HarcamalarýGetir();
             HarcamaEkle harcamaekle = new HarcamaEkle();
             harcamaekle.PersonelId = harcama.PersonelId;
                 harcamaekle.HarcamaTutari=harcama.HarcamaTutari;
@@ -101,8 +110,11 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             }
             var response= _personelService.HarcamaEkleme(harcamaekle);
             ViewBag.Mesaj = response.Mesaj;
-            return View();
+            var resp = _personelService.HarcamalarýGetir();
+            harcama.HarcamaListele = resp.HarcamaListele;
+            return View(harcama);
         }
+        
 
     }
 }

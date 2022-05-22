@@ -14,7 +14,7 @@ namespace BAL_IK.Model.Entities
         [Required]
         public int PersonelId { get; set; }
         public Personeller Personel { get; set; }
-        public DateTime VerilisTarihi { get; set; }
+        public DateTime AlacagiTarih { get; set; }
         public decimal MaasTutari { get; set; }
     }
 }

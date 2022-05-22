@@ -20,6 +20,7 @@ namespace BAL_IK.Model.Entities
         public int YillikIzinHakki { get; set; } //WHAT CAN I DO SOMETİMES?LOOK AT THE TABELA!
         public DateTime IseBaslama { get; set; }
         public DateTime? IstenAyrilma { get; set; }
+        public decimal TemelMaasBilgisi { get; set; }
         public int SirketId { get; set; }
         public Sirket Sirket { get; set; }
         public int? DepartmanId { get; set; }

@@ -24,7 +24,9 @@ namespace BAL_IK.Data.Servisler
 
             return sifreHash;
         }
-        public static string MailGonder(string email, string guid)  //TODO : parametreler düzeltilecek.
+
+        public static string MailGonder(string email, string baslik,string icerik)
+
         {
 
             SmtpClient smtp = new SmtpClient();
@@ -39,8 +41,8 @@ namespace BAL_IK.Data.Servisler
             mail.From = new MailAddress("balik.yonetim@gmail.com", "BAL-IK Destek");
             mail.To.Add(email);
 
-            mail.Subject = "BAL-IK Kayıt";
-            mail.Body = $"<h1><a href='http://localhost:47578/Login/Aktivasyon?guid={guid}'>Hesabınızı Aktif Etmek İçin Lütfen Tıklayın<a></h1>";
+            mail.Subject = baslik;
+            mail.Body = icerik;
 
             mail.IsBodyHtml = true;
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
@@ -50,7 +52,7 @@ namespace BAL_IK.Data.Servisler
             {
                 smtp.Send(mail);
                 mail.Dispose();
-                return "Üyelik oluşturuldu mail adresinizi kontrol edin.";
+                return "Mail başarıyla gönderildi.";
             }
             catch (Exception ex)
             {
