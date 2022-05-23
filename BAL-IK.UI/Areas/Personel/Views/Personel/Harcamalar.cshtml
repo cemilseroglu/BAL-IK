@@ -56,15 +56,15 @@
                             <ul class="list-group">
                                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                                     <div class="d-flex flex-column">
-                                        <h6 class="mb-3 text-sm">Berna Dereağzı</h6>
-                                        <span class="mb-2 text-xs "> <span class="text-dark font-weight-bold ms-sm-2">HarcamaIsmi : &nbsp;<input asp-for=HarcamaIsmi type="text" class="form-control" /> </span></span>
+                                       
+                                        <span class="mb-2 text-xs "> <span class="text-dark font-weight-bold ms-sm-2">HarcamaIsmi : &nbsp;<input asp-for=HarcamaIsmi required type="text" id="textkutu" class="form-control" /> </span></span>
 
 
-                                        <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">HarcamaTutari : &nbsp;<input asp-for=HarcamaTutari type="number" class="form-control" /></span></span>
+                                        <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">HarcamaTutari : &nbsp;<input asp-for=HarcamaTutari required type="number" id="textkutu2" class="form-control" /></span></span>
                                         <input asp-for=DosyaYolu type="file" class="form-control-file justify-content-center btn btn-primary" />
                                         @*   <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">Dosya Ekle : &nbsp;</span></span>*@
                                         <div class="ms-auto text-end">
-                                            <button class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Harcama Ekle</button>
+                                            <button class="btn btn-secondary btn-lg active" role="button" onclick="TemizleText();" aria-pressed="true">Harcama Ekle</button>
                                         </div>
 
                                     </div>
@@ -99,14 +99,11 @@
                                         <div class="d-flex flex-column">
                                             <h6 class="mb-1 text-dark text-sm">@harcama.HarcamaIsmi</h6>
                                             <!-- Button trigger modal -->
-                                        <button type="button" class="btn bg-gradient-primary" id="@sayac" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a  class="btn bg-gradient-primary" onclick="Tiklanma('@harcama.DosyaYolu');"  data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 Belgeyi görüntüle
-                                            </button>
+                                            </a>
                                             <!-- Modal -->
-                                        </div>
-                                        @{
-                                            sayac = sayac + 1;
-                                        }
+                                        </div>                                       
                                     </div>
                                         <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
                                             - @harcama.HarcamaTutari
@@ -125,16 +122,11 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    @foreach (var harcama in Model.HarcamaListele.ToList())
-                                    {
-                                        <img src="~/Uploads/@harcama.DosyaYolu" />
-                                        <p>@harcama.DosyaYolu</p>
-                                        <p>enivecivoke</p>
-                                    }
+                                <div class="modal-body" id="modalinBody">
+                                 @*  Burayagelecek*@
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal" onclick="Temizle();">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -237,6 +229,29 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script src="~/Personeller/Harcamalar/js/material-dashboard.min.js?v=3.0.2"></script>
+    <script>
+        
+        function Tiklanma(parametre)
+        {
+            var modal=document.getElementById('modalinBody');
+            var img = document.createElement('img');
+            img.id="resim";
+            img.width="450";           
+            img.src = "/Uploads/"+parametre;        
+            modal.appendChild(img);
+            console.log(parametre);        
+       
+            
+        }
+        function Temizle()
+        {
+             var modal=document.getElementById('modalinBody');
+              var resim=document.getElementById('resim');
+             modal.removeChild(resim);
+        }
+
+      
+    </script>
 </body>
 
 </html>
