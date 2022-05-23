@@ -32,7 +32,6 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
             ViewBag.belge = belge;
             return View();
         }
-
         public IActionResult ZimmetYonetim()
         {
             var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
@@ -52,6 +51,5 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
             var response = _syServis.ZimmetEkle(req);
             return RedirectToAction("ZimmetYonetim");
         }
-
     }
 }
