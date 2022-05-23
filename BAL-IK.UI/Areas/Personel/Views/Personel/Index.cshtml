@@ -36,27 +36,14 @@
                             <i class="fa fa-ellipsis-v text-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                         </a>
                         <!-- Modal -->
-                          <div class="modal" tabindex="-1" id="exampleModal">
-                            <div class="modal-dialog">
-                            <div class="modal-content" >
-                            <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            Buraya izin içeriği gelecek
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                            </div>
-                            </div>
-                            </div>                       
+
                     </div>
                     <p class="text-sm ">Evlilik İzni</p>
                 </div>
+
             </div>
         </div>
+         
         <div class="col-lg-4 col-md-6 mt-4 mb-4">
             <div class="card z-index-2  ">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
@@ -99,7 +86,7 @@
                                         <ul>
                                             @for (var i = 0; i < 4; i++)
                                             {
-                                                <li>@Model.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @Model.ResmiTatiller[i].gun <br /></li>
+                                                    <li>@Model.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @Model.ResmiTatiller[i].gun <br /></li>
                                             }
                                         </ul>
                                     </tr>
@@ -489,6 +476,22 @@
         </div>
     </footer>
 </main>
+<div class="modal" tabindex="-1" id="exampleModal">
+                            <div class="modal-dialog">
+                            <div class="modal-content" >
+                            <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            Buraya izin içeriği gelecek
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                            </div>
+                            </div>
+                            </div>             
 <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
         <i class="material-icons py-2">settings</i>

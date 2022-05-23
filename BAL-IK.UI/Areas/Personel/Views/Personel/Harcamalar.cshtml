@@ -90,31 +90,32 @@
                     @foreach (var harcama in Model.HarcamaListele.ToList())
                     {
 
-                        <div class="card-body pt-4 p-3 ">
-                            <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Personel</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                    <div class="d-flex align-items-center">
-                                        <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">expand_more</i></button>
-                                        <div class="d-flex flex-column">
-                                            <h6 class="mb-1 text-dark text-sm">@harcama.HarcamaIsmi</h6>
-                                            <!-- Button trigger modal -->
-                                        <button type="button" class="btn bg-gradient-primary" id="@sayac" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                Belgeyi görüntüle
-                                            </button>
-                                            <!-- Modal -->
+                            <div class="card-body pt-4 p-3 ">
+                                <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Personel</h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                        <div class="d-flex align-items-center">
+                                            <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">expand_more</i></button>
+                                            <div class="d-flex flex-column">
+                                                <h6 class="mb-1 text-dark text-sm">@harcama.HarcamaIsmi</h6>
+                                                <!-- Button trigger modal -->
+                                       @* <button type="button" class="btn bg-gradient-primary" id="@sayac" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    Belgeyi görüntüle
+                                                </button>*@
+                                                <a class="btn bg-gradient-primary" onclick="belgegoruntule(@harcama.DosyaYolu)">Belgeyi görüntüle</a>
+                                                <!-- Modal -->
                                         </div>
                                         @{
-                                            sayac = sayac + 1;
+                                            sayac = sayac + 1; 
                                         }
-                                    </div>
-                                        <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                                            - @harcama.HarcamaTutari
                                         </div>
-                                </li>
-                            </ul>
+                                            <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
+                                                - @harcama.HarcamaTutari
+                                            </div>
+                                    </li>
+                                </ul>
 
-                        </div>
+                            </div>
                     }
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -128,9 +129,9 @@
                                 <div class="modal-body">
                                     @foreach (var harcama in Model.HarcamaListele.ToList())
                                     {
-                                        <img src="~/Uploads/@harcama.DosyaYolu" />
-                                        <p>@harcama.DosyaYolu</p>
-                                        <p>enivecivoke</p>
+                                            <img src="~/Uploads/@harcama.DosyaYolu" />
+                                            <p>@harcama.DosyaYolu</p>
+                                            <p>enivecivoke</p>
                                     }
                                 </div>
                                 <div class="modal-footer">
