@@ -198,8 +198,8 @@ namespace BAL_IK.Data.Servisler
                 resp.BasariliMi = true;
                 resp.Mesaj = "Personel başarıyla eklendi.";
                 return resp;
-                }
-                   catch (Exception ex)
+            }
+            catch (Exception ex)
             {
 
                 resp.BasariliMi = false;
@@ -227,7 +227,7 @@ namespace BAL_IK.Data.Servisler
                 {
                     maasBilgisi.MaasTutari += harcama.HarcamaTutari;
                     Tools.MailGonder(personel.Eposta, "Harcama Onayı", $"<p>Merhaba Sayın {personel.Ad}</p><p>{harcama.HarcamaIsmi} adlı {harcama.HarcamaTutari} TL Tutarlı harcamanız, {maasBilgisi.AlacagiTarih.ToShortDateString()} zamanında alacağınız maaşınıza eklenmiştir.<br/> O tarihte alacağınız maaş tutarı: {maasBilgisi.MaasTutari} TL</p><p>İyi Günler, İyi Çalışmalar.</p>");
-                   
+
                 }
                 else
                 {
@@ -254,7 +254,7 @@ namespace BAL_IK.Data.Servisler
                 {
                     ZimmetTuruId = zimmet.ZimmetTuruId,
                     PersonelId = zimmet.PersonelId,
-                     ZimmetTarihi=DateTime.Now,
+                    ZimmetTarihi = DateTime.Now,
                 };
                 _db.Add(yeniZimmet);
                 _db.SaveChanges();
@@ -309,8 +309,9 @@ namespace BAL_IK.Data.Servisler
                 _db.SaveChanges();
                 resp.BasariliMi = true;
                 resp.Mesaj = "Başarıyla güncellendi.";
-             }
-  catch (Exception ex)
+                return resp;
+            }
+            catch (Exception ex)
             {
                 resp.Mesaj = ex.Message;
                 resp.BasariliMi = false;
@@ -453,7 +454,9 @@ namespace BAL_IK.Data.Servisler
             {
                 resp.BasariliMi = false;
                 resp.Mesaj = ex.Message;
-             }
+                return resp;
+            }
+        }
 
         public ZimmetSilResponse ZimmetSil(int id)
         {
@@ -508,16 +511,16 @@ namespace BAL_IK.Data.Servisler
                 resp.BasariliMi = true;
                 resp.Mesaj = "İzinler başarıyla eklendi.";
                 return resp;
-             }
-              catch (Exception ex)
+            }
+            catch (Exception ex)
             {
 
                 resp.BasariliMi = false;
-                resp.Mesaj = ex.Message;                
+                resp.Mesaj = ex.Message;
 
                 return resp;
             }
-          }
+        }
 
         public ZimmetGuncelleResponse ZimmetGuncelle(SirketYoneticisiIslemleriRequest.ZimmetGuncelleRequest req)
         {
@@ -537,13 +540,15 @@ namespace BAL_IK.Data.Servisler
                 Personeller personeller = _db.Personeller.Find(guncelZimmet.PersonelId);
                 Tools.MailGonder(personeller.Eposta, "Zimmet Güncellendi", $"<h4>Sayın {personeller.Ad} {personeller.Soyad}</h4><p>Şirketiniz tarafından üzerinize kayıtlı zimmet güncellemesi yapılmıştır lütfen sistemden gerekli işlemleri yapınız. </p><p>İyi günler, İyi çalışmalar</p>");
 
+
+
                 return resp;
             }
             catch (Exception ex)
             {
 
                 resp.BasariliMi = false;
-                resp.Mesaj = ex.Message;                
+                resp.Mesaj = ex.Message;
 
                 return resp;
             }
@@ -597,8 +602,8 @@ namespace BAL_IK.Data.Servisler
                 resp.Mesaj = "Başarılı";
                 resp.BasariliMi = true;
                 return resp;
-              }
-                 catch (Exception ex)
+            }
+            catch (Exception ex)
             {
 
                 resp.BasariliMi = false;

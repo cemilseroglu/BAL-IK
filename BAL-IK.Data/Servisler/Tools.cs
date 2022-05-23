@@ -26,7 +26,6 @@ namespace BAL_IK.Data.Servisler
         }
 
         public static string MailGonder(string email, string baslik,string icerik)
-
         {
 
             SmtpClient smtp = new SmtpClient();

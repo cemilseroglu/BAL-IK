@@ -24,14 +24,14 @@ namespace BAL_IK.UI.ServislerUI
 
         public string HarcamaOnayla(int id, bool durum)
         {
-            var request = new RestRequest("api/SirketYoneticisi/HarcamaOnay", Method.POST, DataFormat.Json).AddParameter("id", id).AddParameter("durum",durum);
+            var request = new RestRequest("api/SirketYoneticisi/HarcamaOnay", Method.POST, DataFormat.Json).AddParameter("id", id).AddParameter("durum", durum);
 
             var response = Globals.ApiClient.Execute<string>(request);
 
             return response.Data;
         }
 
-       
+
 
         public PersonelIslemleriResponse.IzinEkleResponse IzinEkle(PersonelIslemleriRequest.IzinEkle izinEkle)
 
@@ -86,7 +86,7 @@ namespace BAL_IK.UI.ServislerUI
             var response = Globals.ApiClient.Execute<PersonelGuncelleResponse>(request);
 
             return response.Data;
-        }   
+        }
 
         public PersonelSilResponse PersonelSil(int personelId)
         {
@@ -121,6 +121,8 @@ namespace BAL_IK.UI.ServislerUI
             var request = new RestRequest("api/SirketYoneticisi/SirketYoneticisiOlustur", Method.POST, DataFormat.Json).AddJsonBody(sy);
 
             var response = Globals.ApiClient.Execute<SirketYoneticisiEklemeResponse>(request);
+            return response.Data;
+        }
 
         public ZimmetEkleResponse ZimmetEkle(SirketYoneticisiIslemleriRequest.ZimmetEkleRequest zimmet)
         {
