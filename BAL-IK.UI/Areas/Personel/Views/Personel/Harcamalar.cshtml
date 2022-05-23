@@ -7,6 +7,7 @@
 
 
     ViewData["Title"] = "Harcamalar";
+    int sayac = 0;
 
 }
 
@@ -37,105 +38,112 @@
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-lg-8">
-                <div class="row">                                
-                    </div>                   
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-7 mt-4">
-                    <form method="post" asp-action="Harcamalar" asp-controller="Personel" class="text-start" enctype="multipart/form-data">
-                        <input asp-for=PersonelId hidden />
-
-                        <div class="card">
-                            <div class="card-header pb-0 px-3">
-                                <h6 class="mb-0">Harcama Ekle</h6>
-                            </div>
-                            <div class="card-body pt-4 p-3 input-group input-group-outline my-3" style="background-image: url('https://images.unsplash.com/photo-1549989317-6f14743af1bf?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887')">
-
-                                <ul class="list-group">
-                                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                                        <div class="d-flex flex-column">
-                                            <h6 class="mb-3 text-sm">Berna Dereağzı</h6>
-                                            <span class="mb-2 text-xs "> <span class="text-dark font-weight-bold ms-sm-2">HarcamaIsmi : &nbsp;<input asp-for=HarcamaIsmi type="text" class="form-control" /> </span></span>
-
-
-                                            <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">HarcamaTutari : &nbsp;<input asp-for=HarcamaTutari type="number" class="form-control" /></span></span>
-                                            <input asp-for=DosyaYolu type="file" class="form-control-file justify-content-center btn btn-primary" />
-                                            @*   <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">Dosya Ekle : &nbsp;</span></span>*@
-                                            <div class="ms-auto text-end">
-                                                <button class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Harcama Ekle</button>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-5 mt-4">
-                    <div class="card h-100 mb-4">
-                        <div class="card-header pb-0 px-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h6 class="mb-0">Harcamalarım</h6>
-                                </div>
-                                <div class="col-md-6 d-flex justify-content-start justify-content-md-end align-items-center">
-                                    <i class="material-icons me-2 text-lg">date_range</i>
-                                    <small>23 - 30 March 2020</small>
-                                </div>
-                            </div>
-                        </div>
-                        @foreach (var harcama in Model.HarcamaListele.ToList())
-                        {
-
-                            <div class="card-body pt-4 p-3 ">
-                                <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Personel</h6>
-                                <ul class="list-group">
-                                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">expand_more</i></button>
-                                            <div class="d-flex flex-column">
-                                                <h6 class="mb-1 text-dark text-sm">@harcama.HarcamaIsmi</h6>
-                                                <!-- Button trigger modal -->
-                                            <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    Belgeyi görüntüle
-                                                </button>
-
-                                                <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Modal title</h5>
-                                                                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                               <img src="~/Uploads/@harcama.DosyaYolu"/>
-                                                               <p>@harcama.DosyaYolu</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                                            - @harcama.HarcamaTutari
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
-
-                    </div>
+                <div class="row">
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-7 mt-4">
+                <form method="post" asp-action="Harcamalar" asp-controller="Personel" class="text-start" enctype="multipart/form-data">
+                    <input asp-for=PersonelId hidden />
+
+                    <div class="card">
+                        <div class="card-header pb-0 px-3">
+                            <h6 class="mb-0">Harcama Ekle</h6>
+                        </div>
+                        <div class="card-body pt-4 p-3 input-group input-group-outline my-3" style="background-image: url('https://images.unsplash.com/photo-1549989317-6f14743af1bf?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887')">
+
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                    <div class="d-flex flex-column">
+                                        <h6 class="mb-3 text-sm">Berna Dereağzı</h6>
+                                        <span class="mb-2 text-xs "> <span class="text-dark font-weight-bold ms-sm-2">HarcamaIsmi : &nbsp;<input asp-for=HarcamaIsmi type="text" class="form-control" /> </span></span>
+
+
+                                        <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">HarcamaTutari : &nbsp;<input asp-for=HarcamaTutari type="number" class="form-control" /></span></span>
+                                        <input asp-for=DosyaYolu type="file" class="form-control-file justify-content-center btn btn-primary" />
+                                        @*   <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">Dosya Ekle : &nbsp;</span></span>*@
+                                        <div class="ms-auto text-end">
+                                            <button class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Harcama Ekle</button>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-5 mt-4">
+                <div class="card h-100 mb-4">
+                    <div class="card-header pb-0 px-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="mb-0">Harcamalarım</h6>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-start justify-content-md-end align-items-center">
+                                <i class="material-icons me-2 text-lg">date_range</i>
+                                <small>23 - 30 March 2020</small>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var harcama in Model.HarcamaListele.ToList())
+                    {
+
+                        <div class="card-body pt-4 p-3 ">
+                            <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Personel</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">expand_more</i></button>
+                                        <div class="d-flex flex-column">
+                                            <h6 class="mb-1 text-dark text-sm">@harcama.HarcamaIsmi</h6>
+                                            <!-- Button trigger modal -->
+                                        <button type="button" class="btn bg-gradient-primary" id="@sayac" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                Belgeyi görüntüle
+                                            </button>
+                                            <!-- Modal -->
+                                        </div>
+                                        @{
+                                            sayac = sayac + 1;
+                                        }
+                                    </div>
+                                        <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
+                                            - @harcama.HarcamaTutari
+                                        </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    }
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    @foreach (var harcama in Model.HarcamaListele.ToList())
+                                    {
+                                        <img src="~/Uploads/@harcama.DosyaYolu" />
+                                        <p>@harcama.DosyaYolu</p>
+                                        <p>enivecivoke</p>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             <i class="material-icons py-2">settings</i>
