@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BAL_IK.Data.Interfaceler;
 
 namespace BAL_IK.UI
 {
@@ -39,6 +40,7 @@ namespace BAL_IK.UI
             services.AddScoped<ISiteLoginServis, SiteLoginServisUI>();
 
             services.AddScoped<IPersonellerServis, PersonelServisUI>();
+            services.AddScoped<ISiteYoneticisiService, SiteYoneticisiServisUI>();
 
             services.AddScoped<ISirketYoneticisiServis, SirketYoneticisiServisUI>();
 

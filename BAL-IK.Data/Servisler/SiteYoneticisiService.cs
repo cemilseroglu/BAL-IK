@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BAL_IK.Model.RequestClass.SiteYoneticisiIslemleriRequest;
 using static BAL_IK.Model.ResponseClass.SiteYoneticisiIslemleriResponse;
 
 namespace BAL_IK.Data.Servisler
@@ -76,5 +77,83 @@ namespace BAL_IK.Data.Servisler
         //{
         //    return _db.Sirketler.ToList();
         //}
+
+        
+
+        public SiteYoneticisiGuncelleResponse SiteYoneticisiGuncelleme(SiteYoneticisiGuncelle sy)
+        {
+            SiteYoneticisiGuncelleResponse resp = new SiteYoneticisiGuncelleResponse();
+            try
+            {
+
+                SiteYoneticisi siteyongun = _db.SiteYoneticileri.Find(sy.SiteYoneticisiId);
+                if (siteyongun == null)
+                {
+                    resp.Mesaj = "Kullanıcı Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                if (sy.Ad != null)
+                    siteyongun.Ad = sy.Ad;
+                if (siteyongun.Soyad != null)
+                    siteyongun.Soyad = sy.Soyad;
+                if (siteyongun.Eposta != null)
+                    siteyongun.Eposta = sy.Eposta;
+                if (sy.Sifre != null)
+                    siteyongun.Sifre = Tools.CreatePasswordHash(sy.Sifre);
+                siteyongun.DogumTarihi = sy.DogumTarihi.AddDays(1); // NEDEN ABİ NEDEN??? TODO: Hocaya sor...
+                _db.Update(siteyongun);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarıyla güncellendi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
+            }
+        }
+
+        public SiteYoneticisiResp SiteYoneticisiGetir(string guid)
+        {
+            SiteYoneticisiResp resp = new SiteYoneticisiResp();
+            if(string.IsNullOrEmpty(guid))
+            {
+                resp.Mesaj = "Kullanıcı bulunamadı.";
+                resp.BasariliMi= false;
+                return resp;
+            }
+            try
+            {
+                SiteYoneticisi siteyoneticisi = _db.SiteYoneticileri.FirstOrDefault(x => x.Guid.ToString() == guid);
+                if(siteyoneticisi ==null)
+                {
+                    resp.Mesaj = "Kullanıcı bulunamadı.";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                resp.SiteYoneticisiId = siteyoneticisi.SiteYoneticisiId;
+                resp.Eposta = siteyoneticisi.Eposta;
+                resp.Cinsiyet = siteyoneticisi.Cinsiyet;
+                resp.Ad = siteyoneticisi.Ad;
+                resp.Soyad = siteyoneticisi.Soyad;
+                resp.AktifMi = siteyoneticisi.AktifMi;
+                resp.DogumTarihi = siteyoneticisi.DogumTarihi;
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarılı";
+                resp.Guid = siteyoneticisi.Guid;
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                throw;
+            }
+            
+        }
     }
 }

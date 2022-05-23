@@ -10,7 +10,7 @@ using static BAL_IK.Model.RequestClass.SirketYoneticisiIslemleriRequest;
 
 namespace BAL_IK.UI.Controllers
 {
-    //[SirketYoneticisi]
+    [SirketYoneticisi]
     public class SirketController : Controller
     {
         private readonly ISirketYoneticisiServis _syServis;
@@ -61,7 +61,11 @@ namespace BAL_IK.UI.Controllers
                 sirketYoneticisi.SirketId = responseSirket.SirketId;
                 sirketYoneticisi.AktifMi = true;
                 var responseGuncel = _syServis.SirketYoneticisiGuncelle(sirketYoneticisi);
-                ViewBag.SMesaj = responseSirket.Mesaj+" Şirketinizin onaylandıktan sonra sisteme giriş yapabileceksiniz."; //TODO: Validation işlemleri
+                ViewBag.SMesaj = responseSirket.Mesaj+" Şirketinizin onaylandıktan sonra sisteme giriş yapabileceksiniz.";       
+                if(responseGuncel.BasariliMi==false)
+                {
+                    ViewBag.SMesaj = responseGuncel.Mesaj;
+                }
             }
             return View();
         }

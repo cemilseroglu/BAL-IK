@@ -118,14 +118,14 @@ namespace BAL_IK.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("AlacagiTarih")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("MaasTutari")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("VerilisTarihi")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("MaasId");
 
@@ -221,6 +221,9 @@ namespace BAL_IK.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("TemelMaasBilgisi")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("VardiyaId")
                         .HasColumnType("int");
@@ -409,7 +412,7 @@ namespace BAL_IK.Data.Migrations
                             Ad = "BALIK",
                             AktifMi = true,
                             Cinsiyet = 0,
-                            DogumTarihi = new DateTime(2022, 5, 20, 15, 42, 27, 993, DateTimeKind.Local).AddTicks(1576),
+                            DogumTarihi = new DateTime(2022, 5, 22, 14, 34, 14, 2, DateTimeKind.Local).AddTicks(7759),
                             Eposta = "admin@bal-ik.com",
                             Guid = new Guid("c96ce224-3473-4d45-93fd-56b5f1d594ac"),
                             Sifre = "123456",
@@ -503,7 +506,7 @@ namespace BAL_IK.Data.Migrations
                     b.Property<DateTime>("ZimmetTarihi")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ZimmetTeslimTarihi")
+                    b.Property<DateTime?>("ZimmetTeslimTarihi")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ZimmetTuruId")

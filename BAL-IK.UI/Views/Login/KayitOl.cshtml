@@ -50,22 +50,22 @@
                                     <form method=post>
                                         <div class="input-group input-group-outline mb-3">
                                             <label asp-for=Ad class="form-label"></label>
-                                            <input asp-for=Ad type="text" class="form-control">
+                                            <input id="kutu" asp-for=Ad type="text" class="form-control">
                                         </div>
                                         <div class="input-group input-group-outline mb-3">
                                             <label asp-for=Soyad class="form-label">Soyad</label>
-                                            <input asp-for=Soyad type="text" class="form-control">
+                                            <input id="kutu1" asp-for=Soyad type="text" class="form-control">
                                         </div>
                                         <div class="input-group input-group-outline mb-3">
                                             <label asp-for=Email class="form-label">Email</label>
-                                            <input asp-for=Email type="email" class="form-control">
+                                            <input id="kutu2" asp-for=Email type="email" class="form-control">
                                         </div>
                                         <div class="input-group input-group-outline mb-3">
                                             <label asp-for=Sifre class="form-label">Şifre</label>
-                                            <input asp-for=Sifre type="password" class="form-control">
+                                            <input id="kutu3" asp-for=Sifre type="password" class="form-control">
                                         </div>
                                         <div class="text-center">
-                                            <button class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Kayıt Ol!</button>
+                                            <button onclick="Temizle()" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Kayıt Ol!</button>
                                         </div>
                                     </form>
                                 </div>
@@ -95,6 +95,14 @@
           }
           Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
+        
+                    function Temizle(){
+                        document.getElementById('kutu').value="";
+                        document.getElementById('kutu1').value="";
+                        document.getElementById('kutu2').value="";
+                        document.getElementById('kutu3').value="";
+                    }
+
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

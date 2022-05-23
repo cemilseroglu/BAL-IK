@@ -13,46 +13,90 @@ namespace BAL_IK.Model.ResponseClass
     {
         public class SirketYoneticisiGuncel : BaseResponse
         {
-           
+
         }
 
-        public class SirketYoneticisiResponse :BaseResponse
+
+
+        public class SirketYoneticisiResponse : BaseResponse
         {
             public int SirketYoneticisiId { get; set; }
-            public string Ad { get; set; } 
+            public string Ad { get; set; }
             public string Soyad { get; set; }
             public DateTime DogumTarihi { get; set; }
-            public string Eposta { get; set; }       
+            public string Eposta { get; set; }
             public int? SirketId { get; set; }
-            public Guid Guid { get; set; }                   
+            public Guid Guid { get; set; }
             public bool AktifMi { get; set; }
             public Cinsiyet Cinsiyet { get; set; }
         }
-        public class HarcamalarResponse:BaseResponse
+        #region Harcamalar
+
+
+        public class HarcamalarResponse : BaseResponse
         {
             public List<HarcamaResponse> Harcamalar { get; set; }
         }
-        public class HarcamaResponse:BaseResponse
-        {           
-            public int HarcamaId { get; set; }         
+        public class HarcamaResponse : BaseResponse
+        {
+            public int HarcamaId { get; set; }
             public int PersonelId { get; set; }
             public PersonelResp Personel { get; set; } = new PersonelResp();
             public string HarcamaIsmi { get; set; }
             public decimal HarcamaTutari { get; set; }
-            public DateTime OlusturulmaZamani { get; set; } 
+            public DateTime OlusturulmaZamani { get; set; }
             public string DosyaYolu { get; set; }
-            public bool OnayDurumu { get; set; } 
-        }     
-        public class SirketYoneticisiEklemeResponse:BaseResponse
-        {
-            [MaxLength(50)]
-            public string Ad { get; set; }   //DisplayName'de buradan verilecek.
-            [MaxLength(100)]
-            public string Soyad { get; set; }
-            public DateTime DogumTarihi { get; set; }
-            [MaxLength(250)]
-            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!    
-            public Cinsiyet Cinsiyet { get; set; }
+            public bool OnayDurumu { get; set; }
         }
+        #endregion
+
+        #region Zimmetler
+        public class ZimmetEkleResponse : BaseResponse
+        {
+
+        }
+        public class ZimmetleriGetirResponse : BaseResponse
+        {
+            public List<ZimmetGetirResponse> Zimmetler { get; set; } = new List<ZimmetGetirResponse>();
+           
+        }
+        public class ZimmetGetirResponse : BaseResponse
+        {
+            public int ZimmetId { get; set; }
+            public int ZimmetTuruId { get; set; }
+            public ZimmetTurResponse ZimmetTuru { get; set; } = new ZimmetTurResponse();
+            public DateTime ZimmetTarihi { get; set; }
+            public DateTime? ZimmetTeslimTarihi { get; set; }
+            public bool TeslimEdildiMi { get; set; } = false;
+            public int PersonelId { get; set; }
+            public Durum Durumu { get; set; }
+            public string NotIcerik { get; set; }
+        }
+        public enum Durum
+        {
+            KabulEdildi, Reddedildi, Beklemede
+        }
+
+        public class ZimmetTurResponse
+        {
+            public int ZimmetTuruId { get; set; }
+            public string ZimmetTur { get; set; }
+        }
+
+        public class ZimmetTurleriResponse:BaseResponse
+        {
+            public List<ZimmetTurResponse> ZimmetTurleri { get; set; } = new List<ZimmetTurResponse>();
+        }
+
+        public class ZimmetSilResponse:BaseResponse
+        {
+
+        }
+        public class ZimmetGuncelleResponse:BaseResponse
+        {
+
+
+        }
+        #endregion
     }
 }
