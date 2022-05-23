@@ -10,7 +10,7 @@ namespace BAL_IK.Model.ResponseClass
 {
     public class PersonelIslemleriResponse
     {
-       public class PersonelEkleResponse:BaseResponse
+        public class PersonelEkleResponse : BaseResponse
         {
 
         }
@@ -18,22 +18,22 @@ namespace BAL_IK.Model.ResponseClass
         {
 
         }
-        public class PersonelListelemeResponse:BaseResponse
+        public class PersonelListelemeResponse : BaseResponse
         {
             public List<PersonelResp> PersonelListeleme { get; set; }
 
         }
-        public class HarcamaListelemeResponse:BaseResponse
+        public class HarcamaListelemeResponse : BaseResponse
         {
             public List<HarcamaListeleResponse> HarcamaListele { get; set; }
         }
-        public class PersonelResp:BaseResponse
+        public class PersonelResp : BaseResponse
         {
 
-            public Guid Guid { get; set; } 
-            public string Ad { get; set; }         
+            public Guid Guid { get; set; }
+            public string Ad { get; set; }
             public string Soyad { get; set; }
-            public DateTime DogumTarihi { get; set; }           
+            public DateTime DogumTarihi { get; set; }
             public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
             public string Sifre { get; set; }
             public string ResimUrl { get; set; }
@@ -48,11 +48,11 @@ namespace BAL_IK.Model.ResponseClass
             public Cinsiyet Cinsiyet { get; set; }
 
         }
-        public class PersonelHarcamaEkle:BaseResponse
+        public class PersonelHarcamaEkle : BaseResponse
         {
             public string DosyaYolu { get; set; }
-            public int HarcamaId { get; set; }        
-            public int PersonelId { get; set; }        
+            public int HarcamaId { get; set; }
+            public int PersonelId { get; set; }
             public string HarcamaIsmi { get; set; }
             public decimal HarcamaTutari { get; set; }
         }
@@ -63,6 +63,57 @@ namespace BAL_IK.Model.ResponseClass
             public int PersonelId { get; set; }
             public string HarcamaIsmi { get; set; }
             public decimal HarcamaTutari { get; set; }
+        }
+        public class OzlukBelgesiEkleResponse : BaseResponse
+        {
+            public int OzlukBelgesiId { get; set; }
+            public int PersonelId { get; set; }
+            public string OzlukBelgesiAdi { get; set; }
+            public string OzlukBelgesiYolu { get; set; }
+            public DateTime OlusturulmaZamani { get; set; }
+        }
+        public class OzlukBelgesiGuncelleResponse : BaseResponse
+        {
+
+        }
+        public class IzinEkleResponse : BaseResponse
+        {
+            public int IzinTurId { get; set; }
+            public string IzinTur { get; set; }
+            public int IzinSuresi { get; set; }
+            public string ReddilmeNedeni { get; set; }
+            public DateTime IzinIstemeTarihi { get; set; }
+            public DateTime OnaylanmaTarihi { get; set; }
+            public DateTime IzinBaslangicTarihi { get; set; }
+            public DateTime IzinBitisTarihi { get; set; }
+            public int PersonelId { get; set; }
+            public Personeller Personel { get; set; }
+            public int SirketYoneticisiId { get; set; }
+            public OnayDurumu OnayDurumu { get; set; }
+        }
+        
+        public class IzinListelemeResponse : BaseResponse
+        {
+            public List<IzinListeleResponse> IzinListele { get; set; } = new List<IzinListeleResponse>();
+        }
+        public class IzinListeleResponse : BaseResponse
+        {
+            public int IzinTurId { get; set; }
+            public string IzinTur { get; set; }
+            public int IzinSuresi { get; set; }
+            public string ReddilmeNedeni { get; set; }
+            public DateTime IzinIstemeTarihi { get; set; }
+            public DateTime OnaylanmaTarihi { get; set; }
+            public DateTime IzinBaslangicTarihi { get; set; }
+            public DateTime IzinBitisTarihi { get; set; }
+            public int PersonelId { get; set; }
+            public Personeller Personel { get; set; }
+            public int SirketYoneticisiId { get; set; }
+            public OnayDurumu OnayDurumu { get; set; }
+        }
+        public class PersonelSilResponse:BaseResponse
+        {
+           
         }
     }
 }

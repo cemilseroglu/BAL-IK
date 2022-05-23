@@ -95,6 +95,7 @@ namespace BAL_IK.Model.ResponseClass
         public class ZimmetGuncelleResponse:BaseResponse
         {
 
+
         }
         #endregion
     }
