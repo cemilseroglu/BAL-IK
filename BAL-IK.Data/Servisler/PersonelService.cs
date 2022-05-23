@@ -93,12 +93,16 @@ namespace BAL_IK.Data.Servisler
                 {
                     Ad = pr.Ad,
                     AktifMi = pr.AktifMi,
+                    DepartmanId = pr.DepartmanId,
                     DogumTarihi = pr.DogumTarihi,
                     Eposta = pr.Eposta,
                     IseBaslama = pr.IseBaslama,
+                    Sifre = pr.Sifre,
                     Soyad = pr.Soyad,
                     SirketId = pr.SirketId,
                     ResimUrl = pr.ResimUrl,
+                    VardiyaId = pr.VardiyaId,
+                    YillikIzinHakki = pr.YillikIzinHakki,
                     Cinsiyet = pr.Cinsiyet
                 };
                 _db.Add(personel);

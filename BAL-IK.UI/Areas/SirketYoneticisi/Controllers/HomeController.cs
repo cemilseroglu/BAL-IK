@@ -67,10 +67,6 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
             ViewBag.Mesaj = response.Mesaj;
             return View();
         }
-        public IActionResult Izinler()
-        {
-            return View();
-        }
     }
 
 
