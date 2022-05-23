@@ -36,5 +36,6 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
             ViewBag.belge = belge;
             return View();
         }
+        
     }
 }

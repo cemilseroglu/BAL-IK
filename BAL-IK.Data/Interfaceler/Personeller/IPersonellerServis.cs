@@ -17,6 +17,7 @@ namespace BAL_IK.Data.Interfaceler.Personeller
         PersonelHarcamaEkle HarcamaEkleme(HarcamaEkle pr);
         HarcamaListelemeResponse HarcamalarıGetir();
 
+
     }
 }
 

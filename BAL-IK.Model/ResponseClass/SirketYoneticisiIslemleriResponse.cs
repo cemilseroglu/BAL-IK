@@ -42,6 +42,17 @@ namespace BAL_IK.Model.ResponseClass
             public DateTime OlusturulmaZamani { get; set; } 
             public string DosyaYolu { get; set; }
             public bool OnayDurumu { get; set; } 
+        }     
+        public class SirketYoneticisiEklemeResponse:BaseResponse
+        {
+            [MaxLength(50)]
+            public string Ad { get; set; }   //DisplayName'de buradan verilecek.
+            [MaxLength(100)]
+            public string Soyad { get; set; }
+            public DateTime DogumTarihi { get; set; }
+            [MaxLength(250)]
+            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!    
+            public Cinsiyet Cinsiyet { get; set; }
         }
     }
 }
