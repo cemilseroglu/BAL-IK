@@ -185,6 +185,7 @@ namespace BAL_IK.Data.Servisler
                 {
                     maasBilgisi.MaasTutari += harcama.HarcamaTutari;
                     Tools.MailGonder(personel.Eposta, "Harcama Onayı", $"<p>Merhaba Sayın {personel.Ad}</p><p>{harcama.HarcamaIsmi} adlı {harcama.HarcamaTutari} TL Tutarlı harcamanız, {maasBilgisi.AlacagiTarih.ToShortDateString()} zamanında alacağınız maaşınıza eklenmiştir.<br/> O tarihte alacağınız maaş tutarı: {maasBilgisi.MaasTutari} TL</p><p>İyi Günler, İyi Çalışmalar.</p>");
+                   
                 }
                 else
                 {
