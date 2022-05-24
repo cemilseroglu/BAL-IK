@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse;
 using static BAL_IK.Model.ResponseClass.SirketIslemleriResponse;
 using static BAL_IK.Model.ResponseClass.SirketYoneticisiIslemleriResponse;
 
@@ -166,6 +168,46 @@ namespace BAL_IK.Data.Servisler
             }
         }
 
+
+        public SirketYoneticisiEklemeResponse SirketYoneticisiOlustur(SirketYoneticisiIslemleriRequest.SirketYoneticisiEkle sy)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PersonelIslemleriResponse.PersonelEkleResponse PersonelEklemeIslemi(PersonelIslemleriRequest.PersonelEkle personel)
+        {
+            PersonelEkleResponse resp = new PersonelEkleResponse();
+
+            try
+            {
+                Personeller newPers = new Personeller()
+                {
+                    Ad = personel.Ad,
+                    Soyad = personel.Soyad,
+                    Eposta = personel.Eposta,
+                    Sifre = Tools.CreatePasswordHash("balik1234"),
+                    AktifMi = false,
+                    Cinsiyet = personel.Cinsiyet,
+                    DogumTarihi = personel.DogumTarihi,
+                    ResimUrl = personel.ResimUrl,
+                    IseBaslama = personel.IseBaslama,
+                    SirketId = personel.SirketId
+                };
+                _db.Add(newPers);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Personel başarıyla eklendi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
+            }
+        }
+
         public string HarcamaOnayla(int id, bool durum)
         {
             try
@@ -185,7 +227,7 @@ namespace BAL_IK.Data.Servisler
                 {
                     maasBilgisi.MaasTutari += harcama.HarcamaTutari;
                     Tools.MailGonder(personel.Eposta, "Harcama Onayı", $"<p>Merhaba Sayın {personel.Ad}</p><p>{harcama.HarcamaIsmi} adlı {harcama.HarcamaTutari} TL Tutarlı harcamanız, {maasBilgisi.AlacagiTarih.ToShortDateString()} zamanında alacağınız maaşınıza eklenmiştir.<br/> O tarihte alacağınız maaş tutarı: {maasBilgisi.MaasTutari} TL</p><p>İyi Günler, İyi Çalışmalar.</p>");
-                   
+
                 }
                 else
                 {
@@ -212,7 +254,7 @@ namespace BAL_IK.Data.Servisler
                 {
                     ZimmetTuruId = zimmet.ZimmetTuruId,
                     PersonelId = zimmet.PersonelId,
-                     ZimmetTarihi=DateTime.Now,
+                    ZimmetTarihi = DateTime.Now,
                 };
                 _db.Add(yeniZimmet);
                 _db.SaveChanges();
@@ -220,6 +262,53 @@ namespace BAL_IK.Data.Servisler
                 resp.BasariliMi = true;
                 Personeller personeller = _db.Personeller.Find(zimmet.PersonelId);
                 Tools.MailGonder(personeller.Eposta, "Zimmet Atandı", $"<h4>Sayın {personeller.Ad} {personeller.Soyad}</h4><p>Şirketiniz tarafından tarafınıza zimmet ataması yapılmıştır lütfen sistemden kontrol ederek gerekli işlemlerinizi yapınız. </p><p>İyi günler, İyi çalışmalar</p>");
+
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
+            }
+        }
+        public PersonelGuncelleResponse PersonelGuncelleme(PersonelIslemleriRequest.PersonelGuncelle pr)
+        {
+            PersonelGuncelleResponse resp = new PersonelGuncelleResponse();
+
+            try
+            {
+
+                Personeller pergun = _db.Personeller.Find(pr.PersonelId);
+                if (pergun == null)
+                {
+                    resp.Mesaj = "Kullanıcı Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                if (pr.Ad != null)
+                    pergun.Ad = pr.Ad;
+                if (pr.Soyad != null)
+                    pergun.Soyad = pr.Soyad;
+                if (pr.Eposta != null)
+                    pergun.Eposta = pr.Eposta;
+                if (pr.Sifre != null)
+                    pergun.Sifre = pr.Sifre;
+                pergun.DogumTarihi = pr.DogumTarihi;
+
+
+                pergun.Cinsiyet = pr.Cinsiyet;
+                pergun.AktifMi = pr.AktifMi;
+                pergun.SirketId = pr.SirketId;
+                pergun.DepartmanId = pr.DepartmanId;
+                pergun.VardiyaId = pr.VardiyaId;
+
+
+                _db.Update(pergun);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarıyla güncellendi.";
                 return resp;
             }
             catch (Exception ex)
@@ -297,6 +386,68 @@ namespace BAL_IK.Data.Servisler
                 }
                 resp.BasariliMi = true;
                 resp.Mesaj = "Zimmet Türleri Başarıyla Getirildi.";
+
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
+            }
+        }
+
+
+        public OzlukBelgesiEkleResponse OzlukBelgesiEkle(PersonelIslemleriRequest.OzlukBelgesiEkle ozlukBelgesi)
+        {
+            OzlukBelgesiEkleResponse resp = new OzlukBelgesiEkleResponse();
+            try
+            {
+                OzlukBelgesi ozluk = new OzlukBelgesi()
+                {
+                    OzlukBelgesiAdi = ozlukBelgesi.OzlukBelgesiAdi,
+                    OzlukBelgesiYolu = ozlukBelgesi.OzlukBelgesiYolu,
+                    OlusturulmaZamani = ozlukBelgesi.OlusturulmaZamani,
+                    PersonelId = ozlukBelgesi.PersonelId,
+                    SirketYoneticisiId = ozlukBelgesi.SirketYoneticisiId
+                };
+                _db.Add(ozluk);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Özlük belgesi başarıyla eklendi.";
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
+            }
+        }
+        public OzlukBelgesiGuncelleResponse OzlukBelgesiGuncelle(PersonelIslemleriRequest.OzlukBelgesiGuncelle ozlukBelgesiGuncelle)
+        {
+            OzlukBelgesiGuncelleResponse resp = new OzlukBelgesiGuncelleResponse();
+            try
+            {
+                OzlukBelgesi ozluk = _db.OzlukBelgeleri.Find(ozlukBelgesiGuncelle.OzlukBelgesiId);
+                if (ozluk == null)
+                {
+                    resp.Mesaj = "Kullanıcı bulunamadı.";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                if (ozlukBelgesiGuncelle.OzlukBelgesiAdi != null)
+                    ozluk.OzlukBelgesiAdi = ozlukBelgesiGuncelle.OzlukBelgesiAdi;
+                if (ozlukBelgesiGuncelle.OzlukBelgesiYolu != null)
+                    ozluk.OzlukBelgesiYolu = ozlukBelgesiGuncelle.OzlukBelgesiYolu;
+                ozluk.OlusturulmaZamani = ozlukBelgesiGuncelle.OlusturulmaZamani;
+                ozluk.SirketYoneticisiId = ozlukBelgesiGuncelle.SirketYoneticisiId;
+                ozluk.PersonelId = ozlukBelgesiGuncelle.PersonelId;
+                _db.Update(ozluk);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarıyla güncellendi.";
                 return resp;
             }
             catch (Exception ex)
@@ -332,6 +483,45 @@ namespace BAL_IK.Data.Servisler
             }
         }
 
+
+        public IzinEkleResponse IzinEkle(PersonelIslemleriRequest.IzinEkle izinEkle)
+        {
+            IzinEkleResponse resp = new IzinEkleResponse();
+            try
+            {
+                Izinler izinler = new Izinler()
+                {
+                    IzinBaslangicTarihi = izinEkle.IzinBaslangicTarihi,
+                    IzinBitisTarihi = izinEkle.IzinBitisTarihi,
+                    IzinSuresi = izinEkle.IzinSuresi,
+                    IzinIstemeTarihi = izinEkle.IzinIstemeTarihi,
+                    IzinTur =
+                    {
+                        IzinTurId=izinEkle.IzinTur.IzinTurId,
+                        IzinTur=izinEkle.IzinTur.IzinTur
+                    },
+                    OnayDurumu = izinEkle.OnayDurumu,
+                    OnaylanmaTarihi = izinEkle.OnaylanmaTarihi,
+                    ReddilmeNedeni = izinEkle.ReddilmeNedeni,
+                    PersonelId = izinEkle.PersonelId,
+                    SirketYoneticisiId = izinEkle.SirketYoneticisiId
+                };
+                _db.Add(izinler);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "İzinler başarıyla eklendi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+
+                return resp;
+            }
+        }
+
         public ZimmetGuncelleResponse ZimmetGuncelle(SirketYoneticisiIslemleriRequest.ZimmetGuncelleRequest req)
         {
             ZimmetGuncelleResponse resp = new ZimmetGuncelleResponse();
@@ -349,12 +539,75 @@ namespace BAL_IK.Data.Servisler
                 resp.Mesaj = "Zimmet güncellendi";
                 Personeller personeller = _db.Personeller.Find(guncelZimmet.PersonelId);
                 Tools.MailGonder(personeller.Eposta, "Zimmet Güncellendi", $"<h4>Sayın {personeller.Ad} {personeller.Soyad}</h4><p>Şirketiniz tarafından üzerinize kayıtlı zimmet güncellemesi yapılmıştır lütfen sistemden gerekli işlemleri yapınız. </p><p>İyi günler, İyi çalışmalar</p>");
+
+
+
                 return resp;
             }
             catch (Exception ex)
             {
-                resp.Mesaj = ex.Message;
+
                 resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+
+                return resp;
+            }
+        }
+
+
+        public IzinListelemeResponse IzinListele()
+        {
+            IzinListelemeResponse izinListesi = new IzinListelemeResponse();
+            try
+            {
+                izinListesi.IzinListele = new List<IzinListeleResponse>();
+                foreach (var izinler in _db.Izinler.Include(x => x.Personel).ToList())
+                {
+                    IzinListeleResponse izin = new IzinListeleResponse()
+                    {
+                        PersonelId = izinler.PersonelId,
+                        IzinBaslangicTarihi = izinler.IzinBaslangicTarihi,
+                        IzinBitisTarihi = izinler.IzinBitisTarihi,
+                        IzinIstemeTarihi = izinler.IzinIstemeTarihi,
+                        OnayDurumu = izinler.OnayDurumu,
+                        IzinSuresi = izinler.IzinSuresi,
+                        OnaylanmaTarihi = izinler.OnaylanmaTarihi,
+                        IzinTurId = izinler.IzinTurId,
+                        ReddilmeNedeni = izinler.ReddilmeNedeni
+                    };
+                    izin.BasariliMi = true;
+                    izinListesi.IzinListele.Add(izin);
+                }
+                izinListesi.Mesaj = "Başarılı";
+                izinListesi.BasariliMi = true;
+                return izinListesi;
+            }
+            catch (Exception ex)
+            {
+                izinListesi.Mesaj = ex.Message;
+                izinListesi.BasariliMi = false;
+                return izinListesi;
+            }
+        }
+
+        public PersonelSilResponse PersonelSil(int personelId)
+        {
+            PersonelSilResponse resp = new PersonelSilResponse();
+            try
+            {
+                Personeller pers = _db.Personeller.Find(personelId);
+                pers.AktifMi = false;
+                _db.Update(pers);
+                _db.SaveChanges();
+                resp.Mesaj = "Başarılı";
+                resp.BasariliMi = true;
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
                 return resp;
             }
         }
@@ -388,6 +641,7 @@ namespace BAL_IK.Data.Servisler
                 }
                 resp.BasariliMi = true;
                 resp.Mesaj = "Personeller getirildi";
+
                 return resp;
             }
             catch (Exception ex)

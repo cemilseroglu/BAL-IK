@@ -13,7 +13,7 @@ namespace BAL_IK.Model.Entities
         public int IzinId { get; set; } 
         [Required]
         public int IzinTurId { get; set; }
-        public IzinTuru IzinTur { get; set; }
+        public IzinTuru IzinTur { get; set; } = new IzinTuru();
         [Required]
         public int IzinSuresi { get; set; }        
         public string ReddilmeNedeni { get; set; }

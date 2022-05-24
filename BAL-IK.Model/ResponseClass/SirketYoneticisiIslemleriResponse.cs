@@ -11,12 +11,13 @@ namespace BAL_IK.Model.ResponseClass
 {
     public class SirketYoneticisiIslemleriResponse : BaseResponse
     {
+        public class SirketYoneticisiEklemeResponse : BaseResponse
+        {
+        }
         public class SirketYoneticisiGuncel : BaseResponse
         {
 
         }
-
-
 
         public class SirketYoneticisiResponse : BaseResponse
         {
@@ -58,7 +59,7 @@ namespace BAL_IK.Model.ResponseClass
         public class ZimmetleriGetirResponse : BaseResponse
         {
             public List<ZimmetGetirResponse> Zimmetler { get; set; } = new List<ZimmetGetirResponse>();
-           
+
         }
         public class ZimmetGetirResponse : BaseResponse
         {
@@ -83,17 +84,18 @@ namespace BAL_IK.Model.ResponseClass
             public string ZimmetTur { get; set; }
         }
 
-        public class ZimmetTurleriResponse:BaseResponse
+        public class ZimmetTurleriResponse : BaseResponse
         {
             public List<ZimmetTurResponse> ZimmetTurleri { get; set; } = new List<ZimmetTurResponse>();
         }
 
-        public class ZimmetSilResponse:BaseResponse
+        public class ZimmetSilResponse : BaseResponse
         {
 
         }
-        public class ZimmetGuncelleResponse:BaseResponse
+        public class ZimmetGuncelleResponse : BaseResponse
         {
+
 
         }
         #endregion

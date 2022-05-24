@@ -16,8 +16,13 @@ namespace BAL_IK.Data.Interfaceler.Personeller
         PersonelResp PersonelGetir(string guid);
         PersonelHarcamaEkle HarcamaEkleme(HarcamaEkle pr);
         HarcamaListelemeResponse HarcamalarıGetir();
+
         IzinlerResponse IzinleriGetir(string guid);
        
+
+
+
+
     }
 }
 
