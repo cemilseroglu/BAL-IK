@@ -22,6 +22,15 @@ namespace BAL_IK.UI.ServislerUI
             return response.Data;
         }
 
+       
+        public IzinlerResponse IzinleriGetir(string guid)
+        {
+            var request = new RestRequest("api/Personel/IzinleriGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+            var response = Globals.ApiClient.Execute<IzinlerResponse>(request);
+
+            return response.Data;
+        }
+      
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
         {
             var request = new RestRequest("api/Personel/PersonelEkleme",Method.POST,DataFormat.Json).AddJsonBody(pr);

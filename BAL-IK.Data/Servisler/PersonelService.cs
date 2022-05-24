@@ -30,9 +30,9 @@ namespace BAL_IK.Data.Servisler
             try
             {
                 Harcamalar harcama = new Harcamalar()
-                {                  
+                {
                     HarcamaIsmi = pr.HarcamaIsmi,
-                    HarcamaTutari = pr.HarcamaTutari,                  
+                    HarcamaTutari = pr.HarcamaTutari,
                     PersonelId = pr.PersonelId,
                     DosyaYolu = pr.DosyaYolu
                 };
@@ -57,7 +57,7 @@ namespace BAL_IK.Data.Servisler
             try
             {
                 harcamaList.HarcamaListele = new List<HarcamaListeleResponse>();
-                foreach (var harcamalar in _db.Harcamalar.Include(x=>x.Personel).ToList())
+                foreach (var harcamalar in _db.Harcamalar.Include(x => x.Personel).ToList())
                 {
                     HarcamaListeleResponse harcama = new HarcamaListeleResponse()
                     {
@@ -82,6 +82,53 @@ namespace BAL_IK.Data.Servisler
                 harcamaList.BasariliMi = false;
                 return harcamaList;
             }
+        }
+
+        public IzinlerResponse IzinleriGetir(string guid)
+        {
+            IzinlerResponse resp = new IzinlerResponse();
+            try
+            {
+                Personeller personel = _db.Personeller.Include(x => x.Izinler).FirstOrDefault(x => x.Guid.ToString() == guid);
+                List<Izinler> izinlerList = _db.Izinler.Include(x=>x.IzinTur).Where(x=>x.PersonelId==personel.PersonelId).ToList();
+                foreach (var izin in izinlerList)
+                {
+                    IzinResponse gidecekizin = new IzinResponse()
+                    {
+                        IzinId = izin.IzinId,
+                        IzinBaslangicTarihi = izin.IzinBaslangicTarihi,
+                        IzinBitisTarihi = izin.IzinBitisTarihi,
+                        IzinIstemeTarihi = izin.IzinIstemeTarihi,
+                        IzinSuresi = izin.IzinSuresi,
+                        IzinTur = { IzinTurId = izin.IzinTur.IzinTurId, IzinTur = izin.IzinTur.IzinTur },
+                        IzinTurId = izin.IzinTurId,
+                        OnayDurumu = izin.OnayDurumu,
+                        OnaylanmaTarihi = izin.OnaylanmaTarihi,
+                        PersonelId = izin.PersonelId,
+                        ReddilmeNedeni = izin.ReddilmeNedeni,
+                        SirketYoneticisiId = izin.SirketYoneticisiId,
+
+
+                    };
+                    resp.Izinler.Add(gidecekizin);
+                }
+                resp.BasariliMi = true;
+                resp.Mesaj = "İzinler başarıyla getirildi.";
+                return(resp);
+            }
+
+            catch (Exception ex)
+            {
+                resp.Mesaj = "Izınler getirirken hata oluştu" + ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+
+        }
+
+        public IzinlerResponse IzinleriGetir()
+        {
+            throw new NotImplementedException();
         }
 
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
@@ -125,7 +172,7 @@ namespace BAL_IK.Data.Servisler
         public PersonelResp PersonelGetir(string guid)
         {
             PersonelResp resp = new PersonelResp();
-            if(string.IsNullOrEmpty(guid))
+            if (string.IsNullOrEmpty(guid))
             {
                 resp.Mesaj = "Parametre boş olamaz.";
                 resp.BasariliMi = false;
@@ -135,28 +182,28 @@ namespace BAL_IK.Data.Servisler
             try
             {
                 Personeller personeller = _db.Personeller.FirstOrDefault(x => x.Guid.ToString() == guid);
-                if(personeller == null)
+                if (personeller == null)
                 {
                     resp.Mesaj = "Kullanıcı Bulunamadı";
-                    resp.BasariliMi= false;
+                    resp.BasariliMi = false;
                     return resp;
                 }
                 resp.PersonelId = personeller.PersonelId;
                 resp.Eposta = personeller.Eposta;
-                resp.Cinsiyet=personeller.Cinsiyet;
-                resp.Ad=personeller.Ad;
-                resp.Soyad=personeller.Soyad;
-                resp.AktifMi=personeller.AktifMi;
-                resp.DepartmanId=personeller.DepartmanId;
+                resp.Cinsiyet = personeller.Cinsiyet;
+                resp.Ad = personeller.Ad;
+                resp.Soyad = personeller.Soyad;
+                resp.AktifMi = personeller.AktifMi;
+                resp.DepartmanId = personeller.DepartmanId;
                 resp.DogumTarihi = personeller.DogumTarihi;
-                resp.SirketId=personeller.SirketId; 
-                resp.VardiyaId=personeller.VardiyaId;
+                resp.SirketId = personeller.SirketId;
+                resp.VardiyaId = personeller.VardiyaId;
                 resp.YillikIzinHakki = personeller.YillikIzinHakki;
-                resp.IseBaslama=personeller.IseBaslama;
+                resp.IseBaslama = personeller.IseBaslama;
                 resp.IstenAyrilma = personeller.IstenAyrilma;
                 resp.BasariliMi = true;
                 resp.Mesaj = "Başarılı";
-                resp.Guid=personeller.Guid; 
+                resp.Guid = personeller.Guid;
                 return resp;
             }
             catch (Exception ex)

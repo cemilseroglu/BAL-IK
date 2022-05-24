@@ -56,5 +56,6 @@ namespace BAL_IK.Model.RequestClass
             public decimal HarcamaTutari { get; set; }
         }
 
+
     }
 }

@@ -17,7 +17,7 @@ namespace BAL_IK.API.Controllers
             _pService = pService;
         }
         [HttpPost("PersonelEkleme")]
-        public  PersonelEkleResponse PersonelEkleme(PersonelEkle pr)
+        public PersonelEkleResponse PersonelEkleme(PersonelEkle pr)
         {
             return _pService.PersonelEkleme(pr);
         }
@@ -32,7 +32,7 @@ namespace BAL_IK.API.Controllers
             return _pService.PersonelGetir(guid);
         }
         [HttpPost("HarcamaEkleme")]
-        public  PersonelHarcamaEkle HarcamaEkleme(HarcamaEkle pr)
+        public PersonelHarcamaEkle HarcamaEkleme(HarcamaEkle pr)
         {
             return _pService.HarcamaEkleme(pr);
         }
@@ -41,5 +41,11 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.HarcamalarıGetir();
         }
+        [HttpGet("IzinleriGetir")]
+        public IzinlerResponse IzinleriGetir(string guid)
+        {
+            return _pService.IzinleriGetir(guid);
+        }
+
     }
 }
