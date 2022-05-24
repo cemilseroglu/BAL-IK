@@ -24,7 +24,7 @@ namespace BAL_IK.API.Controllers
         }
         [HttpPost("KayitIslemi")]
         public KayitKullaniciResp KayitIslemi(KayitKullaniciReq req)
-        {            
+        {
             return _logServis.KayitIslemi(req);
         }
     }

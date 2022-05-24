@@ -76,7 +76,11 @@ namespace BAL_IK.Model.ResponseClass
         {
 
         }
-        public class IzinEkleResponse : BaseResponse
+        public class OzlukBelgesiSilResponse : BaseResponse
+        {
+
+        }
+        public class EkleizinResponse : BaseResponse
         {
             public int IzinTurId { get; set; }
             public string IzinTur { get; set; }
@@ -86,13 +90,12 @@ namespace BAL_IK.Model.ResponseClass
             public DateTime OnaylanmaTarihi { get; set; }
             public DateTime IzinBaslangicTarihi { get; set; }
             public DateTime IzinBitisTarihi { get; set; }
-            public int PersonelId { get; set; }
-            public Personeller Personel { get; set; }
+            public int PersonelId { get; set; }           
             public int SirketYoneticisiId { get; set; }
             public OnayDurumu OnayDurumu { get; set; }
         }
         
-        public class IzinListelemeResponse : BaseResponse
+        public class ListelemeizinResponse : BaseResponse
         {
             public List<IzinListeleResponse> IzinListele { get; set; } = new List<IzinListeleResponse>();
         }
@@ -107,7 +110,7 @@ namespace BAL_IK.Model.ResponseClass
             public DateTime IzinBaslangicTarihi { get; set; }
             public DateTime IzinBitisTarihi { get; set; }
             public int PersonelId { get; set; }
-            public Personeller Personel { get; set; }
+            //public Personeller Personel { get; set; }
             public int SirketYoneticisiId { get; set; }
             public OnayDurumu OnayDurumu { get; set; }
         }

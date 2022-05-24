@@ -27,7 +27,7 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.SiteYoneticileriniListele();
         }
-        
+
 
 
         [HttpPost("SirketYoneticisiEkle")]
