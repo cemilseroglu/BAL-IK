@@ -48,6 +48,7 @@ namespace BAL_IK.Model.RequestClass
             public string HarcamaIsmi { get; set; }
             public decimal HarcamaTutari { get; set; }
         }
+
         public class OzlukBelgesiEkle
         {
             public int PersonelId { get; set; }
@@ -88,5 +89,6 @@ namespace BAL_IK.Model.RequestClass
             public int PersonelId { get; set; }
             public bool AktifMi { get; set; }
         }
+
     }
 }

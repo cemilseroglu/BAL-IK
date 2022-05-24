@@ -64,6 +64,37 @@ namespace BAL_IK.Model.ResponseClass
             public string HarcamaIsmi { get; set; }
             public decimal HarcamaTutari { get; set; }
         }
+
+        public class IzinResponse:BaseResponse
+        {
+
+        
+            public int IzinId { get; set; }       
+            public int IzinTurId { get; set; }
+            public IzinTurler IzinTur { get; set; } = new IzinTurler();       
+            public int IzinSuresi { get; set; }       
+            public string ReddilmeNedeni { get; set; }            
+            public DateTime IzinIstemeTarihi { get; set; }    
+            public DateTime? OnaylanmaTarihi { get; set; }     
+            public DateTime IzinBaslangicTarihi { get; set; }       
+            public DateTime IzinBitisTarihi { get; set; }         
+            public int PersonelId { get; set; }
+           
+            public int? SirketYoneticisiId { get; set; }
+           
+            public OnayDurumu OnayDurumu { get; set; }
+
+        }
+        public class IzinTurler:BaseResponse
+        {
+            public int IzinTurId { get; set; }            
+            public string IzinTur { get; set; }          
+        }
+        public class IzinlerResponse:BaseResponse
+        {
+            public List<IzinResponse> Izinler { get; set; } = new List<IzinResponse>();
+        }
+
         public class OzlukBelgesiEkleResponse : BaseResponse
         {
             public int OzlukBelgesiId { get; set; }
@@ -114,6 +145,7 @@ namespace BAL_IK.Model.ResponseClass
         public class PersonelSilResponse:BaseResponse
         {
            
+
         }
     }
 }

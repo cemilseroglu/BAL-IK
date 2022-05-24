@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest;
 using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse;
+using static BAL_IK.UI.ViewModels.IzinlerViewModel;
 
 namespace BAL_IK.UI.Areas.Personel.Controllers
 {
@@ -31,30 +32,44 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             this._env = env;
         }
         [HttpPost]
-        public IActionResult Index(string guid)
+        public IActionResult Index(IzinlerViewModel izin)
         {
-
+            var guid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(guid);
            
             if (response == null)
                 return BadRequest();
             if (response.BasariliMi == false)
-            {
-                var personelGuid = HttpContext.Session.GetString("personel");
+            {                
                 ViewBag.Mesaj = response.Mesaj;
-                return View(guid);
+                return View();
             }
             return View();
         }
 
         public async Task<IActionResult> Index()
         {
-            var resmitatiller = await ResmiTatillerGetir();
-
+            IzinlerViewModel izin = new IzinlerViewModel();          
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);
-            TempData["isim"] = response.Ad;
-            return View(resmitatiller);
+            izin.Izinler = _personelService.IzinleriGetir(personelGuid).Izinler;    
+            var resmiTatiller = await Tools.ResmiTatillerGetir();
+           ViewBag.resmitatiller=resmiTatiller;
+            TempData["isim"] = response.Ad;         
+            return View(izin);
+        }
+        public IActionResult Harcamalar()
+        {
+            HarcamaListelemeResponse harcamaListesi = new HarcamaListelemeResponse();
+            harcamaListesi = _personelService.HarcamalarıGetir();
+            var personelGuid = HttpContext.Session.GetString("personel");
+            var response = _personelService.PersonelGetir(personelGuid);
+            HarcamaViewModel harcama = new HarcamaViewModel();
+            harcama.PersonelId = response.PersonelId;
+            var resp = _personelService.HarcamalarıGetir();
+            harcama.HarcamaListele = resp.HarcamaListele;
+
+            return View(harcama);
         }
 
         public IActionResult Ayarlar()
@@ -90,19 +105,7 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
 
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
-        public IActionResult Harcamalar()
-        {
-            HarcamaListelemeResponse harcamaListesi = new HarcamaListelemeResponse();
-            harcamaListesi = _personelService.HarcamalarıGetir();
-            var personelGuid = HttpContext.Session.GetString("personel");
-            var response = _personelService.PersonelGetir(personelGuid);
-            HarcamaViewModel harcama = new HarcamaViewModel();
-            harcama.PersonelId = response.PersonelId;
-            var resp = _personelService.HarcamalarıGetir();
-            harcama.HarcamaListele = resp.HarcamaListele;
-
-            return View(harcama);
-        }
+       
         [HttpPost]
         public IActionResult Harcamalar(HarcamaViewModel harcama)
         {
@@ -122,43 +125,8 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             return View(harcama);
         }
         #region
-        public static async Task<GelenData> ResmiTatillerGetir()
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://api.ubilisim.com/");
-                var result = await client.GetAsync("resmitatiller");
+      
 
-                if (result.IsSuccessStatusCode)
-                {
-                    var data = await result.Content.ReadAsStringAsync();  //JSON formattan okuyacak hale getirdik.
-                    var durum = JsonConvert.DeserializeObject<GelenData>(data);
-
-                    return durum;
-
-                }
-                else
-                    return null;
-            }
-        }
-
-        public class GelenData
-        {
-            public bool success { get; set; }
-            public string status { get; set; }
-            public string pagecreatedate { get; set; }
-            public List<ResmiTatiller> ResmiTatiller { get; set; }
-        }
-
-        public class ResmiTatiller
-        {
-            public string gun { get; set; }
-            public string en { get; set; }
-            public string haftagunu { get; set; }
-            public string tarih { get; set; }
-            public string uzuntarih { get; set; }
-
-        }
     #endregion
        
     }
