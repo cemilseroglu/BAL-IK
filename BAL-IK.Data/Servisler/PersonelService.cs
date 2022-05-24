@@ -253,5 +253,40 @@ namespace BAL_IK.Data.Servisler
         {
             throw new NotImplementedException();
         }
+
+
+        public VardiyalarResponse VardiyalariGetir(string guid)
+        {
+            VardiyalarResponse resp = new VardiyalarResponse();
+            try
+            {
+                Personeller personel = _db.Personeller.Include(x => x.Vardiya).FirstOrDefault(x => x.Guid.ToString() == guid);
+                List<Vardiyalar> vardiyaList = _db.Vardiyalar.Include(x => x.VardiyaTur).Where(x => x.PersonelId == personel.PersonelId).ToList();
+                foreach (var vardiya in vardiyaList)
+                {
+                    VardiyaResponse gidecekvardiya = new VardiyaResponse()
+                    {
+                        PersonelId = vardiya.PersonelId,
+                        VardiyaBaslangicTarihi= vardiya.VardiyaBaslangicTarihi,
+                        VardiyaBitisTarihi=vardiya.VardiyaBitisTarihi,
+                        VardiyaId= vardiya.VardiyaId,
+                        VardiyaTurId= vardiya.VardiyaTurId,
+                        VardiyaTuru = {VardiyaTurId=vardiya.VardiyaTur.VardiyaTurId, VardiyaTuru= vardiya.VardiyaTur.VardiyaTuru }    
+                        
+               };
+                    resp.Vardiyalar.Add(gidecekvardiya);
+                }
+                resp.BasariliMi = true;
+                resp.Mesaj = "Vardiyalar başarıyla getirildi.";
+                return (resp);
+            }
+
+            catch (Exception ex)
+            {
+                resp.Mesaj = "Vardiyaları getirirken hata oluştu" + ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
     }
 }

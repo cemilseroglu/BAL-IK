@@ -57,5 +57,10 @@ namespace BAL_IK.UI.ServislerUI
         {
             throw new System.NotImplementedException();
         }
+
+        public VardiyalarResponse VardiyalariGetir(string guid)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
