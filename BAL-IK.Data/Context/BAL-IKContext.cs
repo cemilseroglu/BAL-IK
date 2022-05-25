@@ -22,6 +22,7 @@ namespace BAL_IK.Data.Context
         public DbSet<IzinTuru> IzinTurleri { get; set; }
         public DbSet<MaasBilgisi> MaasBilgileri { get; set; }
         public DbSet<Mola> Molalar { get; set; }
+        public DbSet<MolaTur> MolaTur { get; set; }
         public DbSet<OzlukBelgesi> OzlukBelgeleri { get; set; }
         public DbSet<Personeller> Personeller { get; set; }
         public DbSet<Prim> Primler { get; set; }
@@ -30,6 +31,7 @@ namespace BAL_IK.Data.Context
         public DbSet<SirketYoneticisi> SirketYoneticileri { get; set; }
         public DbSet<SiteYoneticisi> SiteYoneticileri { get; set; }
         public DbSet<Vardiyalar> Vardiyalar { get; set; }
+        public DbSet<VardiyaTur> VardiyaTur { get; set; }
         public DbSet<Yorum> Yorumlar { get; set; }
         public DbSet<Zimmetler> Zimmetler { get; set; }
         public DbSet<ZimmetTuru> ZimmetTurleri { get; set; }

@@ -733,7 +733,7 @@ namespace BAL_IK.Data.Servisler
             VardiyaTurSilResponse resp=new VardiyaTurSilResponse();
             try
             {
-                //VardiyaTur vardiyaTur=_db.Vardiya
+                VardiyaTur vardiyaTur=_db.
                 resp.BasariliMi = true;
                 resp.Mesaj = "Vardiya Turu Silindi";
                 return resp;
