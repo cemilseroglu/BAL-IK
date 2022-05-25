@@ -90,7 +90,7 @@ namespace BAL_IK.Data.Servisler
             try
             {
                 Personeller personel = _db.Personeller.Include(x => x.Izinler).FirstOrDefault(x => x.Guid.ToString() == guid);
-                List<Izinler> izinlerList = _db.Izinler.Include(x=>x.IzinTur).Where(x=>x.PersonelId==personel.PersonelId).ToList();
+                List<Izinler> izinlerList = _db.Izinler.Include(x => x.IzinTur).Where(x => x.PersonelId == personel.PersonelId).ToList();
                 foreach (var izin in izinlerList)
                 {
                     IzinResponse gidecekizin = new IzinResponse()
@@ -114,7 +114,7 @@ namespace BAL_IK.Data.Servisler
                 }
                 resp.BasariliMi = true;
                 resp.Mesaj = "İzinler başarıyla getirildi.";
-                return(resp);
+                return (resp);
             }
 
             catch (Exception ex)
@@ -267,13 +267,17 @@ namespace BAL_IK.Data.Servisler
                     VardiyaResponse gidecekvardiya = new VardiyaResponse()
                     {
                         PersonelId = vardiya.PersonelId,
-                        VardiyaBaslangicTarihi= vardiya.VardiyaBaslangicTarihi,
-                        VardiyaBitisTarihi=vardiya.VardiyaBitisTarihi,
-                        VardiyaId= vardiya.VardiyaId,
-                        VardiyaTurId= vardiya.VardiyaTurId,
-                        VardiyaTuru = {VardiyaTurId=vardiya.VardiyaTur.VardiyaTurId, VardiyaTuru= vardiya.VardiyaTur.VardiyaTuru }    
-                        
-               };
+                        VardiyaId = vardiya.VardiyaId,
+                        VardiyaTurId = vardiya.VardiyaTurId,
+                        VardiyaTuru =
+                        { 
+                            VardiyaTurId = vardiya.VardiyaTur.VardiyaTurId,
+                            VardiyaTuru = vardiya.VardiyaTur.VardiyaTuru, 
+                            VardiyaBaslangicTarihi = vardiya.VardiyaTur.VardiyaBaslangicTarihi, 
+                            VardiyaBitisTarihi = vardiya.VardiyaTur.VardiyaBitisTarihi 
+                        }
+
+                    };
                     resp.Vardiyalar.Add(gidecekvardiya);
                 }
                 resp.BasariliMi = true;

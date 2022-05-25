@@ -185,5 +185,10 @@ namespace BAL_IK.UI.ServislerUI
 
             return response.Data;
         }
+
+        public VardiyaTurEkleResponse VardiyaTurEkle(SirketYoneticisiIslemleriRequest.VardiyaTurEkleRequest req)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

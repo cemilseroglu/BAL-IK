@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse;
 using static BAL_IK.Model.ResponseClass.SirketIslemleriResponse;
 using static BAL_IK.Model.ResponseClass.SirketYoneticisiIslemleriResponse;
+using VardiyaTur = BAL_IK.Model.Entities.VardiyaTur;
 
 namespace BAL_IK.Data.Servisler
 {
@@ -688,6 +689,32 @@ namespace BAL_IK.Data.Servisler
                 }
                 resp.BasariliMi = true;
                 resp.Mesaj = "Personeller getirildi";
+
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public VardiyaTurEkleResponse VardiyaTurEkle(SirketYoneticisiIslemleriRequest.VardiyaTurEkleRequest req)
+        {
+            VardiyaTurEkleResponse resp = new VardiyaTurEkleResponse();
+            try
+            {
+                VardiyaTur vardiyaTur = new VardiyaTur()
+                {
+                     VardiyaTuru=req.VardiyaTuru,
+                     VardiyaBaslangicTarihi=req.VardiyaBaslangicTarihi,
+                     VardiyaBitisTarihi=req.VardiyaBitisTarihi
+                };
+                _db.Add(vardiyaTur);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Vardiya Turu Eklendi";
 
                 return resp;
             }

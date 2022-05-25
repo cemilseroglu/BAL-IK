@@ -12,29 +12,21 @@ namespace BAL_IK.Model.RequestClass
     {
         public class SirketYoneticisiGuncelle
         {
-            [Required]
             public int SirketYoneticisiId { get; set; }
-            [MaxLength(50)]
-            public string Ad { get; set; }   //DisplayName'de buradan verilecek.
-            [MaxLength(100)]
+            public string Ad { get; set; }  
             public string Soyad { get; set; }
             public DateTime DogumTarihi { get; set; }
-            [MaxLength(250)]
-            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
-            [MaxLength(250)]
+            public string Eposta { get; set; }  
             public string Sifre { get; set; }
             public bool AktifMi { get; set; }
             public int? SirketId { get; set; }
         }
         public class SirketYoneticisiEkle
         {
-            [MaxLength(50)]
-            public string Ad { get; set; }   //DisplayName'de buradan verilecek.
-            [MaxLength(100)]
+            public string Ad { get; set; } 
             public string Soyad { get; set; }
             public DateTime DogumTarihi { get; set; }
-            [MaxLength(250)]
-            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
+            public string Eposta { get; set; }  
             public Cinsiyet Cinsiyet { get; set; }
         }
 
@@ -50,5 +42,11 @@ namespace BAL_IK.Model.RequestClass
             public int ZimmetTuruId { get; set; }
         }
 
+        public class VardiyaTurEkleRequest
+        {
+            public string VardiyaTuru { get; set; }
+            public DateTime VardiyaBaslangicTarihi { get; set; }
+            public DateTime VardiyaBitisTarihi { get; set; }
+        }
     }
 }
