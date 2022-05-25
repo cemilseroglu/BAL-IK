@@ -177,6 +177,7 @@ namespace BAL_IK.Model.ResponseClass
             public int MolaTurId { get; set; }
             public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
             public MolaTur MolaTuru { get; set; } = new MolaTur();
+            public int PersonelId { get; set; }
         }
         public class MolaTur:BaseResponse
         {

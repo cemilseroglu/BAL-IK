@@ -130,11 +130,7 @@ namespace BAL_IK.Data.Servisler
         {
             throw new NotImplementedException();
         }
-
-        public MolalarResponse MolalariGetir(string guid)
-        {
-            throw new NotImplementedException();
-        }
+    
 
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
         {
@@ -299,19 +295,42 @@ namespace BAL_IK.Data.Servisler
 
         }
 
-        //public MolalarResponse MolalariGetir(string guid)
-        //{
-        //    MolalarResponse resp = new MolalarResponse();
-        //    try
-        //    {
-        //        Personeller personel = _db.Personeller.Include(x => x.Vardiya).FirstOrDefault(x => x.Guid.ToString() == guid);
-        //        List<Mola> molaList = _db.Molalar.Include(x => x.MolaTur).Where(x => x.Personeller. == personel.PersonelId).ToList();
-        //    }
-        //    catch (Exception)
-        //    {
+        public MolalarResponse MolalariGetir(string guid)
+        {
+            MolalarResponse resp = new MolalarResponse();
+            try
+            {
+                Personeller personel = _db.Personeller.Include(x => x.Vardiya).FirstOrDefault(x => x.Guid.ToString() == guid);
+                List<Mola> molaList = _db.Molalar.Include(x => x.MolaTur).Where(x => x.PersonelId == personel.PersonelId).ToList();
+                foreach (var mola in molaList)
+                {
+                    MolaResponse gidecekmola = new MolaResponse()
+                    {
+                        PersonelId = mola.PersonelId,
+                       MolaId=mola.MolaId,
+                        MolaTurId=mola.MolaTurId,  
+                        OlusturulduguTarih=mola.OlusturulduguTarih,
+                        
+                        MolaTuru={
+                            MolaTurId = mola.MolaTur.MolaTurId,
+                          MolaTuru = mola.MolaTur.MolaTuru,
+                          MolaSuresi=mola.MolaTur.MolaSuresi
+                           
+                        }
 
-        //        throw;
-        //    }
-        //}
+                    };
+                    resp.Molalar.Add(gidecekmola);
+                }
+                resp.BasariliMi = true;
+                resp.Mesaj = "Molalar başarıyla getirildi.";
+                return (resp);
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = "Molaları getirirken hata oluştu" + ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
     }
 }

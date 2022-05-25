@@ -51,5 +51,10 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.VardiyalariGetir(guid);
         }
+        [HttpGet("MolalariGetir")]
+        public MolalarResponse MolalariGetir(string guid)
+        {
+            return _pService.MolalariGetir(guid);
+        }
     }
 }
