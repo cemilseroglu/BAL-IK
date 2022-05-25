@@ -137,11 +137,10 @@ namespace BAL_IK.Model.ResponseClass
             public int IzinSuresi { get; set; }
             public string ReddilmeNedeni { get; set; }
             public DateTime IzinIstemeTarihi { get; set; }
-            public DateTime OnaylanmaTarihi { get; set; }
+            public DateTime? OnaylanmaTarihi { get; set; }
             public DateTime IzinBaslangicTarihi { get; set; }
             public DateTime IzinBitisTarihi { get; set; }
             public int PersonelId { get; set; }
-            //public Personeller Personel { get; set; }
             public int SirketYoneticisiId { get; set; }
             public OnayDurumu OnayDurumu { get; set; }
         }
@@ -149,6 +148,29 @@ namespace BAL_IK.Model.ResponseClass
         {
            
 
+        }
+        public class VardiyaResponse:BaseResponse
+        {
+            public int VardiyaId { get; set; }
+            public DateTime VardiyaBaslangicTarihi { get; set; }
+            public DateTime VardiyaBitisTarihi { get; set; }  //10 gün gece 10 gün gündüz vardiyası şeklinde gibi...
+            public List<Personeller> Personeller { get; set; }
+            public int VardiyaTurId { get; set; }
+            public int PersonelId { get; set; }
+            public VardiyaTur VardiyaTuru { get; set; }= new VardiyaTur();
+            
+
+    }
+        public class  VardiyaTur:BaseResponse
+        {
+            public int VardiyaTurId { get; set; }
+            public string VardiyaTuru { get; set; }
+            public int PersonelId { get; set; }
+            public List<Vardiyalar> Vardiyalar { get; set; }
+        }
+        public class VardiyalarResponse:BaseResponse
+        {
+            public List<VardiyaResponse> Vardiyalar { get; set; } = new List<VardiyaResponse>();
         }
     }
 }

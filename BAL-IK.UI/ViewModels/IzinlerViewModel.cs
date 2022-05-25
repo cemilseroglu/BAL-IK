@@ -10,7 +10,7 @@ namespace BAL_IK.UI.ViewModels
 {
     public class IzinlerViewModel
     {
-
+        public List<IzinTurler> IzinTurleri { get; set; }
         public GelenData resmiTatiller { get; set; }
         public int IzinId { get; set; }
         public int IzinTurId { get; set; }

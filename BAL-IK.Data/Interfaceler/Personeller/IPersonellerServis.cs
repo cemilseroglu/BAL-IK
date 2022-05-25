@@ -18,6 +18,7 @@ namespace BAL_IK.Data.Interfaceler.Personeller
         HarcamaListelemeResponse HarcamalarıGetir();
 
         IzinlerResponse IzinleriGetir(string guid);
+        VardiyalarResponse VardiyalariGetir(string guid);
        
 
 
