@@ -34,12 +34,12 @@ namespace BAL_IK.Model.ResponseClass
             public string Ad { get; set; }
             public string Soyad { get; set; }
             public DateTime DogumTarihi { get; set; }
-            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
+            public string Eposta { get; set; } 
             public string Sifre { get; set; }
             public string ResimUrl { get; set; }
             public bool AktifMi { get; set; }
             public int PersonelId { get; set; }
-            public int YillikIzinHakki { get; set; } //WHAT CAN I DO SOMETİMES?LOOK AT THE TABELA!
+            public int YillikIzinHakki { get; set; }
             public DateTime IseBaslama { get; set; }
             public DateTime? IstenAyrilma { get; set; }
             public int SirketId { get; set; }
@@ -141,7 +141,6 @@ namespace BAL_IK.Model.ResponseClass
             public DateTime IzinBaslangicTarihi { get; set; }
             public DateTime IzinBitisTarihi { get; set; }
             public int PersonelId { get; set; }
-            //public Personeller Personel { get; set; }
             public int SirketYoneticisiId { get; set; }
             public OnayDurumu OnayDurumu { get; set; }
         }
@@ -149,6 +148,28 @@ namespace BAL_IK.Model.ResponseClass
         {
            
 
+        }
+        public class VardiyaResponse:BaseResponse
+        {
+            public int VardiyaId { get; set; }
+            public DateTime VardiyaBaslangicTarihi { get; set; }
+            public DateTime VardiyaBitisTarihi { get; set; }  //10 gün gece 10 gün gündüz vardiyası şeklinde gibi...
+            public int VardiyaTurId { get; set; }
+            public int PersonelId { get; set; }
+            public VardiyaTur VardiyaTuru { get; set; }= new VardiyaTur();
+            
+
+    }
+        public class  VardiyaTur:BaseResponse
+        {
+            public int VardiyaTurId { get; set; }
+            public string VardiyaTuru { get; set; }
+            public DateTime VardiyaBaslangicTarihi { get; set; }
+            public DateTime VardiyaBitisTarihi { get; set; }
+        }
+        public class VardiyalarResponse:BaseResponse
+        {
+            public List<VardiyaResponse> Vardiyalar { get; set; } = new List<VardiyaResponse>();
         }
     }
 }

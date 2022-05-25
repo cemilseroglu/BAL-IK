@@ -33,21 +33,21 @@ namespace BAL_IK.UI.ServislerUI
 
 
 
-        public PersonelIslemleriResponse.IzinEkleResponse IzinEkle(PersonelIslemleriRequest.IzinEkle izinEkle)
+        public PersonelIslemleriResponse.EkleizinResponse Ekleizin(PersonelIslemleriRequest.Ekleizin izinEkle)
 
         {
             var request = new RestRequest("api/SirketYoneticisi/IzinEkle", Method.POST, DataFormat.Json).AddJsonBody(izinEkle);
 
-            var response = Globals.ApiClient.Execute<IzinEkleResponse>(request);
+            var response = Globals.ApiClient.Execute<EkleizinResponse>(request);
 
             return response.Data;
         }
 
-        public PersonelIslemleriResponse.IzinListelemeResponse IzinListele()
+        public PersonelIslemleriResponse.ListelemeizinResponse Listeleizin()
         {
             var request = new RestRequest("api/SirketYoneticisi/IzinListele", Method.POST, DataFormat.Json);
 
-            var response = Globals.ApiClient.Execute<IzinListelemeResponse>(request);
+            var response = Globals.ApiClient.Execute<ListelemeizinResponse>(request);
 
             return response.Data;
         }
@@ -184,6 +184,11 @@ namespace BAL_IK.UI.ServislerUI
             var response = Globals.ApiClient.Execute<OzlukBelgesiSilResponse>(request);
 
             return response.Data;
+        }
+
+        public VardiyaTurEkleResponse VardiyaTurEkle(SirketYoneticisiIslemleriRequest.VardiyaTurEkleRequest req)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

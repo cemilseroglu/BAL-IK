@@ -99,5 +99,12 @@ namespace BAL_IK.Model.ResponseClass
 
         }
         #endregion
+
+        #region Vardiyalar
+        public class VardiyaTurEkleResponse : BaseResponse
+        {
+
+        }
+        #endregion
     }
 }

@@ -15,12 +15,13 @@ namespace BAL_IK.Model.RequestClass
             public string Ad { get; set; }
             public string Soyad { get; set; }
             public DateTime DogumTarihi { get; set; }
-            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
+            public string Eposta { get; set; }  
             public string ResimUrl { get; set; }
             public bool AktifMi { get; set; }
             public DateTime IseBaslama { get; set; }
             public int SirketId { get; set; }
             public Cinsiyet Cinsiyet { get; set; }
+            public decimal TemelMaasBilgisi { get; set; }
 
         }
         public class PersonelGuncelle
@@ -29,12 +30,12 @@ namespace BAL_IK.Model.RequestClass
             public string Ad { get; set; }
             public string Soyad { get; set; }
             public DateTime DogumTarihi { get; set; }
-            public string Eposta { get; set; }  //BENZERSİZ OLMALI!!!
+            public string Eposta { get; set; } 
             public string Sifre { get; set; }
             public DateTime IseBaslama { get; set; }
             public DateTime IstenAyrilma { get; set; }
             public bool AktifMi { get; set; }
-            public int YillikIzinHakki { get; set; } //WHAT CAN I DO SOMETİMES?LOOK AT THE TABELA!
+            public int YillikIzinHakki { get; set; } 
             public int SirketId { get; set; }
             public int DepartmanId { get; set; }
             public int VardiyaId { get; set; }

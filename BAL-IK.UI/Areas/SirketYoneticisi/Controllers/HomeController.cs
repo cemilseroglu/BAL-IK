@@ -71,5 +71,13 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
         {
             return View();
         }
+
+        public IActionResult CikisYap()
+        {
+            HttpContext.Session.Remove("sirketYoneticisi");
+
+            return RedirectToAction("Index", "Home", new { Area = "" });
+        }
     }
+
 }

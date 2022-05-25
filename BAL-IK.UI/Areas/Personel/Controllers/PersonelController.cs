@@ -1,4 +1,5 @@
 using BAL_IK.Data.Interfaceler.Personeller;
+using BAL_IK.Data.Interfaceler.SirketYoneticisi;
 using BAL_IK.Model.ResponseClass;
 using BAL_IK.UI.Filters;
 using BAL_IK.UI.ViewModels;
@@ -24,12 +25,13 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
 
         private readonly IPersonellerServis _personelService;
         private readonly IWebHostEnvironment _env;
+        private readonly ISirketYoneticisiServis _syServis;
 
-
-        public PersonelController(IPersonellerServis personelService, IWebHostEnvironment env)
+        public PersonelController(IPersonellerServis personelService, IWebHostEnvironment env,ISirketYoneticisiServis syServis)
         {
             this._personelService = personelService;
             this._env = env;
+            this._syServis = syServis;
         }
         [HttpPost]
         public IActionResult Index(IzinlerViewModel izin)
@@ -58,6 +60,23 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             TempData["isim"] = response.Ad;         
             return View(izin);
         }
+        public IActionResult IzinEkleme()
+        {
+            //TODO
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult IzinEkleme(Ekleizin req)
+        {            
+            var personelGuid = HttpContext.Session.GetString("personel");
+            var response = _personelService.PersonelGetir(personelGuid);          
+            req.PersonelId=response.PersonelId;
+            var responseizin= _syServis.Ekleizin(req);
+            return View();
+        }
+
+
         public IActionResult Harcamalar()
         {
             HarcamaListelemeResponse harcamaListesi = new HarcamaListelemeResponse();

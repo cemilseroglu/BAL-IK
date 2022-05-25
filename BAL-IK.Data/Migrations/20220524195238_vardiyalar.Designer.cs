@@ -4,14 +4,16 @@ using BAL_IK.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BAL_IK.Data.Migrations
 {
     [DbContext(typeof(BAL_IKContext))]
-    partial class BAL_IKContextModelSnapshot : ModelSnapshot
+    [Migration("20220524195238_vardiyalar")]
+    partial class vardiyalar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -411,7 +413,7 @@ namespace BAL_IK.Data.Migrations
                             Ad = "BALIK",
                             AktifMi = true,
                             Cinsiyet = 0,
-                            DogumTarihi = new DateTime(2022, 5, 25, 14, 4, 56, 907, DateTimeKind.Local).AddTicks(3219),
+                            DogumTarihi = new DateTime(2022, 5, 24, 22, 52, 38, 4, DateTimeKind.Local).AddTicks(7179),
                             Eposta = "admin@bal-ik.com",
                             Guid = new Guid("c96ce224-3473-4d45-93fd-56b5f1d594ac"),
                             Sifre = "123456",
@@ -426,22 +428,11 @@ namespace BAL_IK.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("SirketId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("VardiyaBaslangicTarihi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("VardiyaBitisTarihi")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("VardiyaTuru")
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("VardiyaTurId");
-
-                    b.HasIndex("SirketId");
 
                     b.ToTable("VardiyaTur");
                 });
@@ -572,6 +563,9 @@ namespace BAL_IK.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("MolaSuresi")
+                        .HasColumnType("float");
+
                     b.Property<int>("MolaTurId")
                         .HasColumnType("int");
 
@@ -592,19 +586,11 @@ namespace BAL_IK.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("MolaSuresi")
-                        .HasColumnType("float");
-
                     b.Property<string>("MolaTuru")
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("SirketId")
-                        .HasColumnType("int");
-
                     b.HasKey("MolaTurId");
-
-                    b.HasIndex("SirketId");
 
                     b.ToTable("MolaTur");
                 });
@@ -646,6 +632,12 @@ namespace BAL_IK.Data.Migrations
 
                     b.Property<int>("PersonelId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("VardiyaBaslangicTarihi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("VardiyaBitisTarihi")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("VardiyaTurId")
                         .HasColumnType("int");
@@ -770,17 +762,6 @@ namespace BAL_IK.Data.Migrations
                     b.Navigation("Sirket");
                 });
 
-            modelBuilder.Entity("BAL_IK.Model.Entities.VardiyaTur", b =>
-                {
-                    b.HasOne("BAL_IK.Model.Entities.Sirket", "Sirket")
-                        .WithMany("VardiyaTurleri")
-                        .HasForeignKey("SirketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sirket");
-                });
-
             modelBuilder.Entity("BAL_IK.Model.Entities.Yorum", b =>
                 {
                     b.HasOne("BAL_IK.Model.Entities.Sirket", "Sirket")
@@ -831,17 +812,6 @@ namespace BAL_IK.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("MolaTur");
-                });
-
-            modelBuilder.Entity("BAL_IK.Model.MolaTur", b =>
-                {
-                    b.HasOne("BAL_IK.Model.Entities.Sirket", "Sirket")
-                        .WithMany("MolaTurleri")
-                        .HasForeignKey("SirketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sirket");
                 });
 
             modelBuilder.Entity("BAL_IK.Model.Prim", b =>
@@ -923,13 +893,9 @@ namespace BAL_IK.Data.Migrations
                 {
                     b.Navigation("Departmanlar");
 
-                    b.Navigation("MolaTurleri");
-
                     b.Navigation("Personeller");
 
                     b.Navigation("SirketYoneticileri");
-
-                    b.Navigation("VardiyaTurleri");
 
                     b.Navigation("Yorumu");
                 });

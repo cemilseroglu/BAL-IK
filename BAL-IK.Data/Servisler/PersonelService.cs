@@ -90,7 +90,7 @@ namespace BAL_IK.Data.Servisler
             try
             {
                 Personeller personel = _db.Personeller.Include(x => x.Izinler).FirstOrDefault(x => x.Guid.ToString() == guid);
-                List<Izinler> izinlerList = _db.Izinler.Include(x=>x.IzinTur).Where(x=>x.PersonelId==personel.PersonelId).ToList();
+                List<Izinler> izinlerList = _db.Izinler.Include(x => x.IzinTur).Where(x => x.PersonelId == personel.PersonelId).ToList();
                 foreach (var izin in izinlerList)
                 {
                     IzinResponse gidecekizin = new IzinResponse()
@@ -114,7 +114,7 @@ namespace BAL_IK.Data.Servisler
                 }
                 resp.BasariliMi = true;
                 resp.Mesaj = "İzinler başarıyla getirildi.";
-                return(resp);
+                return (resp);
             }
 
             catch (Exception ex)
@@ -252,6 +252,45 @@ namespace BAL_IK.Data.Servisler
         public PersonelListelemeResponse PersonelListeleme()
         {
             throw new NotImplementedException();
+        }
+
+
+        public VardiyalarResponse VardiyalariGetir(string guid)
+        {
+            VardiyalarResponse resp = new VardiyalarResponse();
+            try
+            {
+                Personeller personel = _db.Personeller.Include(x => x.Vardiya).FirstOrDefault(x => x.Guid.ToString() == guid);
+                List<Vardiyalar> vardiyaList = _db.Vardiyalar.Include(x => x.VardiyaTur).Where(x => x.PersonelId == personel.PersonelId).ToList();
+                foreach (var vardiya in vardiyaList)
+                {
+                    VardiyaResponse gidecekvardiya = new VardiyaResponse()
+                    {
+                        PersonelId = vardiya.PersonelId,
+                        VardiyaId = vardiya.VardiyaId,
+                        VardiyaTurId = vardiya.VardiyaTurId,
+                        VardiyaTuru =
+                        { 
+                            VardiyaTurId = vardiya.VardiyaTur.VardiyaTurId,
+                            VardiyaTuru = vardiya.VardiyaTur.VardiyaTuru, 
+                            VardiyaBaslangicTarihi = vardiya.VardiyaTur.VardiyaBaslangicTarihi, 
+                            VardiyaBitisTarihi = vardiya.VardiyaTur.VardiyaBitisTarihi 
+                        }
+
+                    };
+                    resp.Vardiyalar.Add(gidecekvardiya);
+                }
+                resp.BasariliMi = true;
+                resp.Mesaj = "Vardiyalar başarıyla getirildi.";
+                return (resp);
+            }
+
+            catch (Exception ex)
+            {
+                resp.Mesaj = "Vardiyaları getirirken hata oluştu" + ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
         }
     }
 }
