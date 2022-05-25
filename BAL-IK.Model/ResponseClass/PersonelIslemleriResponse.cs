@@ -64,6 +64,37 @@ namespace BAL_IK.Model.ResponseClass
             public string HarcamaIsmi { get; set; }
             public decimal HarcamaTutari { get; set; }
         }
+
+        public class IzinResponse:BaseResponse
+        {
+
+        
+            public int IzinId { get; set; }       
+            public int IzinTurId { get; set; }
+            public IzinTurler IzinTur { get; set; } = new IzinTurler();       
+            public int IzinSuresi { get; set; }       
+            public string ReddilmeNedeni { get; set; }            
+            public DateTime IzinIstemeTarihi { get; set; }    
+            public DateTime? OnaylanmaTarihi { get; set; }     
+            public DateTime IzinBaslangicTarihi { get; set; }       
+            public DateTime IzinBitisTarihi { get; set; }         
+            public int PersonelId { get; set; }
+           
+            public int? SirketYoneticisiId { get; set; }
+           
+            public OnayDurumu OnayDurumu { get; set; }
+
+        }
+        public class IzinTurler:BaseResponse
+        {
+            public int IzinTurId { get; set; }            
+            public string IzinTur { get; set; }          
+        }
+        public class IzinlerResponse:BaseResponse
+        {
+            public List<IzinResponse> Izinler { get; set; } = new List<IzinResponse>();
+        }
+
         public class OzlukBelgesiEkleResponse : BaseResponse
         {
             public int OzlukBelgesiId { get; set; }
@@ -76,7 +107,11 @@ namespace BAL_IK.Model.ResponseClass
         {
 
         }
-        public class IzinEkleResponse : BaseResponse
+        public class OzlukBelgesiSilResponse : BaseResponse
+        {
+
+        }
+        public class EkleizinResponse : BaseResponse
         {
             public int IzinTurId { get; set; }
             public string IzinTur { get; set; }
@@ -86,13 +121,12 @@ namespace BAL_IK.Model.ResponseClass
             public DateTime OnaylanmaTarihi { get; set; }
             public DateTime IzinBaslangicTarihi { get; set; }
             public DateTime IzinBitisTarihi { get; set; }
-            public int PersonelId { get; set; }
-            public Personeller Personel { get; set; }
+            public int PersonelId { get; set; }           
             public int SirketYoneticisiId { get; set; }
             public OnayDurumu OnayDurumu { get; set; }
         }
         
-        public class IzinListelemeResponse : BaseResponse
+        public class ListelemeizinResponse : BaseResponse
         {
             public List<IzinListeleResponse> IzinListele { get; set; } = new List<IzinListeleResponse>();
         }
@@ -103,17 +137,40 @@ namespace BAL_IK.Model.ResponseClass
             public int IzinSuresi { get; set; }
             public string ReddilmeNedeni { get; set; }
             public DateTime IzinIstemeTarihi { get; set; }
-            public DateTime OnaylanmaTarihi { get; set; }
+            public DateTime? OnaylanmaTarihi { get; set; }
             public DateTime IzinBaslangicTarihi { get; set; }
             public DateTime IzinBitisTarihi { get; set; }
             public int PersonelId { get; set; }
-            public Personeller Personel { get; set; }
             public int SirketYoneticisiId { get; set; }
             public OnayDurumu OnayDurumu { get; set; }
         }
         public class PersonelSilResponse:BaseResponse
         {
            
+
+        }
+        public class VardiyaResponse:BaseResponse
+        {
+            public int VardiyaId { get; set; }
+            public DateTime VardiyaBaslangicTarihi { get; set; }
+            public DateTime VardiyaBitisTarihi { get; set; }  //10 gün gece 10 gün gündüz vardiyası şeklinde gibi...
+            public List<Personeller> Personeller { get; set; }
+            public int VardiyaTurId { get; set; }
+            public int PersonelId { get; set; }
+            public VardiyaTur VardiyaTuru { get; set; }= new VardiyaTur();
+            
+
+    }
+        public class  VardiyaTur:BaseResponse
+        {
+            public int VardiyaTurId { get; set; }
+            public string VardiyaTuru { get; set; }
+            public int PersonelId { get; set; }
+            public List<Vardiyalar> Vardiyalar { get; set; }
+        }
+        public class VardiyalarResponse:BaseResponse
+        {
+            public List<VardiyaResponse> Vardiyalar { get; set; } = new List<VardiyaResponse>();
         }
     }
 }

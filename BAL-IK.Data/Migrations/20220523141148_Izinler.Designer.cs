@@ -4,14 +4,16 @@ using BAL_IK.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BAL_IK.Data.Migrations
 {
     [DbContext(typeof(BAL_IKContext))]
-    partial class BAL_IKContextModelSnapshot : ModelSnapshot
+    [Migration("20220523141148_Izinler")]
+    partial class Izinler
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -411,7 +413,7 @@ namespace BAL_IK.Data.Migrations
                             Ad = "BALIK",
                             AktifMi = true,
                             Cinsiyet = 0,
-                            DogumTarihi = new DateTime(2022, 5, 24, 22, 52, 38, 4, DateTimeKind.Local).AddTicks(7179),
+                            DogumTarihi = new DateTime(2022, 5, 23, 17, 11, 48, 69, DateTimeKind.Local).AddTicks(1049),
                             Eposta = "admin@bal-ik.com",
                             Guid = new Guid("c96ce224-3473-4d45-93fd-56b5f1d594ac"),
                             Sifre = "123456",
@@ -627,9 +629,6 @@ namespace BAL_IK.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PersonelId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("VardiyaBaslangicTarihi")
                         .HasColumnType("datetime2");

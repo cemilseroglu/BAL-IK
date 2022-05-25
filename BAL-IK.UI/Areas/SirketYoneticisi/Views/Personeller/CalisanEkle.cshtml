@@ -1,0 +1,52 @@
+﻿@using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse
+@using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest
+@model PersonelEkleResponse
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Personel Adı</th>
+            <th scope="col">Personel Soyadı</th>
+            <th scope="col">Tutarı</th>
+            <th scope="col">Tarihi</th>
+            <th scope="col">Belgesi</th>
+            <th scope="col">Onay</th>
+        </tr>
+    </thead>
+    @*<tbody>
+        @if (Model..Count > 0)
+        {
+            @foreach (var item in Model.)
+            {
+
+                if (harcama.OnayDurumu == true)
+                    onay = "checked";
+
+                else
+                    onay = "";
+                if (harcama.OlusturulmaZamani.Month != DateTime.Now.Month)
+                    degisiklik = "disabled";
+                else
+                    degisiklik = "";
+
+
+
+                <tr>
+                    <td>@harcama.Personel.Ad</td>
+                    <td>@harcama.HarcamaIsmi</td>
+                    <td>@harcama.HarcamaTutari</td>
+                    <td>@harcama.OlusturulmaZamani.ToShortDateString()</td>
+                    <td><a asp-action="BelgeGoruntule" asp-controller="Personeller" asp-route-belge="@harcama.DosyaYolu" target=”_blank”>Belgeyi Görüntüle</a></td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="kutu" @degisiklik @onay onchange="onChange(this,@harcama.HarcamaId)">
+                            <label class="form-check-label" for="kutu">Harcama Onayı</label>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        }
+
+    </tbody>*@
+</table>

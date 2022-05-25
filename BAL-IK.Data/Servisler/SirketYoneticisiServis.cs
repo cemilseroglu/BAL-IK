@@ -511,9 +511,9 @@ namespace BAL_IK.Data.Servisler
         }
 
 
-        public IzinEkleResponse IzinEkle(PersonelIslemleriRequest.IzinEkle izinEkle)
+        public EkleizinResponse Ekleizin(PersonelIslemleriRequest.Ekleizin izinEkle)
         {
-            IzinEkleResponse resp = new IzinEkleResponse();
+            EkleizinResponse resp = new EkleizinResponse();
             try
             {
                 Izinler izinler = new Izinler()
@@ -582,9 +582,9 @@ namespace BAL_IK.Data.Servisler
         }
 
 
-        public IzinListelemeResponse IzinListele()
+        public ListelemeizinResponse Listeleizin()
         {
-            IzinListelemeResponse izinListesi = new IzinListelemeResponse();
+            ListelemeizinResponse izinListesi = new ListelemeizinResponse();
             try
             {
                 izinListesi.IzinListele = new List<IzinListeleResponse>();
@@ -614,6 +614,26 @@ namespace BAL_IK.Data.Servisler
                 izinListesi.Mesaj = ex.Message;
                 izinListesi.BasariliMi = false;
                 return izinListesi;
+            }
+        }
+        public OzlukBelgesiSilResponse OzlukBelgesiSil(int ozlukBelgesiId)
+        {
+            OzlukBelgesiSilResponse resp = new OzlukBelgesiSilResponse();
+            try
+            {
+                OzlukBelgesi ozluk = _db.OzlukBelgeleri.Find(ozlukBelgesiId);
+                _db.Remove(ozluk);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Özlük belgesi başarıyla silindi.";
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
             }
         }
 

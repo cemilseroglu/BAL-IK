@@ -26,8 +26,10 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
         PersonelGuncelleResponse PersonelGuncelleme(PersonelGuncelle pr);
         OzlukBelgesiEkleResponse OzlukBelgesiEkle(OzlukBelgesiEkle ozlukBelgesi);
         OzlukBelgesiGuncelleResponse OzlukBelgesiGuncelle(OzlukBelgesiGuncelle ozlukBelgesiGuncelle);
-        IzinEkleResponse IzinEkle(IzinEkle izinEkle);
-        IzinListelemeResponse IzinListele();
+        OzlukBelgesiSilResponse OzlukBelgesiSil(int ozlukBelgesiId);
+
+        EkleizinResponse Ekleizin(Ekleizin izinEkle);
+        ListelemeizinResponse Listeleizin();
         PersonelSilResponse PersonelSil(int personelId);   
 
         string HarcamaOnayla(int id, bool durum);
@@ -37,7 +39,6 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
         ZimmetTurleriResponse ZimmetTurleriniGetir();
         ZimmetSilResponse ZimmetSil(int id);
         ZimmetGuncelleResponse ZimmetGuncelle(ZimmetGuncelleRequest req);
-
         PersonelleriGetirResponse PersonelleriGetir();
 
 

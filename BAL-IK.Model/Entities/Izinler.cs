@@ -15,22 +15,19 @@ namespace BAL_IK.Model.Entities
         public int IzinTurId { get; set; }
         public IzinTuru IzinTur { get; set; } = new IzinTuru();
         [Required]
-        public int IzinSuresi { get; set; }   
-        [Required]
+        public int IzinSuresi { get; set; }        
         public string ReddilmeNedeni { get; set; }
         [Required]
-        public DateTime IzinIstemeTarihi { get; set; }
-        [Required]
-        public DateTime OnaylanmaTarihi { get; set; }
+        public DateTime IzinIstemeTarihi { get; set; }        
+        public DateTime? OnaylanmaTarihi { get; set; }
         [Required]
         public DateTime IzinBaslangicTarihi { get; set; }
         [Required]
         public DateTime IzinBitisTarihi { get; set; }
         [Required]
         public int PersonelId { get; set; }
-        public Personeller Personel { get; set; }
-        [Required]
-        public int SirketYoneticisiId { get; set; }
+        public Personeller Personel { get; set; }      
+        public int? SirketYoneticisiId { get; set; }
         public SirketYoneticisi SirketYoneticisi { get; set; }    
         public OnayDurumu OnayDurumu { get; set; } 
     }

@@ -174,9 +174,16 @@ namespace BAL_IK.UI.ServislerUI
 
             var response = Globals.ApiClient.Execute<PersonelleriGetirResponse>(request);
 
+            return response.Data;
+        }
+
+        public OzlukBelgesiSilResponse OzlukBelgesiSil(int ozlukBelgesiId)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/OzlukBelgesiSil", Method.POST, DataFormat.Json).AddParameter("OzlukBelgesiId", ozlukBelgesiId);
+
+            var response = Globals.ApiClient.Execute<OzlukBelgesiSilResponse>(request);
 
             return response.Data;
         }
     }
-
 }

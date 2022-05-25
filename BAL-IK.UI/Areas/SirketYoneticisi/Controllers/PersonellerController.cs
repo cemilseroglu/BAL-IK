@@ -4,6 +4,7 @@ using BAL_IK.UI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static BAL_IK.Model.RequestClass.SirketYoneticisiIslemleriRequest;
+using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse;
 
 namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
 {
@@ -53,5 +54,22 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
             return RedirectToAction("ZimmetYonetim");
         }
 
+        //public IActionResult CalisanEkle()
+        //{
+        //    PersonelEkleResponse personelEkle = new PersonelEkleResponse();
+        //    personelEkle = _syServis.PersonelEklemeIslemi();
+
+
+        //    return View();
+        //}
+        //[HttpPost]
+        //public IActionResult CalisanEkle(PersonelEkleViewModel req)
+        //{
+        //    PersonelEkleResponse personelEkle = new PersonelEkleResponse();
+        //    personelEkle = _syServis.PersonelEklemeIslemi(req);
+
+
+        //    return View();
+        //}
     }
 }

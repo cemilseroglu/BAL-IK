@@ -4,7 +4,7 @@
 @using static BAL_IK.UI.Areas.Personel.Controllers.PersonelController
 @using BAL_IK.UI.ViewModels
 
-@model GelenData
+@model IzinlerViewModel
 @{
 
     ViewData["Title"] = "Anasayfa";
@@ -30,6 +30,8 @@
                     <h6 class="mb-0 ">Kullanılan</h6>
                     <p class="text-sm ">Buraya kullanılan izin gelecek</p>
                     <h6 class="mb-0 ">Son İzinlerim</h6>
+                     @foreach (var item in Model.Izinler)
+                   {
                     <div class="dropdown float-lg-end pe-4">
                         <!-- Button trigger modal -->
                         <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,12 +40,15 @@
                         <!-- Modal -->
 
                     </div>
-                    <p class="text-sm ">Evlilik İzni</p>
+                        <p class="text-sm ">@item.IzinTur.IzinTur.</p>
+                   }
+                   
+                   
                 </div>
 
             </div>
         </div>
-         
+
         <div class="col-lg-4 col-md-6 mt-4 mb-4">
             <div class="card z-index-2  ">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
@@ -54,6 +59,14 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @foreach (var item in Model.Izinler)
+                    {
+                        if (item.OnayDurumu == OnayDurumu.OnayBekliyor)
+                        {
+                                                 <p class="text-sm "> @item.IzinTur.IzinTur </p>
+                        }
+
+                    }
                     <p class="text-sm "> Onayınızı bekleyen izin talebi yok. </p>
                     <hr class="dark horizontal">
                     <div class="d-flex ">
@@ -86,7 +99,7 @@
                                         <ul>
                                             @for (var i = 0; i < 4; i++)
                                             {
-                                                    <li>@Model.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @Model.ResmiTatiller[i].gun <br /></li>
+                                                            <li>@ViewBag.resmitatiller.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @ViewBag.resmitatiller.ResmiTatiller[i].gun <br /></li>
                                             }
                                         </ul>
                                     </tr>
@@ -484,7 +497,20 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                            Buraya izin içeriği gelecek
+                            <div class="card" style="width: 18rem;">
+                                @foreach (var izin in Model.Izinler.ToList())
+                               {
+                                     <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Durumu                        @izin.OnayDurumu </li>
+                                <li class="list-group-item">İzin Türü                     @izin.IzinTur.IzinTur</li>
+                                 <li class="list-group-item">Toplam izin                   @izin.IzinSuresi</li>
+                                 <li class="list-group-item">izin İsteme Tarihi             @izin.IzinIstemeTarihi</li>
+                                <li class="list-group-item">izin Başlangıç                @izin.IzinBaslangicTarihi</li>
+                                 <li class="list-group-item">izin Bitiş                  @izin.IzinBitisTarihi</li>                                
+                              </ul>
+                               }
+                            
+                            </div>
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

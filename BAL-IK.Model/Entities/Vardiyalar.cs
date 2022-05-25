@@ -17,6 +17,7 @@ namespace BAL_IK.Model
         public List<Personeller> Personeller { get; set; }
         public int VardiyaTurId { get; set; }
         public VardiyaTur VardiyaTur { get; set; }
+        public int PersonelId { get; set; }
     }
    
 }
