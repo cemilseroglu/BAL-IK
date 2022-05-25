@@ -21,6 +21,7 @@ namespace BAL_IK.Model.RequestClass
             public DateTime IseBaslama { get; set; }
             public int SirketId { get; set; }
             public Cinsiyet Cinsiyet { get; set; }
+            public decimal TemelMaasBilgisi { get; set; }
 
         }
         public class PersonelGuncelle
