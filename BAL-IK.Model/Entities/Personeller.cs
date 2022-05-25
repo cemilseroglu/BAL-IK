@@ -25,7 +25,7 @@ namespace BAL_IK.Model.Entities
         public Sirket Sirket { get; set; }
         public int? DepartmanId { get; set; }
         public int? VardiyaId { get; set; }
-        public Vardiyalar Vardiya { get; set; }
+        public List<Vardiyalar> Vardiya { get; set; }
         public Departmanlar Departman { get; set; }
         public List<Zimmetler> Zimmetler { get; set; }
         public List<Izinler> Izinler { get; set; }

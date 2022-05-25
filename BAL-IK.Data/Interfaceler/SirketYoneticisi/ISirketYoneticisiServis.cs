@@ -41,7 +41,7 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
         ZimmetGuncelleResponse ZimmetGuncelle(ZimmetGuncelleRequest req);
         PersonelleriGetirResponse PersonelleriGetir();
         VardiyaTurEkleResponse VardiyaTurEkle(VardiyaTurEkleRequest req);
-
+        VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId);
 
 
     }

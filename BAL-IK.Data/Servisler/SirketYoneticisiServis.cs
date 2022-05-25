@@ -705,8 +705,10 @@ namespace BAL_IK.Data.Servisler
             VardiyaTurEkleResponse resp = new VardiyaTurEkleResponse();
             try
             {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x=>x.Sirket).FirstOrDefault(x => x.Guid.ToString() == req.SirketYoneticisiGuid);
                 VardiyaTur vardiyaTur = new VardiyaTur()
                 {
+                    SirketId= sirketYoneticisi.Sirket.SirketId,
                      VardiyaTuru=req.VardiyaTuru,
                      VardiyaBaslangicTarihi=req.VardiyaBaslangicTarihi,
                      VardiyaBitisTarihi=req.VardiyaBitisTarihi
@@ -716,6 +718,24 @@ namespace BAL_IK.Data.Servisler
                 resp.BasariliMi = true;
                 resp.Mesaj = "Vardiya Turu Eklendi";
 
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
+        {
+            VardiyaTurSilResponse resp=new VardiyaTurSilResponse();
+            try
+            {
+                //VardiyaTur vardiyaTur=_db.Vardiya
+                resp.BasariliMi = true;
+                resp.Mesaj = "Vardiya Turu Silindi";
                 return resp;
             }
             catch (Exception ex)

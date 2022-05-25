@@ -12,10 +12,10 @@ namespace BAL_IK.Model
     {
         [Required,Key]
         public int VardiyaId { get; set; }
-        public List<Personeller> Personeller { get; set; }
-        public int VardiyaTurId { get; set; }
-        public VardiyaTur VardiyaTur { get; set; }
         public int PersonelId { get; set; }
+        public Personeller Personel { get; set; }
+        public int VardiyaTurId { get; set; }
+        public VardiyaTur VardiyaTur { get; set; }     
     }
    
 }

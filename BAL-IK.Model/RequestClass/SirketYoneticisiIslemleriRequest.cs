@@ -44,6 +44,7 @@ namespace BAL_IK.Model.RequestClass
 
         public class VardiyaTurEkleRequest
         {
+            public string SirketYoneticisiGuid{ get; set; }
             public string VardiyaTuru { get; set; }
             public DateTime VardiyaBaslangicTarihi { get; set; }
             public DateTime VardiyaBitisTarihi { get; set; }
