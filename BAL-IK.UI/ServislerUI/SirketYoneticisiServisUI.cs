@@ -190,5 +190,10 @@ namespace BAL_IK.UI.ServislerUI
         {
             throw new System.NotImplementedException();
         }
+
+        public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

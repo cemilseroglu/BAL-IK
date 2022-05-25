@@ -116,6 +116,10 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.PersonelleriGetir();
         }
-
+        [HttpPost("VardiyaTurEkle")]
+        public VardiyaTurEkleResponse VardiyaTurEkle(VardiyaTurEkleRequest req)
+        {
+            return _sService.VardiyaTurEkle(req);
+        }
     }
 }
