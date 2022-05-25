@@ -171,5 +171,23 @@ namespace BAL_IK.Model.ResponseClass
         {
             public List<VardiyaResponse> Vardiyalar { get; set; } = new List<VardiyaResponse>();
         }
+        public class MolaResponse:BaseResponse
+        {             
+            public int MolaId { get; set; }
+            public int MolaTurId { get; set; }
+            public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
+            public MolaTur MolaTuru { get; set; } = new MolaTur();
+        }
+        public class MolaTur:BaseResponse
+        {
+            public int MolaTurId { get; set; }
+            public string MolaTuru { get; set; }
+            public double MolaSuresi { get; set; }
+            public int SirketId { get; set; }
+        }
+        public class MolalarResponse:BaseResponse
+        {
+            public List<MolaResponse> Molalar { get; set; } = new List<MolaResponse>();
+        }
     }
 }

@@ -30,7 +30,12 @@ namespace BAL_IK.UI.ServislerUI
 
             return response.Data;
         }
-      
+
+        public MolalarResponse MolalariGetir(string guid)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
         {
             var request = new RestRequest("api/Personel/PersonelEkleme",Method.POST,DataFormat.Json).AddJsonBody(pr);
@@ -60,7 +65,10 @@ namespace BAL_IK.UI.ServislerUI
 
         public VardiyalarResponse VardiyalariGetir(string guid)
         {
-            throw new System.NotImplementedException();
+            var request = new RestRequest("api/Personel/VardiyalariGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+            var response = Globals.ApiClient.Execute<VardiyalarResponse>(request);
+
+            return response.Data;
         }
     }
 }
