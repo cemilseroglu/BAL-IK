@@ -180,6 +180,16 @@ namespace BAL_IK.Data.Servisler
 
             try
             {
+                SiteYoneticisi siteYoneticisi = _db.SiteYoneticileri.FirstOrDefault(x => x.Eposta == personel.Eposta);
+                Personeller personelDeneme = _db.Personeller.FirstOrDefault(x => x.Eposta == personel.Eposta);
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.FirstOrDefault(x => x.Eposta == personel.Eposta);
+                if (siteYoneticisi != null || personelDeneme != null || sirketYoneticisi != null)
+                {
+                    resp.Mesaj = "Bu mail adresi kullanılmaktadır.";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+
                 Personeller newPers = new Personeller()
                 {
                     Ad = personel.Ad,
@@ -191,9 +201,26 @@ namespace BAL_IK.Data.Servisler
                     DogumTarihi = personel.DogumTarihi,
                     ResimUrl = personel.ResimUrl,
                     IseBaslama = personel.IseBaslama,
-                    SirketId = personel.SirketId
+                    SirketId = personel.SirketId,
+                    TemelMaasBilgisi = personel.TemelMaasBilgisi
                 };
+               
+
                 _db.Add(newPers);
+                _db.SaveChanges();
+                Tools.MailGonder(newPers.Eposta,"Hoşgeldiniz Sisteme Eklendiniz.",$"<h3>Merhaba Sayın {newPers.Ad}  {newPers.Soyad}</h3><p>BAL-IK Sistemine Yöneticiniz tarafından kaydınız yapılmıştır.<a href='http://localhost:47578/Login'>Buraya Tıklayarak Sisteme Giriş Yapabilirsiniz</a></p>");
+
+                for (int i = 1; i <= 12; i++)
+                {
+                    MaasBilgisi maas = new MaasBilgisi()
+                    {
+                        AlacagiTarih = newPers.IseBaslama.AddMonths(i),                    
+                        MaasTutari = newPers.TemelMaasBilgisi,
+                        PersonelId = newPers.PersonelId,                        
+
+                    };
+                    _db.Add(maas);                    
+                }
                 _db.SaveChanges();
                 resp.BasariliMi = true;
                 resp.Mesaj = "Personel başarıyla eklendi.";
