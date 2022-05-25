@@ -137,7 +137,7 @@ namespace BAL_IK.Model.ResponseClass
             public int IzinSuresi { get; set; }
             public string ReddilmeNedeni { get; set; }
             public DateTime IzinIstemeTarihi { get; set; }
-            public DateTime OnaylanmaTarihi { get; set; }
+            public DateTime? OnaylanmaTarihi { get; set; }
             public DateTime IzinBaslangicTarihi { get; set; }
             public DateTime IzinBitisTarihi { get; set; }
             public int PersonelId { get; set; }
