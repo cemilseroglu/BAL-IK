@@ -131,6 +131,11 @@ namespace BAL_IK.Data.Servisler
             throw new NotImplementedException();
         }
 
+        public MolalarResponse MolalariGetir(string guid)
+        {
+            throw new NotImplementedException();
+        }
+
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
         {
             PersonelEkleResponse resp = new PersonelEkleResponse();
@@ -291,6 +296,22 @@ namespace BAL_IK.Data.Servisler
                 resp.BasariliMi = false;
                 return resp;
             }
+
         }
+
+        //public MolalarResponse MolalariGetir(string guid)
+        //{
+        //    MolalarResponse resp = new MolalarResponse();
+        //    try
+        //    {
+        //        Personeller personel = _db.Personeller.Include(x => x.Vardiya).FirstOrDefault(x => x.Guid.ToString() == guid);
+        //        List<Mola> molaList = _db.Molalar.Include(x => x.MolaTur).Where(x => x.Personeller. == personel.PersonelId).ToList();
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
     }
 }

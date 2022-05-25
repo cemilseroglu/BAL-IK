@@ -19,7 +19,8 @@ namespace BAL_IK.Data.Interfaceler.Personeller
 
         IzinlerResponse IzinleriGetir(string guid);
         VardiyalarResponse VardiyalariGetir(string guid);
-       
+        MolalarResponse MolalariGetir(string guid);
+
 
 
 
