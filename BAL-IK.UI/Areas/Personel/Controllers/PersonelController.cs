@@ -67,12 +67,12 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult IzinEkleme(IzinEkle req)
+        public IActionResult IzinEkleme(Ekleizin req)
         {            
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);          
             req.PersonelId=response.PersonelId;
-            var responseizin= _syServis.IzinEkle(req);
+            var responseizin= _syServis.Ekleizin(req);
             return View();
         }
 
