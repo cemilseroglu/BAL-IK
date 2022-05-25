@@ -65,8 +65,8 @@ namespace BAL_IK.Model.RequestClass
             public string OzlukBelgesiYolu { get; set; }
             public DateTime OlusturulmaZamani { get; set; }
             public int SirketYoneticisiId { get; set; }
-        }
-        public class IzinEkle
+        }       
+        public class Ekleizin
         {
             public IzinTuru IzinTur { get; set; } = new IzinTuru();
             public int IzinSuresi { get; set; }

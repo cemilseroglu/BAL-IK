@@ -72,6 +72,4 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
             return View();
         }
     }
-
-
 }

@@ -68,25 +68,21 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.OzlukBelgesiGuncelle(ozluk);
         }
-        //[HttpPost("IzinEklemeee")]
-        //public IzinEkleResponse IzinEkleme(IzinEkle izin)
-        //{
-        //    return _sService.IzinEkle(izin);
-        //}
-        //[HttpGet("IzinListele")]
-        //public IzinListelemeResponse IzinListele()
-        //{
-        //    return _sService.IzinListele();
-        //}
+        [HttpPost("OzlukBelgesiSil")]
+        public OzlukBelgesiSilResponse OzlukBelgesiSil(int ozlukBelgesiId)
+        {
+            return _sService.OzlukBelgesiSil(ozlukBelgesiId);
+        }
+
         //[HttpGet("SirketYoneticisiIzinListele")]
         //public IzinListelemeResponse IzinListeleme()
         //{
         //    return _sService.IzinListele();
         //}
-     
+
 
         [HttpPost("HarcamaOnay")]
-        public string HarcamaOnayi(int id,bool durum)
+        public string HarcamaOnayi(int id, bool durum)
         {
             return _sService.HarcamaOnayla(id, durum);
         }

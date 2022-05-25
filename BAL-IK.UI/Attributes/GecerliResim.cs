@@ -16,7 +16,7 @@ namespace BAL_IK.UI.Attributes
                     IFormFile resim = (IFormFile)value;
 
 
-                    if (!resim.ContentType.StartsWith("image/"))
+                    if (!resim.ContentType.StartsWith("image/"))//araştır
                     {
                         ErrorMessage = "Geçersiz resim dosyası eklediniz..";
                         return false;

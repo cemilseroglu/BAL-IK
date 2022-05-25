@@ -107,7 +107,11 @@ namespace BAL_IK.Model.ResponseClass
         {
 
         }
-        public class IzinEkleResponse : BaseResponse
+        public class OzlukBelgesiSilResponse : BaseResponse
+        {
+
+        }
+        public class EkleizinResponse : BaseResponse
         {
             public int IzinTurId { get; set; }
             public string IzinTur { get; set; }
@@ -122,7 +126,7 @@ namespace BAL_IK.Model.ResponseClass
             public OnayDurumu OnayDurumu { get; set; }
         }
         
-        public class IzinListelemeResponse : BaseResponse
+        public class ListelemeizinResponse : BaseResponse
         {
             public List<IzinListeleResponse> IzinListele { get; set; } = new List<IzinListeleResponse>();
         }
