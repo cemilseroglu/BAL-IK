@@ -13,7 +13,11 @@ namespace BAL_IK.Model.Entities
         public int VardiyaTurId { get; set; }
         [MaxLength(30)]
         public string VardiyaTuru { get; set; }
+        public DateTime VardiyaBaslangicTarihi { get; set; }
+        public DateTime VardiyaBitisTarihi { get; set; }
         public List<Vardiyalar> Vardiyalar { get; set; }
+        public int SirketId { get; set; }
+        public Sirket Sirket { get; set; }
 
     }
 }

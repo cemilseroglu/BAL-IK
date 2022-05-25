@@ -27,7 +27,6 @@ namespace BAL_IK.API.Controllers
             return _sService.SirketEkle(sirket);
         }
 
-
         [HttpPost]
         public EkleizinResponse Eklemeizin(Ekleizin izin)
         {

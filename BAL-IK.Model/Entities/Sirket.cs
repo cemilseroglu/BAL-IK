@@ -25,6 +25,8 @@ namespace BAL_IK.Model.Entities
         public List<SirketYoneticisi> SirketYoneticileri { get; set; }
         public List<Personeller> Personeller { get; set; }
         public List<Departmanlar> Departmanlar { get; set; }
+        public List<VardiyaTur> VardiyaTurleri { get; set; }
+        public List<MolaTur> MolaTurleri { get; set; }
         public DateTime KayitTarihi { get; set; } = DateTime.Now;
         public DateTime UyelikBitisTarihi { get; set; }
         public int? YorumId { get; set;}

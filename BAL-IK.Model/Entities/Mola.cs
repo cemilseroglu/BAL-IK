@@ -21,7 +21,7 @@ namespace BAL_IK.Model
         [Required]
         public ICollection<Personeller> Personeller { get; set; }
         public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
-        public double MolaSuresi { get; set; }
+        
     }
   
 }
