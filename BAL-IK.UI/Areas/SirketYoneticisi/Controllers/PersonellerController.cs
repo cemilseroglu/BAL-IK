@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static BAL_IK.Model.RequestClass.SirketYoneticisiIslemleriRequest;
 using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse;
+using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest;
+
 
 namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
 {
@@ -57,19 +59,22 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         //public IActionResult CalisanEkle()
         //{
         //    PersonelEkleResponse personelEkle = new PersonelEkleResponse();
-        //    personelEkle = _syServis.PersonelEklemeIslemi();
+        //    var personelGuid = HttpContext.Session.GetString("personel");
+        //    var response = _syServis.PersonelGetir(personelGuid);
 
 
         //    return View();
         //}
-        //[HttpPost]
-        //public IActionResult CalisanEkle(PersonelEkleViewModel req)
-        //{
-        //    PersonelEkleResponse personelEkle = new PersonelEkleResponse();
-        //    personelEkle = _syServis.PersonelEklemeIslemi(req);
+        [HttpPost]
+        public IActionResult CalisanEkle(PersonelEkle req)
+        {
+            PersonelEkleResponse personelEkle = new PersonelEkleResponse();
+            personelEkle = _syServis.PersonelEklemeIslemi(req);
+            //_syServis.
+            
 
 
-        //    return View();
-        //}
+            return View();
+        }
     }
 }

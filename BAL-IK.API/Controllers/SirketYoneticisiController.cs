@@ -79,7 +79,16 @@ namespace BAL_IK.API.Controllers
         //{
         //    return _sService.IzinListele();
         //}
-
+        [HttpPost]
+        public EkleizinResponse Eklemeizin(Ekleizin izin)
+        {
+            return _sService.Ekleizin(izin);
+        }
+        [HttpGet]
+        public ListelemeizinResponse Listeleizin()
+        {
+            return _sService.Listeleizin();
+        }
 
         [HttpPost("HarcamaOnay")]
         public string HarcamaOnayi(int id, bool durum)
