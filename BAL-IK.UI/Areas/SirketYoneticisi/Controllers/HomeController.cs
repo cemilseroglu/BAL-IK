@@ -1,5 +1,6 @@
 ﻿using BAL_IK.Data.Interfaceler.SirketYoneticisi;
 using BAL_IK.UI.Filters;
+using BAL_IK.UI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +27,13 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
             var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
             var response = _sirketYoneticisiServis.SirketYoneticisiGetir(sirketYoneticisiGuid);
             TempData["isim"] = response.Ad;
-            return View();
+            SirketYoneticisiAnaSayfaWM wm = new SirketYoneticisiAnaSayfaWM();
+            wm.GelenVeriler = _sirketYoneticisiServis.sirketVerileri(sirketYoneticisiGuid);
+             wm.Personeller= _sirketYoneticisiServis.PersonelleriGetir(sirketYoneticisiGuid);
+            wm.Harcamalar=_sirketYoneticisiServis.HarcamalariGetir(sirketYoneticisiGuid);
+
+
+            return View(wm);
 
         }
         [HttpPost]
@@ -78,6 +85,7 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
 
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
+
     }
 
 }

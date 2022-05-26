@@ -249,6 +249,40 @@ namespace BAL_IK.UI.ServislerUI
             return response.Data;
         }
 
-      
+        public SirketVerileri sirketVerileri(string guid)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/SirketVerisiGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+
+            var response = Globals.ApiClient.Execute<SirketVerileri>(request);
+
+            return response.Data;
+        }
+
+        public YorumEkleResponse sirketYorum(SirketYoneticisiIslemleriRequest.YorumEkleRequest req)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/sirketYorumEkle", Method.POST, DataFormat.Json).AddJsonBody(req);
+
+            var response = Globals.ApiClient.Execute<YorumEkleResponse>(request);
+
+            return response.Data;
+        }
+
+        public YorumResponse sirketYorumGetir(string guid)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/sirketYorumGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+
+            var response = Globals.ApiClient.Execute<YorumResponse>(request);
+
+            return response.Data;
+        }
+        
+        public YorumGuncelleResponse sirketYorumGuncelle(SirketYoneticisiIslemleriRequest.YorumGuncelleRequest req)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/sirketYorumGuncelle", Method.POST, DataFormat.Json).AddJsonBody(req);
+
+            var response = Globals.ApiClient.Execute<YorumGuncelleResponse>(request);
+
+            return response.Data;
+        }
     }
 }
