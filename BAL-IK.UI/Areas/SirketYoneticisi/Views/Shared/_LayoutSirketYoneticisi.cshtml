@@ -181,19 +181,27 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Vardiya İşlemleri</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/notifications.html">
+                    <a class="nav-link text-white " asp-action="VardiyaTur" asp-controller="Personeller">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">notifications</i>
                         </div>
-                        <span class="nav-link-text ms-1">Vardiya Oluştur(Link ver)</span>
+                        <span class="nav-link-text ms-1">Vardiya Yönet</span>
                     </a>
                 </li>
                  <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/billing.html">
+                    <a class="nav-link text-white " asp-action="MolaTur" asp-controller="Personeller">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">notifications</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Mola Yönet</span>
+                    </a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link text-white " asp-action="CalisanMolaVardiya" asp-controller="Personeller">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">receipt_long</i>
                         </div>
-                        <span class="nav-link-text ms-1">Vardiya ve Molaları Yönet</span>                       
+                        <span class="nav-link-text ms-1">Çalışan Vardiya ve Mola</span>                       
                     </a>
                 </li>
                 <li class="nav-item mt-3">

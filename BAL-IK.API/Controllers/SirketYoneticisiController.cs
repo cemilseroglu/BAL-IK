@@ -121,14 +121,44 @@ namespace BAL_IK.API.Controllers
             return _sService.ZimmetGuncelle(req);
         }
         [HttpGet("PersonelleriGetir")]
-        public PersonelleriGetirResponse PersonelleriGetir()
+        public PersonelleriGetirResponse PersonelleriGetir(string guid)
         {
-            return _sService.PersonelleriGetir();
+            return _sService.PersonelleriGetir(guid);
         }
         [HttpPost("VardiyaTurEkle")]
         public VardiyaTurEkleResponse VardiyaTurEkle(VardiyaTurEkleRequest req)
         {
             return _sService.VardiyaTurEkle(req);
+        }
+        [HttpPost("VardiyaTurSil")]
+        public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
+        {
+            return _sService.VardiyaTurSil(vardiyaTurId);
+        }
+        [HttpGet("VardiyaTurleriGetir")]
+        public VardiyaTurleriGetirResponse VardiyaTurlerGetir(string guid)
+        {
+            return _sService.VardiyaTurleriGetir(guid);
+        }
+        [HttpPost("CalisanVardiyaEkle")]
+        public CalisanVardiyaMolaEkleResponse CalisanVardiyaEkle(CalisanVardiyaMolaEkleRequest req)
+        {
+            return _sService.CalisanVardiyaEkle(req);
+        }
+        [HttpGet("MolaTurleriGetir")]
+        public MolaTurlerResponse MolaTurleriGetir(string guid)
+        {
+            return _sService.MolaTurleriGetir(guid);
+        }
+        [HttpPost("MolaTurEkle")]
+        public MolaTurEkleResponse MolaTurEkle(MolaTurRequest req)
+        {
+            return _sService.MolaTurEkle(req);
+        }
+        [HttpPost("MolaTurSil")]
+        public MolaTurSilResponse MolaTurSil(int id)
+        {
+            return _sService.MolaTurSil(id);
         }
     }
 }
