@@ -26,7 +26,7 @@
             <th scope="col">Personel Adı</th>
             <th scope="col">Zimmet Türü</th>
             <th scope="col">Durumu</th>
-            <th scope="col">Teslim Durumu</th>
+            <th scope="col">Geri Teslim Durumu</th>
             <th scope="col">Atandığı Tarih</th>
             <th scope="col">Durumu</th>
             <th scope="col">İşlem</th>
@@ -37,22 +37,57 @@
         {
             @foreach (var item in Model.Zimmetler.OrderByDescending(x => x.PersonelId))
             {
-
-
+                string ad = @Model.Personeller.FirstOrDefault(x => x.PersonelId == item.PersonelId).Ad + " " + @Model.Personeller.FirstOrDefault(x => x.PersonelId == item.PersonelId).Soyad;
+                string zimmetTuru = @Model.ZimmetTurleri.FirstOrDefault(x => x.ZimmetTuruId == item.ZimmetTuruId).ZimmetTur;
+                string teslim = "";
+                string zimmetTeslim = "";
+                string notu = "";
+                if(@item.TeslimEdildiMi)
+                {
+                    
+                      teslim = "Teslim Edildi";
+                }
+                else
+                {
+                      teslim = "Teslim Edilmedi";
+                }
+                if(@item.ZimmetTeslimTarihi==null)
+                {
+                     zimmetTeslim = "Teslim Edilmedi.";
+                }
+                else
+                {
+                     zimmetTeslim = @item.ZimmetTeslimTarihi.ToString();
+                }
+                if(@item.NotIcerik==null)
+                {
+                    notu = "Not Yok";
+                }
+                else
+                {
+                    notu = @item.NotIcerik;
+                }
                 <tr>
                     <td>@Model.Personeller.FirstOrDefault(x=>x.PersonelId==item.PersonelId).Ad  @Model.Personeller.FirstOrDefault(x=>x.PersonelId==item.PersonelId).Soyad</td>
                     <td>@Model.ZimmetTurleri.FirstOrDefault(x=>x.ZimmetTuruId==item.ZimmetTuruId).ZimmetTur</td>
                     <td>@item.Durumu</td>
-                    <td>@item.TeslimEdildiMi</td>
+                    <td>@teslim</td>
                     <td>@item.ZimmetTarihi.ToShortDateString()</td>
                     <td>@item.Durumu</td>
                     <td>
-                        <button class="btn btn-primary" onclick="confirmAction(@item.ZimmetId)">Sil</button>  <a class="btn btn-white">Güncelle</a> <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">
-                            Detay
-                        </button>
+                        <button class="btn btn-primary" onclick="confirmAction(@item.ZimmetId)">Sil</button> @* <a class="btn btn-white">Güncelle</a>*@ <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter" onclick="detaySayfasi('@ad','@zimmetTuru','@item.Durumu','@item.ZimmetTarihi.ToShortDateString()','@teslim','@zimmetTeslim','@notu');">Detay</button>
 
                         <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+             
+                    </td>
+
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -62,13 +97,13 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Zimmet Türü=@Model.ZimmetTurleri.FirstOrDefault(x=>x.ZimmetTuruId==item.ZimmetTuruId).ZimmetTur</p>
-                                        <p>Personel Bilgisi=@Model.Personeller.FirstOrDefault(x=>x.PersonelId==item.PersonelId).Ad  @Model.Personeller.FirstOrDefault(x=>x.PersonelId==item.PersonelId).Soyad</p>
-                                        <p>Durumu=@item.Durumu</p>
-                                        <p>Zimmet Tarihi=@item.ZimmetTarihi</p>
-                                        <p>Teslim Alınma Durumu=@item.TeslimEdildiMi</p>
-                                        <p>Teslim Alındığı Tarih=@item.ZimmetTeslimTarihi</p>
-                                        <p>Not=@item.NotIcerik  </p>
+                                        <p id="ZimmetTuru">Zimmet Türü=</p>
+                                        <p id="Personel">Personel Bilgisi=</p>
+                                        <p id="Durumu">Durumu=</p>
+                                        <p id="ZimmetTarihi">Zimmet Tarihi=</p>
+                                        <p id="TeslimAlinma">Teslim Alınma Durumu=</p>
+                                        <p id="TeslimTarihi">Teslim Alındığı Tarih=</p>
+                                        <p id="Not">Not=</p>
 
                                     </div>
                                     <div class="modal-footer">
@@ -77,14 +112,6 @@
                                 </div>
                             </div>
                         </div>
-                    </td>
-
-                </tr>
-            }
-        }
-
-    </tbody>
-</table>
 
 <!-- Button trigger modal -->
 @section scripts
@@ -117,7 +144,28 @@
 
               }
               location.reload();
-            }
+            };
+
+            function detaySayfasi(ad,zimmetTuru,durumu,zimmetTarihi,teslim,zimmetTeslim,not)
+            {
+                console.log(ad);
+                console.log(zimmetTuru);
+                console.log(durumu);
+                console.log(zimmetTarihi);
+                console.log(teslim);
+                console.log(zimmetTeslim);
+                console.log(not);
+                $('#ZimmetTuru').text("Zimmet Türü="+zimmetTuru);
+                $('#Personel').text("Personel Bilgisi="+ad);
+                $('#Durumu').text("Durumu="+durumu);
+                $('#ZimmetTarihi').text("Zimmet Tarihi="+zimmetTarihi);
+                $('#TeslimAlinma').text("Teslim Alınma Durumu="+teslim);
+                $('#TeslimTarihi').text("Teslim Alınma Tarihi="+zimmetTeslim);
+                $('#Not').text("Personel Notu="+not);
+
+
+
+            };
 
 </script>
 }

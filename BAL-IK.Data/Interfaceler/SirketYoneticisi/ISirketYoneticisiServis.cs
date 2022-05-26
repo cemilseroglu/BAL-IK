@@ -57,5 +57,10 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
         MolaTurSilResponse MolaTurSil(int id);
         MolaTurlerResponse MolaTurleriGetir(string guid);
         #endregion
+
+        SirketVerileri sirketVerileri(string guid);
+        YorumEkleResponse sirketYorum(YorumEkleRequest req);
+        YorumResponse sirketYorumGetir(string guid);
+        YorumGuncelleResponse sirketYorumGuncelle(YorumGuncelleRequest req);
     }
 }

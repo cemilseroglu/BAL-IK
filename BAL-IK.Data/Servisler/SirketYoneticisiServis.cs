@@ -939,5 +939,110 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+
+        public SirketVerileri sirketVerileri(string guid)
+        {
+            SirketVerileri resp = new SirketVerileri();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x=>x.Sirket).FirstOrDefault(x => x.Guid.ToString() == guid);
+                resp.AylikHarcama = _db.Harcamalar
+                    .Include(x=>x.Personel)
+                    .Where(x=>x.OnayDurumu==true && x.OlusturulmaZamani.Month==DateTime.Now.Month && x.Personel.SirketId==sirketYoneticisi.Sirket.SirketId)
+                    .Select(x => x.HarcamaTutari)
+                    .Sum();
+                resp.BekleyenIzinTalebiSayisi = _db.Izinler
+                    .Include(x=>x.Personel)
+                    .Where(x => x.OnayDurumu == OnayDurumu.OnayBekliyor && x.Personel.SirketId==sirketYoneticisi.Sirket.SirketId)
+                    .ToList().Count;
+                resp.ZimmetSayisi = _db.Zimmetler
+                    .Include(x=>x.Personel)
+                    .Where(x => x.Durumu == Durumu.KabulEdildi && x.Personel.SirketId == sirketYoneticisi.Sirket.SirketId)
+                    .ToList().Count;
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "Veriler getirildi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public YorumEkleResponse sirketYorum(SirketYoneticisiIslemleriRequest.YorumEkleRequest req)
+        {
+            YorumEkleResponse resp=new YorumEkleResponse();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == req.SirketYoneticisiGuid);
+                Yorum yeniYorum=new Yorum();
+                yeniYorum.YorumIcerik = req.YorumIcerik;
+                yeniYorum.YorumBaslik = req.YorumBaslik;
+                yeniYorum.SirketId = sirketYoneticisi.Sirket.SirketId;
+                yeniYorum.OlusturulmaTarihi = DateTime.Now;
+                _db.Add(yeniYorum);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Yorum eklendi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public YorumResponse sirketYorumGetir(string guid)
+        {
+            YorumResponse resp=new YorumResponse();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == guid);
+                Yorum yorum = _db.Yorumlar.FirstOrDefault(x => x.SirketId == sirketYoneticisi.Sirket.SirketId);
+                resp.YorumIcerik = yorum.YorumIcerik;
+                resp.YorumId=yorum.YorumId;
+                resp.YorumBaslik = yorum.YorumBaslik;
+                resp.OlusturulmaTarihi = yorum.OlusturulmaTarihi;              
+                resp.BasariliMi = true;
+                resp.Mesaj = "Yorum getirildi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public YorumGuncelleResponse sirketYorumGuncelle(SirketYoneticisiIslemleriRequest.YorumGuncelleRequest req)
+        {
+            YorumGuncelleResponse resp=new YorumGuncelleResponse();
+            try
+            {
+                Yorum yorum = _db.Yorumlar.Find(req.YorumId);
+                
+                yorum.YorumIcerik=req.YorumIcerik;
+                yorum.YorumBaslik = req.YorumBaslik;
+                yorum.OlusturulmaTarihi = DateTime.Now;
+
+                _db.Update(yorum);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Yorum güncellendi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
     }
 }

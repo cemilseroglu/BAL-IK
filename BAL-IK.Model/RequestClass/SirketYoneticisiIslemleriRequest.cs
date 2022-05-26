@@ -64,5 +64,18 @@ namespace BAL_IK.Model.RequestClass
             public double MolaSuresi { get; set; }
             public string SirketYoneticisiGuid { get; set; }
         }
+        public class YorumEkleRequest
+        {
+            public string YorumBaslik { get; set; }
+            public string YorumIcerik { get; set; }
+            public string SirketYoneticisiGuid { get; set; }           
+         
+        }
+        public class YorumGuncelleRequest
+        {
+            public int YorumId { get; set; }
+            public string YorumBaslik { get; set; }
+            public string YorumIcerik { get; set; } 
+        }
     }
 }

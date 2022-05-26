@@ -160,5 +160,28 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.MolaTurSil(id);
         }
+        [HttpGet("SirketVerisiGetir")]
+        public SirketVerileri sirketVerileri(string guid)
+        {
+            return _sService.sirketVerileri(guid);
+        }
+        [HttpGet("sirketYorumGetir")]
+        public YorumResponse sirketYorumGetir(string guid)
+        {
+            return _sService.sirketYorumGetir(guid);
+        }
+        [HttpPost("sirketYorumEkle")]
+        public YorumEkleResponse sirketYorum(YorumEkleRequest req)
+        {
+            return _sService.sirketYorum(req);
+        }
+        [HttpPost("sirketYorumGuncelle")]
+        public YorumGuncelleResponse sirketYorumGuncelle(YorumGuncelleRequest req)
+        {
+            return _sService.sirketYorumGuncelle(req);
+        }
+
+
+
     }
 }
