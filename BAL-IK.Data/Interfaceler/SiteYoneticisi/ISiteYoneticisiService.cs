@@ -15,6 +15,9 @@ namespace BAL_IK.Data.Interfaceler
         SiteYoneticileriniListeleResponse SiteYoneticileriniListele();
         SiteYoneticisiResp SiteYoneticisiGetir(string guid);
         SiteYoneticisiGuncelleResponse SiteYoneticisiGuncelleme(SiteYoneticisiGuncelle sy);
+        SirketGuncelleResponse SirketGuncelleme(SirketGuncelle sy);
+        SirketListeleResponse SirketleriListele();
+        SirketResp SirketGetir(int id);
         //List<SiteYoneticisi> SiteYoneticileriGetir();
         //List<Sirket> SirketleriGetir();
     }

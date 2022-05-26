@@ -1,4 +1,5 @@
 ﻿using BAL_IK.Data.Interfaceler;
+using BAL_IK.Model.Entities;
 using BAL_IK.UI.Filters;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -58,9 +59,67 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
             return RedirectToAction("Profil","Home");
         }
 
+        public IActionResult SirketAyarlari()
+        {
+            var response = _siteyoneticisiService.SirketleriListele();
+            return View(response);
+        }
+
+        public IActionResult SirketDurumuGuncelleme(int id)
+        {
+            var response = _siteyoneticisiService.SirketGetir(id);
+            SirketGuncelle sdgun = new SirketGuncelle();
+            sdgun.SirketId = id;
+            sdgun.SirketAdresi = response.SirketAdresi;
+            sdgun.Durum = response.Durum;
+            sdgun.SirketAdi = response.SirketAdi;
+            sdgun.KayitTarihi = response.KayitTarihi;
+            sdgun.UyelikBitisTarihi = response.UyelikBitisTarihi;
+            sdgun.OdemePlani = (Model.RequestClass.OdemePlani)response.OdemePlani;
+            sdgun.SirketLogoURL = response.SirketLogoURL;
+            sdgun.SirketEmail = response.SirketEmail;
+            sdgun.Durum = response.Durum;
+            return View(sdgun);
+        }
+        [HttpPost]
+        public IActionResult SirketDurumuGuncelleme(SirketGuncelle s)
+        {
+            var responseKarsilastirma = _siteyoneticisiService.SirketGetir(s.SirketId);
+            var response = _siteyoneticisiService.SirketGuncelleme(s);
+            if(s.Durum != responseKarsilastirma.Durum)
+            { 
+            if (s.Durum == Durum.Pasif)
+            {
+               Data.Servisler.Tools.MailGonder(s.SirketEmail,"Şirketinizin durumu değiştirilmiştir.","Şirketinizin durumu pasif olarak değiştirilmiştir.");
+
+            }
+            else if(s.Durum == Durum.Aktif)
+            {
+                Data.Servisler.Tools.MailGonder(s.SirketEmail, "Şirketinizin durumu değiştirilmiştir.", "Şirketinizin durumu aktif olarak değiştirilmiştir.Artık rahatlıkla giriş yapabilirsiniz.");
+            }
+            else if (s.Durum == Durum.Askıda)
+            {
+                Data.Servisler.Tools.MailGonder(s.SirketEmail, "Şirketiniz askıye alınmıştır!", "Şirketiniz askıya alınmıştır.Lütfen teknik ekiple görüşünüz.");
+            }
+            }
+            else
+            {
+                Data.Servisler.Tools.MailGonder(s.SirketEmail, "Şirketinizin bilgileri değiştirilmiş olabilir!", "Eğer bilginiz dahilinde değilse lütfen bize ulaşın!");
+            }
+            return RedirectToAction("SirketAyarlari", "Home");
+        }
 
 
-#region ResmiTatillerAPI
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("siteYoneticisi");
+
+            return RedirectToAction("Index", "Home", new { Area = "" });
+        }
+
+
+
+        #region ResmiTatillerAPI
         public static async Task<GelenData> ResmiTatillerGetir()
         {
             using (var client = new HttpClient())

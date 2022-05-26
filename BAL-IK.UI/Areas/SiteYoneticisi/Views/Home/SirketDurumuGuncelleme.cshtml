@@ -1,0 +1,87 @@
+﻿@using static BAL_IK.Model.RequestClass.SiteYoneticisiIslemleriRequest
+@model SirketGuncelle
+@{
+
+    ViewData["Title"] = "Profil";
+    Layout = "~/Areas/SiteYoneticisi/Views/Shared/_LayoutSiteYoneticisi.cshtml";
+}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Sayfalar</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Şirket Ayarları</li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Şirket Ayarları</h6>
+            </nav>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                    <div class="input-group input-group-outline">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid px-2 px-md-4">
+        <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+            <span class="mask  bg-gradient-primary  opacity-6"></span>
+        </div>
+        <div class="card card-body mx-3 mx-md-4 mt-n6">
+            <div class="row gx-4 mb-2">
+                <div class="col-auto">
+                </div>
+                <div class="col-auto my-auto">
+                    <div class="h-100">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-12 col-xl-4 w-100">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-12 col-xl-4">
+                                    <p class="text-dark">Profil bilgileri</p>
+                                    <form method="post" asp-action="SirketDurumuGuncelleme" asp-controller="Home" class="text-start">
+                                        <input type="hidden" asp-for="SirketId" />
+                                        <div class="m-2 text-black text-start">
+                                            <label asp-for="SirketAdi">Şirket Adı</label>
+                                            <input asp-for="SirketAdi" type="text" class="form-control bg-dark text-white" value="@Model.SirketAdi" />
+                                            <span asp-validation-for="SirketAdi" class="text-danger"></span>
+                                            <label asp-for="SirketEmail">Şirket E-Mail</label>
+                                            <input asp-for="SirketEmail" type="email" class="form-control bg-dark text-white" value="@Model.SirketEmail" />
+                                            <span asp-validation-for="SirketEmail" class="text-danger"></span>
+                                            <label asp-for="SirketAdresi">Şirket Adresi</label>
+                                            <input asp-for="SirketAdresi" type="text" class="form-control bg-dark text-white" value="@Model.SirketAdresi" />
+                                            <span asp-validation-for="SirketAdresi" class="text-danger"></span>
+                                            <label asp-for="SirketTelefonu">Şirket Telefonu</label>
+                                            <input asp-for="SirketTelefonu" type="text" class="form-control bg-dark text-white" value="@Model.SirketTelefonu" />
+                                            <span asp-validation-for="SirketTelefonu" class="text-danger"></span>
+                                            <label asp-for="KayitTarihi">Kayıt Tarihi</label>
+                                            <input asp-for="KayitTarihi" type="date" class="form-control bg-dark text-white" placeholder="@Model.KayitTarihi.ToShortDateString() readonly" />
+                                            <span asp-validation-for="KayitTarihi" class="text-danger"></span>
+                                            <label asp-for="UyelikBitisTarihi">Üyelik Bitiş Tarihi</label>
+                                            <input asp-for="UyelikBitisTarihi" type="date" class="form-control bg-dark text-white" placeholder="@Model.UyelikBitisTarihi.ToShortDateString()" />
+                                            <span asp-validation-for="UyelikBitisTarihi" class="text-danger"></span>
+                                            <div>
+                                                <label asp-for="OdemePlani">Ödeme Planı</label>
+                                                <select asp-for="OdemePlani" asp-items="Html.GetEnumSelectList<OdemePlani>()" class="3col active dropdown bg-dark text-white mt-3 ms-5"></select>
+                                            </div>
+
+                                            <div>
+                                                <label asp-for="Durum">Durum</label>
+                                                <select asp-for="Durum" asp-items="Html.GetEnumSelectList<Durum>()" class="3col active dropdown bg-dark text-white mt-2 ms-5"></select>
+                                            </div>
+                                        </div>
+                                        <button class="mt-2 btn  btn-primary rounded-pill float-start mb-2 ms-2 btn-sm">Güncelle</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -8,6 +8,30 @@ namespace BAL_IK.UI.ServislerUI
 {
     public class SiteYoneticisiServisUI:ISiteYoneticisiService
     {
+        public SirketResp SirketGetir(int id)
+        {
+            var request = new RestRequest("api/SiteYoneticisi/SirketGetir", Method.GET, DataFormat.Json).AddParameter("id", id);
+            var response = Globals.ApiClient.Execute<SirketResp>(request);
+
+            return response.Data;
+        }
+
+        public SirketGuncelleResponse SirketGuncelleme(SiteYoneticisiIslemleriRequest.SirketGuncelle s)
+        {
+            var request = new RestRequest("api/SiteYoneticisi/SirketGuncelleme", Method.POST, DataFormat.Json).AddJsonBody(s);
+            var response = Globals.ApiClient.Execute<SirketGuncelleResponse>(request);
+            return response.Data;
+        }
+
+        public SirketListeleResponse SirketleriListele()
+        {
+            
+                var request = new RestRequest("api/SiteYoneticisi/SirketleriListele", Method.GET, DataFormat.Json);
+                var response = Globals.ApiClient.Execute<SirketListeleResponse>(request);
+                return response.Data;
+            
+        }
+
         public SiteYoneticileriniListeleResponse SiteYoneticileriniListele()
         {
             throw new System.NotImplementedException();
