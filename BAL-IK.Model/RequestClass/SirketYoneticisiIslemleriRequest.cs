@@ -49,5 +49,20 @@ namespace BAL_IK.Model.RequestClass
             public DateTime VardiyaBaslangicTarihi { get; set; }
             public DateTime VardiyaBitisTarihi { get; set; }
         }
+        public class CalisanVardiyaMolaEkleRequest
+        {
+            public int VardiyaId { get; set; }
+            public int PersonelId { get; set; }
+            public int VardiyaTurId { get; set; }
+            public List<int> MolaTurIds { get; set; }
+        }
+
+        public class MolaTurRequest
+        {
+            public int MolaTurId { get; set; }
+            public string MolaTuru { get; set; }
+            public double MolaSuresi { get; set; }
+            public string SirketYoneticisiGuid { get; set; }
+        }
     }
 }
