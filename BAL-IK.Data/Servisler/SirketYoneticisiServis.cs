@@ -525,12 +525,7 @@ namespace BAL_IK.Data.Servisler
                     IzinBaslangicTarihi = izinEkle.IzinBaslangicTarihi,
                     IzinBitisTarihi = izinEkle.IzinBitisTarihi,
                     IzinSuresi = izinEkle.IzinSuresi,
-                    IzinIstemeTarihi = izinEkle.IzinIstemeTarihi,
-                    IzinTur =
-                    {
-                        IzinTurId=izinEkle.IzinTur.IzinTurId,
-                        IzinTur=izinEkle.IzinTur.IzinTur
-                    },
+                    IzinIstemeTarihi = izinEkle.IzinIstemeTarihi,                
                     OnayDurumu = izinEkle.OnayDurumu,
                     OnaylanmaTarihi = izinEkle.OnaylanmaTarihi,
                     ReddilmeNedeni = izinEkle.ReddilmeNedeni,

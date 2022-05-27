@@ -62,17 +62,17 @@ namespace BAL_IK.UI.ViewModels
             public int SirketYoneticisiId { get; set; }
             public OnayDurumu OnayDurumu { get; set; }
         }
-        public class VardiyaResponse 
-        {
-            public int VardiyaId { get; set; }
-            public DateTime VardiyaBaslangicTarihi { get; set; }
-            public DateTime VardiyaBitisTarihi { get; set; }  //10 gün gece 10 gün gündüz vardiyası şeklinde gibi...
-            public int VardiyaTurId { get; set; }
-            public int PersonelId { get; set; }
-            public VardiyaTur VardiyaTuru { get; set; } = new VardiyaTur();
+        //public class VardiyaResponse 
+        //{
+        //    public int VardiyaId { get; set; }
+        //    public DateTime VardiyaBaslangicTarihi { get; set; }
+        //    public DateTime VardiyaBitisTarihi { get; set; }  //10 gün gece 10 gün gündüz vardiyası şeklinde gibi...
+        //    public int VardiyaTurId { get; set; }
+        //    public int PersonelId { get; set; }
+        //    public VardiyaTur VardiyaTuru { get; set; } = new VardiyaTur();
 
 
-        }
+        //}
         public class VardiyaTur 
         {
             public int VardiyaTurId { get; set; }
@@ -84,14 +84,14 @@ namespace BAL_IK.UI.ViewModels
         {
             public List<VardiyaResponse> Vardiyalar { get; set; } = new List<VardiyaResponse>();
         }
-        public class MolaResponse 
-        {
-            public int MolaId { get; set; }
-            public int MolaTurId { get; set; }
-            public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
-            public MolaTur MolaTuru { get; set; } = new MolaTur();
-            public int PersonelId { get; set; }
-        }
+        //public class MolaResponse 
+        //{
+        //    public int MolaId { get; set; }
+        //    public int MolaTurId { get; set; }
+        //    public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
+        //    public MolaTur MolaTuru { get; set; } = new MolaTur();
+        //    public int PersonelId { get; set; }
+        //}
         public class MolaTur 
         {
             public int MolaTurId { get; set; }

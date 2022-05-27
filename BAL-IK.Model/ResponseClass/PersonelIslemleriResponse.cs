@@ -190,5 +190,14 @@ namespace BAL_IK.Model.ResponseClass
         {
             public List<MolaResponse> Molalar { get; set; } = new List<MolaResponse>();
         }
+        public class IzinTurResponse:BaseResponse
+        {
+            public int IzinTurId { get; set; }     
+            public string IzinTur { get; set; }
+        }
+        public class IzinTurlerResponse:BaseResponse
+        {
+            public List<IzinTurResponse> IzinTurler { get; set; } = new List<IzinTurResponse>();
+        }
     }
 }

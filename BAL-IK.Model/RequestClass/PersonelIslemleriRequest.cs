@@ -69,16 +69,16 @@ namespace BAL_IK.Model.RequestClass
         }       
         public class Ekleizin
         {
-            public IzinTuru IzinTur { get; set; } = new IzinTuru();
+            public int IzinTurId { get; set; } 
             public int IzinSuresi { get; set; }
             public string ReddilmeNedeni { get; set; }
-            public DateTime IzinIstemeTarihi { get; set; }
+            public DateTime IzinIstemeTarihi { get; set; } = DateTime.Now;
             public DateTime OnaylanmaTarihi { get; set; }
             public DateTime IzinBaslangicTarihi { get; set; }
             public DateTime IzinBitisTarihi { get; set; }
             public int PersonelId { get; set; }
             public int SirketYoneticisiId { get; set; }
-            public OnayDurumu OnayDurumu { get; set; }
+            public OnayDurumu OnayDurumu { get; set; } = OnayDurumu.OnayBekliyor;
         } 
         public class IzinTuru
         {

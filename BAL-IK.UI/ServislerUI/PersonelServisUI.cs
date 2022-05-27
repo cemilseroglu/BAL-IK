@@ -77,8 +77,17 @@ namespace BAL_IK.UI.ServislerUI
 
         public EkleizinResponse Ekleizin(PersonelIslemleriRequest.Ekleizin izinEkle)
         {
-            var request = new RestRequest("api/Personel/Ekleizin", Method.POST, DataFormat.Json).AddJsonBody(izinEkle);
+            
+            var request = new RestRequest("api/Personel/IzinEkle", Method.POST, DataFormat.Json).AddJsonBody(izinEkle);
             var response = Globals.ApiClient.Execute<EkleizinResponse>(request);
+            return response.Data;
+        }
+
+        public IzinTurlerResponse IzinTurleriGetir()
+        {
+
+            var request = new RestRequest("api/Personel/IzinTurleriGetir", Method.GET, DataFormat.Json);
+            var response = Globals.ApiClient.Execute<IzinTurlerResponse>(request);
             return response.Data;
         }
     }

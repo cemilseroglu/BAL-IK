@@ -1,6 +1,6 @@
 ﻿@using static BAL_IK.UI.ViewModels.IzinlerViewModel
 @using BAL_IK.UI.ViewModels
-@model IzinlerViewModel
+@model PersonelIzinEkleWm
 
 
 @{
@@ -13,7 +13,7 @@
 }
 
 <form method="post" asp-action="IzinEkleme" asp-controller="Personel" class="text-start" enctype="multipart/form-data">
-                    <input asp-for=PersonelId hidden />
+                    <input asp-for=Ekleizin.PersonelId hidden />
 <div class="card">
                         <div class="card-header pb-0 px-3">
                             <h6 class="mb-0">İzin Ekle</h6>
@@ -24,12 +24,16 @@
                                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                                     <div class="d-flex flex-column">
 
-                                        <span class="mb-2 text-xs "> <span class="text-dark font-weight-bold ms-sm-2">Izin Türü : &nbsp;<input asp-for=IzinTur  required type="text" id="textkutu" class="form-control" /> </span></span>
+                                        <span class="mb-2 text-xs "> <span class="text-dark font-weight-bold ms-sm-2">Izin Türü : &nbsp;
+                    <select class="form-select mb-2" aria-label="Default select example" asp-for="Ekleizin.IzinTurId"
+                        asp-items="@(new SelectList(Model.IzinTurler,"IzinTurId","IzinTur"))">
+                        <option>İzin Türü Seç</option>
+                    </select> </span></span>
 
 
-                                        <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin İsteme Tarihi : &nbsp;<input asp-for=IzinIstemeTarihi required type="datetime" id="textkutu2" class="form-control" /></span></span> 
-                                          <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin Başlangıç : &nbsp;<input asp-for=IzinBaslangicTarihi required type="datetime" id="textkutu2" class="form-control" /></span></span>   
-                                            <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin Bitiş Tarihi : &nbsp;<input asp-for=IzinBitisTarihi required type="datetime" id="textkutu2" class="form-control" /></span></span>                                             
+                                    
+                                          <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin Başlangıç : &nbsp;<input asp-for=Ekleizin.IzinBaslangicTarihi required type="date" id="textkutu2" class="form-control" /></span></span>   
+                                            <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin Bitiş Tarihi : &nbsp;<input asp-for=Ekleizin.IzinBitisTarihi required type="date" id="textkutu2" class="form-control" /></span></span>                                             
                                         <div class="ms-auto text-end">
                                             <button class="btn btn-secondary btn-lg active" role="button"  aria-pressed="true">İzin Ekle</button>
                                         </div>
@@ -40,4 +44,4 @@
                         </div>
                     </div>
                 </form>
-                <script>
+            
