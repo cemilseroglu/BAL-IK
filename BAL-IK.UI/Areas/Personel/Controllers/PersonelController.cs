@@ -51,10 +51,15 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
 
         public async Task<IActionResult> Index()
         {
+           
             IzinlerViewModel izin = new IzinlerViewModel();          
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);
-            izin.Izinler = _personelService.IzinleriGetir(personelGuid).Izinler;    
+            izin.Izinler = _personelService.IzinleriGetir(personelGuid).Izinler;
+            //IzinlerViewModel vardiyalar = new IzinlerViewModel();
+            //vardiyalar.Vardiyalar =_personelService.VardiyalariGetir(personelGuid).Vardiyalar;
+            //izin.Molalar = _personelService.MolalariGetir(personelGuid).Molalar;
+        
             var resmiTatiller = await Tools.ResmiTatillerGetir();
            ViewBag.resmitatiller=resmiTatiller;
             TempData["isim"] = response.Ad;         
@@ -62,7 +67,8 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         }
         public IActionResult IzinEkleme()
         {
-            //TODO
+          
+            
 
             return View();
         }

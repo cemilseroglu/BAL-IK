@@ -21,7 +21,7 @@ namespace BAL_IK.Data.Interfaceler.Personeller
         VardiyalarResponse VardiyalariGetir(string guid);
         MolalarResponse MolalariGetir(string guid);
 
-
+        
 
 
 

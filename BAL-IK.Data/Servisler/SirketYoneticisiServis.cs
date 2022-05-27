@@ -734,6 +734,7 @@ namespace BAL_IK.Data.Servisler
 
         public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
         {
+
             VardiyaTurSilResponse resp = new VardiyaTurSilResponse();
             try
             {
@@ -1044,5 +1045,6 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+
     }
 }

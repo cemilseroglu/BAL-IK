@@ -50,6 +50,43 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+        public EkleizinResponse Ekleizin(PersonelIslemleriRequest.Ekleizin izinEkle)
+        {
+            EkleizinResponse resp = new EkleizinResponse();
+            try
+            {
+                Izinler izinler = new Izinler()
+                {
+                    IzinBaslangicTarihi = izinEkle.IzinBaslangicTarihi,
+                    IzinBitisTarihi = izinEkle.IzinBitisTarihi,
+                    IzinSuresi = izinEkle.IzinSuresi,
+                    IzinIstemeTarihi = izinEkle.IzinIstemeTarihi,
+                    IzinTur =
+                    {
+                        IzinTurId=izinEkle.IzinTur.IzinTurId,
+                        IzinTur=izinEkle.IzinTur.IzinTur
+                    },
+                    OnayDurumu = izinEkle.OnayDurumu,
+                    OnaylanmaTarihi = izinEkle.OnaylanmaTarihi,
+                    ReddilmeNedeni = izinEkle.ReddilmeNedeni,
+                    PersonelId = izinEkle.PersonelId,
+                    SirketYoneticisiId = izinEkle.SirketYoneticisiId
+                };
+                _db.Add(izinler);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "İzinler başarıyla eklendi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+
+                return resp;
+            }
+        }
 
         public PersonelIslemleriResponse.HarcamaListelemeResponse HarcamalarıGetir()
         {
@@ -91,7 +128,7 @@ namespace BAL_IK.Data.Servisler
             {
                 Personeller personel = _db.Personeller.Include(x => x.Izinler).FirstOrDefault(x => x.Guid.ToString() == guid);
                 List<Izinler> izinlerList = _db.Izinler.Include(x => x.IzinTur).Where(x => x.PersonelId == personel.PersonelId).ToList();
-                foreach (var izin in izinlerList)
+                foreach (var izin in  _db.Izinler.Include(x=>x.IzinTur).Where(x => x.PersonelId == personel.PersonelId).ToList())
                 {
                     IzinResponse gidecekizin = new IzinResponse()
                     {
@@ -125,11 +162,7 @@ namespace BAL_IK.Data.Servisler
             }
 
         }
-
-        public IzinlerResponse IzinleriGetir()
-        {
-            throw new NotImplementedException();
-        }
+      
     
 
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
@@ -332,5 +365,9 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+
+       
+           
+        
     }
 }

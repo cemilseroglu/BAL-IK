@@ -56,5 +56,7 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.MolalariGetir(guid);
         }
+       
+
     }
 }
