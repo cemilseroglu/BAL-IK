@@ -132,10 +132,6 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
             ViewBag.Sonuc = response.Mesaj;
             return RedirectToAction("CalisanMolaVardiya");
         }
-        public IActionResult SirketYorum()
-        {
-
-            return View();
-        }
+      
     }
 }
