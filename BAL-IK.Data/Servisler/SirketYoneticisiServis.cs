@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse;
 using static BAL_IK.Model.ResponseClass.SirketIslemleriResponse;
 using static BAL_IK.Model.ResponseClass.SirketYoneticisiIslemleriResponse;
+using MolaResponse = BAL_IK.Model.ResponseClass.SirketYoneticisiIslemleriResponse.MolaResponse;
+using MolaTur = BAL_IK.Model.MolaTur;
+using VardiyaResponse = BAL_IK.Model.ResponseClass.SirketYoneticisiIslemleriResponse.VardiyaResponse;
 using VardiyaTur = BAL_IK.Model.Entities.VardiyaTur;
 
 namespace BAL_IK.Data.Servisler
@@ -205,22 +208,22 @@ namespace BAL_IK.Data.Servisler
                     SirketId = personel.SirketId,
                     TemelMaasBilgisi = personel.TemelMaasBilgisi
                 };
-               
+
 
                 _db.Add(newPers);
                 _db.SaveChanges();
-                Tools.MailGonder(newPers.Eposta,"Hoşgeldiniz Sisteme Eklendiniz.",$"<h3>Merhaba Sayın {newPers.Ad}  {newPers.Soyad}</h3><p>BAL-IK Sistemine Yöneticiniz tarafından kaydınız yapılmıştır.<a href='http://localhost:47578/Login'>Buraya Tıklayarak Sisteme Giriş Yapabilirsiniz</a></p>");
+                Tools.MailGonder(newPers.Eposta, "Hoşgeldiniz Sisteme Eklendiniz.", $"<h3>Merhaba Sayın {newPers.Ad}  {newPers.Soyad}</h3><p>BAL-IK Sistemine Yöneticiniz tarafından kaydınız yapılmıştır.<a href='http://localhost:47578/Login'>Buraya Tıklayarak Sisteme Giriş Yapabilirsiniz</a></p>");
 
                 for (int i = 1; i <= 12; i++)
                 {
                     MaasBilgisi maas = new MaasBilgisi()
                     {
-                        AlacagiTarih = newPers.IseBaslama.AddMonths(i),                    
+                        AlacagiTarih = newPers.IseBaslama.AddMonths(i),
                         MaasTutari = newPers.TemelMaasBilgisi,
-                        PersonelId = newPers.PersonelId,                        
+                        PersonelId = newPers.PersonelId,
 
                     };
-                    _db.Add(maas);                    
+                    _db.Add(maas);
                 }
                 _db.SaveChanges();
                 resp.BasariliMi = true;
@@ -660,12 +663,13 @@ namespace BAL_IK.Data.Servisler
             }
         }
 
-        public SirketIslemleriResponse.PersonelleriGetirResponse PersonelleriGetir()
+        public SirketIslemleriResponse.PersonelleriGetirResponse PersonelleriGetir(string guid)
         {
             PersonelleriGetirResponse resp = new PersonelleriGetirResponse();
             try
             {
-                foreach (var personelDb in _db.Personeller.ToList())
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == guid);
+                foreach (var personelDb in _db.Personeller.Where(x => x.SirketId == sirketYoneticisi.Sirket.SirketId).ToList())
                 {
                     PersonelResponse personel = new PersonelResponse()
                     {
@@ -705,13 +709,13 @@ namespace BAL_IK.Data.Servisler
             VardiyaTurEkleResponse resp = new VardiyaTurEkleResponse();
             try
             {
-                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x=>x.Sirket).FirstOrDefault(x => x.Guid.ToString() == req.SirketYoneticisiGuid);
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == req.SirketYoneticisiGuid);
                 VardiyaTur vardiyaTur = new VardiyaTur()
                 {
-                    SirketId= sirketYoneticisi.Sirket.SirketId,
-                     VardiyaTuru=req.VardiyaTuru,
-                     VardiyaBaslangicTarihi=req.VardiyaBaslangicTarihi,
-                     VardiyaBitisTarihi=req.VardiyaBitisTarihi
+                    SirketId = sirketYoneticisi.Sirket.SirketId,
+                    VardiyaTuru = req.VardiyaTuru,
+                    VardiyaBaslangicTarihi = req.VardiyaBaslangicTarihi,
+                    VardiyaBitisTarihi = req.VardiyaBitisTarihi
                 };
                 _db.Add(vardiyaTur);
                 _db.SaveChanges();
@@ -730,25 +734,317 @@ namespace BAL_IK.Data.Servisler
 
         public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
         {
-            throw new NotImplementedException();
+
+            VardiyaTurSilResponse resp = new VardiyaTurSilResponse();
+            try
+            {
+                VardiyaTur vardiyaTur = _db.VardiyaTur.Find(vardiyaTurId);
+                _db.Remove(vardiyaTur);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Vardiya Turu Silindi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
         }
 
-        //public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
-        //{
-        //    VardiyaTurSilResponse resp=new VardiyaTurSilResponse();
-        //    try
-        //    {
-        //        //VardiyaTur vardiyaTur=_db.
-        //        //resp.BasariliMi = true;
-        //        //resp.Mesaj = "Vardiya Turu Silindi";
-        //        //return resp;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        resp.Mesaj = ex.Message;
-        //        resp.BasariliMi = false;
-        //        return resp;
-        //    }
-        //}
+        public VardiyaTurleriGetirResponse VardiyaTurleriGetir(string guid)
+        {
+            VardiyaTurleriGetirResponse resp = new VardiyaTurleriGetirResponse();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.FirstOrDefault(x => x.Guid.ToString() == guid);
+                foreach (var vardiyaTur in _db.VardiyaTur.Include(x => x.Vardiyalar).Where(x => x.SirketId == sirketYoneticisi.SirketId).ToList())
+                {
+                    VardiyaTurResponse vardiyaResp = new VardiyaTurResponse()
+                    {
+                        VardiyaTurId = vardiyaTur.VardiyaTurId,
+                        SirketId = vardiyaTur.SirketId,
+                        VardiyaBaslangicTarihi = vardiyaTur.VardiyaBaslangicTarihi,
+                        VardiyaBitisTarihi = vardiyaTur.VardiyaBitisTarihi,
+                        VardiyaTuru = vardiyaTur.VardiyaTuru,
+
+                    };
+                    foreach (var vardiyalar in vardiyaTur.Vardiyalar.ToList())
+                    {
+                        VardiyaResponse vardiya = new VardiyaResponse()
+                        {
+                            VardiyaTurId = vardiyalar.VardiyaTurId,
+                            PersonelId = vardiyalar.PersonelId,
+                            VardiyaId = vardiyalar.VardiyaId,
+
+                        };
+                        vardiyaResp.Vardiyalar.Add(vardiya);
+                    }
+                    resp.VardiyaTurleri.Add(vardiyaResp);
+                }
+
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "Vardiya Turleri Getirildi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public CalisanVardiyaMolaEkleResponse CalisanVardiyaEkle(SirketYoneticisiIslemleriRequest.CalisanVardiyaMolaEkleRequest req)
+        {
+            CalisanVardiyaMolaEkleResponse resp = new CalisanVardiyaMolaEkleResponse();
+            try
+            {
+                Personeller personel = _db.Personeller.Find(req.PersonelId);
+                if (req.VardiyaTurId != 0)
+                {
+                    _db.RemoveRange(_db.Vardiyalar.Where(x => x.PersonelId == personel.PersonelId));
+                    VardiyaTur vardiyaTur = _db.VardiyaTur.Find(req.VardiyaTurId);
+                    Vardiyalar vardiya = new Vardiyalar()
+                    {
+                        PersonelId = req.PersonelId,
+                        VardiyaTurId = req.VardiyaTurId,
+                    };
+                    personel.VardiyaId = vardiya.VardiyaId;
+                    _db.Add(vardiya);
+                    Tools.MailGonder(personel.Eposta, "Vardiya Eklendi", $"<p>Merhaba Sayın {personel.Ad} {personel.Soyad}</p><p>Şirketinizden size Vardiya ataması yapılmıştır</p><p>Vardiya Bilgileri:<p/><p>Vardiya adı: {vardiyaTur.VardiyaTuru}</p><p>Vardiya başlangıç saati: {vardiyaTur.VardiyaBaslangicTarihi.ToLocalTime().ToString("HH:mm")}</p><p>Vardiya bitiş saati: {vardiyaTur.VardiyaBitisTarihi.ToLocalTime().ToString("HH:mm")}</p><p>İyi Çalışmalar.</p>");
+
+                }
+                _db.Update(personel);
+                _db.SaveChanges();
+                if (req.MolaTurIds.Count > 0)
+                {
+
+                    _db.RemoveRange(_db.Molalar.Where(x => x.PersonelId == personel.PersonelId));
+                    _db.SaveChanges();
+
+                    foreach (var item in req.MolaTurIds)
+                    {
+                        Mola mola = new Mola()
+                        {
+                            MolaTurId = item,
+                            OlusturulduguTarih = DateTime.Now,
+                            PersonelId = personel.PersonelId,
+
+                        };
+                        _db.Add(mola);
+
+                    }
+
+                    _db.SaveChanges();
+
+                }
+
+
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "Çalışana Vardiya Eklendi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public MolaTurEkleResponse MolaTurEkle(SirketYoneticisiIslemleriRequest.MolaTurRequest req)
+        {
+            MolaTurEkleResponse resp = new MolaTurEkleResponse();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == req.SirketYoneticisiGuid);
+                MolaTur molaTur = new MolaTur()
+                {
+                    MolaSuresi = req.MolaSuresi,
+                    SirketId = sirketYoneticisi.Sirket.SirketId,
+                    MolaTuru = req.MolaTuru,
+                };
+                _db.Add(molaTur);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Mola Eklendi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public MolaTurSilResponse MolaTurSil(int id)
+        {
+            MolaTurSilResponse resp = new MolaTurSilResponse();
+            try
+            {
+                MolaTur molaTur = _db.MolaTur.Find(id);
+                _db.Remove(molaTur);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Mola Silindi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public MolaTurlerResponse MolaTurleriGetir(string guid)
+        {
+            MolaTurlerResponse resp = new MolaTurlerResponse();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.FirstOrDefault(x => x.Guid.ToString() == guid);
+                foreach (var molaTur in _db.MolaTur.Where(x => x.SirketId == sirketYoneticisi.SirketId).ToList())
+                {
+                    MolaTurResponse molaTurResp = new MolaTurResponse()
+                    {
+                        SirketId = molaTur.SirketId,
+                        MolaSuresi = molaTur.MolaSuresi,
+                        MolaTurId = molaTur.MolaTurId,
+                        MolaTuru = molaTur.MolaTuru
+                    };
+                    foreach (var mola in _db.Molalar.Where(x => x.MolaTurId == molaTurResp.MolaTurId).ToList())
+                    {
+                        MolaResponse molaResp = new MolaResponse();
+                        molaResp.MolaTurId = mola.MolaTurId;
+                        molaResp.PersonelId = mola.PersonelId;
+                        molaResp.OlusturulduguTarih = mola.OlusturulduguTarih;
+                        molaResp.MolaId = mola.MolaId;
+                        molaTurResp.Molalar.Add(molaResp);
+                    }
+                    resp.MolaTurleri.Add(molaTurResp);
+                }
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "Molalar getirildi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public SirketVerileri sirketVerileri(string guid)
+        {
+            SirketVerileri resp = new SirketVerileri();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x=>x.Sirket).FirstOrDefault(x => x.Guid.ToString() == guid);
+                resp.AylikHarcama = _db.Harcamalar
+                    .Include(x=>x.Personel)
+                    .Where(x=>x.OnayDurumu==true && x.OlusturulmaZamani.Month==DateTime.Now.Month && x.Personel.SirketId==sirketYoneticisi.Sirket.SirketId)
+                    .Select(x => x.HarcamaTutari)
+                    .Sum();
+                resp.BekleyenIzinTalebiSayisi = _db.Izinler
+                    .Include(x=>x.Personel)
+                    .Where(x => x.OnayDurumu == OnayDurumu.OnayBekliyor && x.Personel.SirketId==sirketYoneticisi.Sirket.SirketId)
+                    .ToList().Count;
+                resp.ZimmetSayisi = _db.Zimmetler
+                    .Include(x=>x.Personel)
+                    .Where(x => x.Durumu == Durumu.KabulEdildi && x.Personel.SirketId == sirketYoneticisi.Sirket.SirketId)
+                    .ToList().Count;
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "Veriler getirildi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public YorumEkleResponse sirketYorum(SirketYoneticisiIslemleriRequest.YorumEkleRequest req)
+        {
+            YorumEkleResponse resp=new YorumEkleResponse();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == req.SirketYoneticisiGuid);
+                Yorum yeniYorum=new Yorum();
+                yeniYorum.YorumIcerik = req.YorumIcerik;
+                yeniYorum.YorumBaslik = req.YorumBaslik;
+                yeniYorum.SirketId = sirketYoneticisi.Sirket.SirketId;
+                yeniYorum.OlusturulmaTarihi = DateTime.Now;
+                _db.Add(yeniYorum);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Yorum eklendi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public YorumResponse sirketYorumGetir(string guid)
+        {
+            YorumResponse resp=new YorumResponse();
+            try
+            {
+                SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == guid);
+                Yorum yorum = _db.Yorumlar.FirstOrDefault(x => x.SirketId == sirketYoneticisi.Sirket.SirketId);
+                resp.YorumIcerik = yorum.YorumIcerik;
+                resp.YorumId=yorum.YorumId;
+                resp.YorumBaslik = yorum.YorumBaslik;
+                resp.OlusturulmaTarihi = yorum.OlusturulmaTarihi;              
+                resp.BasariliMi = true;
+                resp.Mesaj = "Yorum getirildi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public YorumGuncelleResponse sirketYorumGuncelle(SirketYoneticisiIslemleriRequest.YorumGuncelleRequest req)
+        {
+            YorumGuncelleResponse resp=new YorumGuncelleResponse();
+            try
+            {
+                Yorum yorum = _db.Yorumlar.Find(req.YorumId);
+                
+                yorum.YorumIcerik=req.YorumIcerik;
+                yorum.YorumBaslik = req.YorumBaslik;
+                yorum.OlusturulmaTarihi = DateTime.Now;
+
+                _db.Update(yorum);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Yorum güncellendi";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
     }
 }

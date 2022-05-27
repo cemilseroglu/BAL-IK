@@ -49,5 +49,24 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.SiteYoneticisiGetir(guid);
         }
+
+        [HttpGet("SirketleriListele")]
+        public SirketListeleResponse SirketleriListele()
+        {
+            return _sService.SirketleriListele();
+        }
+
+        [HttpGet("SirketGetir")]
+        public SirketResp SirketGetir(int id)
+        {
+            return _sService.SirketGetir(id);
+        }
+
+
+        [HttpPost("SirketGuncelleme")]
+        public SirketGuncelleResponse SirketGuncelleme(SirketGuncelle s)
+        {
+            return _sService.SirketGuncelleme(s);
+        }
     }
 }

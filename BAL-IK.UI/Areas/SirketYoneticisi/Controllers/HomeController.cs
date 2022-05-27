@@ -1,5 +1,6 @@
 ﻿using BAL_IK.Data.Interfaceler.SirketYoneticisi;
 using BAL_IK.UI.Filters;
+using BAL_IK.UI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +27,13 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
             var sirketYoneticisiGuid = HttpContext.Session.GetString("sirketYoneticisi");
             var response = _sirketYoneticisiServis.SirketYoneticisiGetir(sirketYoneticisiGuid);
             TempData["isim"] = response.Ad;
-            return View();
+            SirketYoneticisiAnaSayfaWM wm = new SirketYoneticisiAnaSayfaWM();
+            wm.GelenVeriler = _sirketYoneticisiServis.sirketVerileri(sirketYoneticisiGuid);
+             wm.Personeller= _sirketYoneticisiServis.PersonelleriGetir(sirketYoneticisiGuid);
+            wm.Harcamalar=_sirketYoneticisiServis.HarcamalariGetir(sirketYoneticisiGuid);
+
+
+            return View(wm);
 
         }
         [HttpPost]
@@ -72,12 +79,46 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
             return View();
         }
 
+        public IActionResult SirketYorum()
+        {
+            var guid = HttpContext.Session.GetString("sirketYoneticisi");
+            YorumEkleWM wM = new YorumEkleWM();
+            wM.YorumResponse = _sirketYoneticisiServis.sirketYorumGetir(guid);
+            return View(wM);
+        }
+
+        [HttpPost]
+        public IActionResult SirketYorum(YorumEkleWM wM)
+        {
+            var guid = HttpContext.Session.GetString("sirketYoneticisi");
+            YorumEkleRequest ekleReq=new YorumEkleRequest();
+            ekleReq.SirketYoneticisiGuid = guid;
+            ekleReq.YorumIcerik = wM.YorumResponse.YorumIcerik;
+            ekleReq.YorumBaslik = wM.YorumResponse.YorumBaslik;
+            var ekleResponse = _sirketYoneticisiServis.sirketYorum(ekleReq);
+            if(ekleResponse.BasariliMi==false)
+            {
+                YorumGuncelleRequest guncelleReq = new YorumGuncelleRequest();
+                guncelleReq.YorumIcerik = wM.YorumResponse.YorumIcerik;
+                guncelleReq.YorumBaslik = wM.YorumResponse.YorumBaslik;
+                guncelleReq.YorumId = wM.YorumResponse.YorumId;
+                
+                var guncelleResp = _sirketYoneticisiServis.sirketYorumGuncelle(guncelleReq);
+            }
+            wM.YorumResponse = _sirketYoneticisiServis.sirketYorumGetir(guid);
+            return View(wM);
+        }
+
+
+
+
         public IActionResult CikisYap()
         {
             HttpContext.Session.Remove("sirketYoneticisi");
 
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
+
     }
 
 }
