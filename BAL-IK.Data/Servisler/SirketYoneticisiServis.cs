@@ -730,20 +730,25 @@ namespace BAL_IK.Data.Servisler
 
         public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
         {
-            VardiyaTurSilResponse resp=new VardiyaTurSilResponse();
-            try
-            {
-                VardiyaTur vardiyaTur=_db.
-                resp.BasariliMi = true;
-                resp.Mesaj = "Vardiya Turu Silindi";
-                return resp;
-            }
-            catch (Exception ex)
-            {
-                resp.Mesaj = ex.Message;
-                resp.BasariliMi = false;
-                return resp;
-            }
+            throw new NotImplementedException();
         }
+
+        //public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
+        //{
+        //    VardiyaTurSilResponse resp=new VardiyaTurSilResponse();
+        //    try
+        //    {
+        //        //VardiyaTur vardiyaTur=_db.
+        //        //resp.BasariliMi = true;
+        //        //resp.Mesaj = "Vardiya Turu Silindi";
+        //        //return resp;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        resp.Mesaj = ex.Message;
+        //        resp.BasariliMi = false;
+        //        return resp;
+        //    }
+        //}
     }
 }

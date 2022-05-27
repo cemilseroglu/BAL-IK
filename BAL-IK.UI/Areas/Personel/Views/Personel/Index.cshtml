@@ -25,29 +25,53 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="mb-0 ">Kalan</h6>
-                    <p class="text-sm ">Buraya kalan izin gelecek</p>
-                    <h6 class="mb-0 ">Kullanılan</h6>
-                    <p class="text-sm ">Buraya kullanılan izin gelecek</p>
-                    <h6 class="mb-0 ">Son İzinlerim</h6>
-                     @foreach (var item in Model.Izinler)
-                   {
-                    <div class="dropdown float-lg-end pe-4">
-                        <!-- Button trigger modal -->
+                    <div id="tst" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div>
+                        <h6 class="mb-0">Kalan</h6>
+                        <p class="text-2xl">12</p>
+                        </div>
+                        <div>
+                        <h6 class="mb-0">Kullanılan</h6>
+                        <p class="text-2xl">2</p>
+                        </div>
+                    </div>
+                    <div>
+                    <progress max="100" value="90" style="width:100%;height:10px"></progress>
+                    </div>
+                    <h6 class="mb-3">Son İzinlerim</h6>
+                    @foreach (var item in Model.Izinler)
+                    {
+
+                            <div class="dropdown float-lg-end pe-4">
+                                <!-- Button trigger modal -->
                         <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-ellipsis-v text-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                        </a>
-                        <!-- Modal -->
+                                    <i onclick="izinDetay('@item.IzinTur.IzinTur')" class="fa fa-ellipsis-v text-secondary" style="text-decoration:none" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                                </a>
+                                <!-- Modal -->
 
                     </div>
-                        <p class="text-sm ">@item.IzinTur.IzinTur.</p>
-                   }
-                   
-                   
+                                <p class="text-sm ">@item.IzinTur.IzinTur</p>
+                    }                   
+
+                                   <button type="button" style="float:right" class="btn bg-gradient-primary text-center fw-bold text-white" onclick="location.href='@Url.Action("IzinEkleme", "Personel")'"  >İZİN TALEBİ
+                                   </button>
+
+
+
                 </div>
 
             </div>
         </div>
+            <script>
+                function izinDetay(izinTipi){
+                    var d = document.getElementById(izinTipi);
+                    var c = document.getElementById("ParentModal").children;
+                    for(i = 0; i < c.length ; i++) {
+                     c[i].style.display = "none";
+                    }
+                    d.style.display="block";
+                }
+            </script>
 
         <div class="col-lg-4 col-md-6 mt-4 mb-4">
             <div class="card z-index-2  ">
@@ -63,7 +87,7 @@
                     {
                         if (item.OnayDurumu == OnayDurumu.OnayBekliyor)
                         {
-                                                 <p class="text-sm "> @item.IzinTur.IzinTur </p>
+                                                                 <p class="text-sm "> @item.IzinTur.IzinTur </p>
                         }
 
                     }
@@ -99,7 +123,7 @@
                                         <ul>
                                             @for (var i = 0; i < 4; i++)
                                             {
-                                                            <li>@ViewBag.resmitatiller.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @ViewBag.resmitatiller.ResmiTatiller[i].gun <br /></li>
+                                                                    <li>@ViewBag.resmitatiller.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @ViewBag.resmitatiller.ResmiTatiller[i].gun <br /></li>
                                             }
                                         </ul>
                                     </tr>
@@ -139,12 +163,21 @@
                 </div>
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive">
+
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Companies</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Members</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Budget</th>
+
+
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Vardiya Turu</th>
+
+
+
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mola Suresi</th>
+
+
+
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
                                 </tr>
                             </thead>
@@ -161,24 +194,23 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="avatar-group mt-2">
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                                                <img src="../SirketYoneticisi/img/team-1.jpg" alt="team1">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                                                <img src="../SirketYoneticisi/img/team-2.jpg" alt="team2">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alexander Smith">
-                                                <img src="../SirketYoneticisi/img/team-3.jpg" alt="team3">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                                                <img src="../SirketYoneticisi/img/team-4.jpg" alt="team4">
-                                            </a>
-                                        </div>
+                                        @foreach (var item in Model.Vardiyalar)
+                                        {
+                                                    <div class="d-flex px-2 py-1">
+
+                                                        <p>@item.VardiyaTuru.VardiyaTuru</p>
+
+
+                                                </div>
+                                        }
+
                                     </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="text-xs font-weight-bold"> $14,000 </span>
-                                    </td>
+                                    @foreach (var item in Model.Molalar)
+                                    {
+                                                <td class="align-middle text-center text-sm">
+                                                <p class="d-flex px-2 py-1">@item.MolaTuru.MolaTuru</p>
+                                            </td>
+                                    }
                                     <td class="align-middle">
                                         <div class="progress-wrapper w-75 mx-auto">
                                             <div class="progress-info">
@@ -191,6 +223,8 @@
                                             </div>
                                         </div>
                                     </td>
+
+
                                 </tr>
                                 <tr>
                                     <td>
@@ -496,21 +530,23 @@
                             <h5 class="modal-title">Modal title</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                            <div class="card" style="width: 18rem;">
-                                @foreach (var izin in Model.Izinler.ToList())
-                               {
-                                     <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Durumu                        @izin.OnayDurumu </li>
-                                <li class="list-group-item">İzin Türü                     @izin.IzinTur.IzinTur</li>
-                                 <li class="list-group-item">Toplam izin                   @izin.IzinSuresi</li>
-                                 <li class="list-group-item">izin İsteme Tarihi             @izin.IzinIstemeTarihi</li>
-                                <li class="list-group-item">izin Başlangıç                @izin.IzinBaslangicTarihi</li>
-                                 <li class="list-group-item">izin Bitiş                  @izin.IzinBitisTarihi</li>                                
-                              </ul>
-                               }
-                            
-                            </div>
+                            <div class="modal-body" id="ParentModal">
+
+                @foreach (var izin in Model.Izinler.ToList())
+                {
+                                           <div class="card" id="@izin.IzinTur.IzinTur" style="width: 18rem;">
+                                             <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Durumu:                        @izin.OnayDurumu </li>
+                                        <li class="list-group-item">İzin Türü:                     @izin.IzinTur.IzinTur</li>
+                                         <li class="list-group-item">Toplam izin:                   @izin.IzinSuresi</li>
+                                         <li class="list-group-item">İzin İsteme Tarihi:             @izin.IzinIstemeTarihi.ToShortDateString()</li>
+                                        <li class="list-group-item">İzin Başlangıç:                @izin.IzinBaslangicTarihi.ToShortDateString()</li>
+                                         <li class="list-group-item">İzin Bitiş Tarihi:                  @izin.IzinBitisTarihi.ToShortDateString()</li>                                
+                                      </ul>
+                                      </div>
+                }
+
+
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -591,3 +627,4 @@
         </div>
     </div>
 </div>
+

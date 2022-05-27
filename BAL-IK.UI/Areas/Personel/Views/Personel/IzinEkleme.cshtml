@@ -1,0 +1,43 @@
+﻿@using static BAL_IK.UI.ViewModels.IzinlerViewModel
+@using BAL_IK.UI.ViewModels
+@model IzinlerViewModel
+
+
+@{
+
+
+
+    ViewData["Title"] = "IzinEkleme";   
+
+
+}
+
+<form method="post" asp-action="IzinEkleme" asp-controller="Personel" class="text-start" enctype="multipart/form-data">
+                    <input asp-for=PersonelId hidden />
+<div class="card">
+                        <div class="card-header pb-0 px-3">
+                            <h6 class="mb-0">İzin Ekle</h6>
+                        </div>
+                        <div class="card-body pt-4 p-3 input-group input-group-outline my-3" style="background-image: url('https://images.unsplash.com/photo-1549989317-6f14743af1bf?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887')">
+
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                    <div class="d-flex flex-column">
+
+                                        <span class="mb-2 text-xs "> <span class="text-dark font-weight-bold ms-sm-2">Izin Türü : &nbsp;<input asp-for=IzinTur  required type="text" id="textkutu" class="form-control" /> </span></span>
+
+
+                                        <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin İsteme Tarihi : &nbsp;<input asp-for=IzinIstemeTarihi required type="datetime" id="textkutu2" class="form-control" /></span></span> 
+                                          <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin Başlangıç : &nbsp;<input asp-for=IzinBaslangicTarihi required type="datetime" id="textkutu2" class="form-control" /></span></span>   
+                                            <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin Bitiş Tarihi : &nbsp;<input asp-for=IzinBitisTarihi required type="datetime" id="textkutu2" class="form-control" /></span></span>                                             
+                                        <div class="ms-auto text-end">
+                                            <button class="btn btn-secondary btn-lg active" role="button"  aria-pressed="true">İzin Ekle</button>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+                <script>
