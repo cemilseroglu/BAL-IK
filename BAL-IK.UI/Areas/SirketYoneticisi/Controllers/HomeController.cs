@@ -79,6 +79,39 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi
             return View();
         }
 
+        public IActionResult SirketYorum()
+        {
+            var guid = HttpContext.Session.GetString("sirketYoneticisi");
+            YorumEkleWM wM = new YorumEkleWM();
+            wM.YorumResponse = _sirketYoneticisiServis.sirketYorumGetir(guid);
+            return View(wM);
+        }
+
+        [HttpPost]
+        public IActionResult SirketYorum(YorumEkleWM wM)
+        {
+            var guid = HttpContext.Session.GetString("sirketYoneticisi");
+            YorumEkleRequest ekleReq=new YorumEkleRequest();
+            ekleReq.SirketYoneticisiGuid = guid;
+            ekleReq.YorumIcerik = wM.YorumResponse.YorumIcerik;
+            ekleReq.YorumBaslik = wM.YorumResponse.YorumBaslik;
+            var ekleResponse = _sirketYoneticisiServis.sirketYorum(ekleReq);
+            if(ekleResponse.BasariliMi==false)
+            {
+                YorumGuncelleRequest guncelleReq = new YorumGuncelleRequest();
+                guncelleReq.YorumIcerik = wM.YorumResponse.YorumIcerik;
+                guncelleReq.YorumBaslik = wM.YorumResponse.YorumBaslik;
+                guncelleReq.YorumId = wM.YorumResponse.YorumId;
+                
+                var guncelleResp = _sirketYoneticisiServis.sirketYorumGuncelle(guncelleReq);
+            }
+            wM.YorumResponse = _sirketYoneticisiServis.sirketYorumGetir(guid);
+            return View(wM);
+        }
+
+
+
+
         public IActionResult CikisYap()
         {
             HttpContext.Session.Remove("sirketYoneticisi");
