@@ -56,10 +56,10 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);
             izin.Izinler = _personelService.IzinleriGetir(personelGuid).Izinler;
-            //IzinlerViewModel vardiyalar = new IzinlerViewModel();
-            //vardiyalar.Vardiyalar =_personelService.VardiyalariGetir(personelGuid).Vardiyalar;
-            //izin.Molalar = _personelService.MolalariGetir(personelGuid).Molalar;
-        
+            IzinlerViewModel vardiyalar = new IzinlerViewModel();
+            vardiyalar.Vardiyalar = _personelService.VardiyalariGetir(personelGuid).Vardiyalar;          
+            izin.Molalar = _personelService.MolalariGetir(personelGuid).Molalar;
+
             var resmiTatiller = await Tools.ResmiTatillerGetir();
            ViewBag.resmitatiller=resmiTatiller;
             TempData["isim"] = response.Ad;         
@@ -67,19 +67,21 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
         }
         public IActionResult IzinEkleme()
         {
-          
+            PersonelIzinEkleWm wm = new PersonelIzinEkleWm();
             
-
-            return View();
+            wm.IzinTurler=_personelService.IzinTurleriGetir().IzinTurler;
+            return View(wm);
         }
         [HttpPost]
-        public IActionResult IzinEkleme(Ekleizin req)
-        {            
-            var personelGuid = HttpContext.Session.GetString("personel");
+        public IActionResult IzinEkleme(PersonelIzinEkleWm wm)
+        {
+            Ekleizin req = wm.Ekleizin;            
+          var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);          
             req.PersonelId=response.PersonelId;
-            var responseizin= _syServis.Ekleizin(req);
-            return View();
+            var responseizin = _personelService.Ekleizin(req);
+            wm.IzinTurler = _personelService.IzinTurleriGetir().IzinTurler;
+            return RedirectToAction("Index");
         }
 
 

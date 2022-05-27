@@ -10,11 +10,11 @@
     ViewData["Title"] = "Ayarlar";
 
 }
-
+    <link id="pagestyle" href="~/Personeller/Ayarlar/css/material-dashboard.min.css?v=3.0.2" rel="stylesheet" />
+@*
 <!DOCTYPE html>
 <html lang="en">
      <head>
-    <link id="pagestyle" href="~/Personeller/Ayarlar/css/material-dashboard.min.css?v=3.0.2" rel="stylesheet" />
    
     <style>
         .async-hide {
@@ -80,7 +80,7 @@
     </script>
 
 </head>
-
+*@
 <body class="g-sidenav-show bg-gray-200">
 
         <div class="container-fluid px-2 px-md-4">
@@ -105,27 +105,14 @@
                     <div class="card card-plain h-100">
                         <div class="card-header pb-0 p-3">
                             <div class="row">
-                                <div class="col-md-8 d-flex align-items-center">
-                                    <h6 class="mb-0">Hakkımda</h6>
-                                </div>
-                                <div class="col-md-4 text-end" >  
-                                    <button type="button" class="btn btn-primary btn-sm"onclick="location.href='@Url.Action("Duzenle", "Personel")'"  >Profil Düzenle</button>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body p-3">
-                            <p class="text-sm">
-                                “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”
-                            </p>
-                            <hr class="horizontal gray-light my-4">
+                                <div class="col-md-10 d-flex align-items-center">
+                                    <hr class="horizontal gray-light my-4">
                             <ul class="list-group">
                                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Ad:</strong> &nbsp; @Model.Ad</li>
                                   <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Soyad:</strong> &nbsp; @Model.Soyad</li>
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; @Model.Eposta</li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Doğum Tarihi:</strong> &nbsp; @Model.DogumTarihi</li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">İşe Başlama:</strong> &nbsp; @Model.IseBaslama</li>
+                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Doğum Tarihi:</strong> &nbsp; @Model.DogumTarihi.ToShortDateString()</li>
+                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">İşe Başlama:</strong> &nbsp; @Model.IseBaslama.ToShortDateString()</li>
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cinsiyet:</strong> &nbsp; @Model.Cinsiyet</li>
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Konum:</strong> &nbsp; Ankara</li>
                                 <li class="list-group-item border-0 ps-0 pb-0">
@@ -141,6 +128,19 @@
                                     </a>
                                 </li>
                             </ul>
+                                </div>
+                                <div class="col-md-2 text-end" >  
+                                    <button type="button" class="btn btn-primary btn-sm"onclick="location.href='@Url.Action("Duzenle", "Personel")'"  >Profil Düzenle</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-3">
+                          @*  <p class="text-sm">
+                                “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”
+                            </p>*@
+                           
 
                         </div>
                     </div>                  
@@ -267,5 +267,5 @@
 
     <script src="~/Personeller/Ayarlar/js/material-dashboard.min.js?v=3.0.2"></script>
 </body>
-
-</html>
+@*
+</html>*@

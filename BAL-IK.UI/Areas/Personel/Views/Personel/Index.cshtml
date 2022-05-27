@@ -27,34 +27,38 @@
                 <div class="card-body">
                     <div id="tst" style="display:flex;flex-direction:row;justify-content:space-between">
                         <div>
-                        <h6 class="mb-0">Kalan</h6>
-                        <p class="text-2xl">12</p>
+                            <h6 class="mb-0">Kalan</h6>
+                            <p class="text-2xl">12</p>
                         </div>
                         <div>
-                        <h6 class="mb-0">Kullanılan</h6>
-                        <p class="text-2xl">2</p>
+                            <h6 class="mb-0">Kullanılan</h6>
+                            <p class="text-2xl">2</p>
                         </div>
                     </div>
                     <div>
-                    <progress max="100" value="90" style="width:100%;height:10px"></progress>
+                        @{
+                            double sonuc = 2 * 100 / 12;
+                        }
+                        <progress max="100" value="@sonuc" style="width:100%;height:10px"></progress>
                     </div>
                     <h6 class="mb-3">Son İzinlerim</h6>
-                    @foreach (var item in Model.Izinler)
+                    @foreach (var item in Model.Izinler.Where(x => x.OnayDurumu == OnayDurumu.Onaylandi))
                     {
 
-                            <div class="dropdown float-lg-end pe-4">
-                                <!-- Button trigger modal -->
+                        <div class="dropdown float-lg-end pe-4">
+                            <!-- Button trigger modal -->
                         <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i onclick="izinDetay('@item.IzinTur.IzinTur')" class="fa fa-ellipsis-v text-secondary" style="text-decoration:none" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                                </a>
-                                <!-- Modal -->
+                                <i onclick="izinDetay('@item.IzinTur.IzinTur')" class="fa fa-ellipsis-v text-secondary" style="text-decoration:none" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                            </a>
+                            <!-- Modal -->
 
                     </div>
-                                <p class="text-sm ">@item.IzinTur.IzinTur</p>
-                    }                   
+                        <p class="text-sm ">@item.IzinTur.IzinTur</p>
+                    }
 
-                                   <button type="button" style="float:right" class="btn bg-gradient-primary text-center fw-bold text-white" onclick="location.href='@Url.Action("IzinEkleme", "Personel")'"  >İZİN TALEBİ
-                                   </button>
+                    <button type="button" style="float:right" class="btn bg-gradient-primary text-center fw-bold text-white" onclick="location.href='@Url.Action("IzinEkleme", "Personel")'">
+                        İZİN TALEBİ
+                    </button>
 
 
 
@@ -62,16 +66,16 @@
 
             </div>
         </div>
-            <script>
-                function izinDetay(izinTipi){
-                    var d = document.getElementById(izinTipi);
-                    var c = document.getElementById("ParentModal").children;
-                    for(i = 0; i < c.length ; i++) {
-                     c[i].style.display = "none";
-                    }
-                    d.style.display="block";
+        <script>
+            function izinDetay(izinTipi){
+                var d = document.getElementById(izinTipi);
+                var c = document.getElementById("ParentModal").children;
+                for(i = 0; i < c.length ; i++) {
+                 c[i].style.display = "none";
                 }
-            </script>
+                d.style.display="block";
+            }
+        </script>
 
         <div class="col-lg-4 col-md-6 mt-4 mb-4">
             <div class="card z-index-2  ">
@@ -83,15 +87,21 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @foreach (var item in Model.Izinler)
+                    @foreach (var item in Model.Izinler.Where(x=>x.IzinIstemeTarihi.Month==DateTime.Now.Month))
                     {
                         if (item.OnayDurumu == OnayDurumu.OnayBekliyor)
                         {
-                                                                 <p class="text-sm "> @item.IzinTur.IzinTur </p>
+                            <p class="text-sm ">Talep adı: @item.IzinTur.IzinTur <br /><b style="text-decoration:underline">  Süre:</b> @item.IzinSuresi Gün
+                                <b style="text-decoration:underline">Talep Tarihi:</b> @item.IzinIstemeTarihi.ToShortDateString()</p>
+
+                        }
+                        else
+                        {
+                            <p class="text-sm "> Onayınızı bekleyen izin talebi yok. </p>
+
                         }
 
                     }
-                    <p class="text-sm "> Onayınızı bekleyen izin talebi yok. </p>
                     <hr class="dark horizontal">
                     <div class="d-flex ">
                         <i class="material-icons text-sm my-auto me-1">schedule</i>
@@ -123,7 +133,7 @@
                                         <ul>
                                             @for (var i = 0; i < 4; i++)
                                             {
-                                                                    <li>@ViewBag.resmitatiller.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @ViewBag.resmitatiller.ResmiTatiller[i].gun <br /></li>
+                                                <li>@ViewBag.resmitatiller.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @ViewBag.resmitatiller.ResmiTatiller[i].gun <br /></li>
                                             }
                                         </ul>
                                     </tr>
@@ -170,11 +180,11 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Companies</th>
 
 
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Vardiya Turu</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Vardiya Turu</th>
 
 
 
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mola Suresi</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mola Suresi</th>
 
 
 
@@ -196,20 +206,20 @@
                                     <td>
                                         @foreach (var item in Model.Vardiyalar)
                                         {
-                                                    <div class="d-flex px-2 py-1">
+                                            <div class="d-flex px-2 py-1">
 
-                                                        <p>@item.VardiyaTuru.VardiyaTuru</p>
+                                                <p>@item.VardiyaTuru.VardiyaTuru</p>
 
 
-                                                </div>
+                                            </div>
                                         }
 
                                     </td>
                                     @foreach (var item in Model.Molalar)
                                     {
-                                                <td class="align-middle text-center text-sm">
-                                                <p class="d-flex px-2 py-1">@item.MolaTuru.MolaTuru</p>
-                                            </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="d-flex px-2 py-1">@item.MolaTuru.MolaTuru</p>
+                                        </td>
                                     }
                                     <td class="align-middle">
                                         <div class="progress-wrapper w-75 mx-auto">
@@ -524,36 +534,36 @@
     </footer>
 </main>
 <div class="modal" tabindex="-1" id="exampleModal">
-                            <div class="modal-dialog">
-                            <div class="modal-content" >
-                            <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" id="ParentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="ParentModal">
 
                 @foreach (var izin in Model.Izinler.ToList())
                 {
-                                           <div class="card" id="@izin.IzinTur.IzinTur" style="width: 18rem;">
-                                             <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Durumu:                        @izin.OnayDurumu </li>
-                                        <li class="list-group-item">İzin Türü:                     @izin.IzinTur.IzinTur</li>
-                                         <li class="list-group-item">Toplam izin:                   @izin.IzinSuresi</li>
-                                         <li class="list-group-item">İzin İsteme Tarihi:             @izin.IzinIstemeTarihi.ToShortDateString()</li>
-                                        <li class="list-group-item">İzin Başlangıç:                @izin.IzinBaslangicTarihi.ToShortDateString()</li>
-                                         <li class="list-group-item">İzin Bitiş Tarihi:                  @izin.IzinBitisTarihi.ToShortDateString()</li>                                
-                                      </ul>
-                                      </div>
+                    <div class="card" id="@izin.IzinTur.IzinTur" style="width: 18rem;">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Durumu:                        @izin.OnayDurumu </li>
+                            <li class="list-group-item">İzin Türü:                     @izin.IzinTur.IzinTur</li>
+                            <li class="list-group-item">Toplam izin:                   @izin.IzinSuresi</li>
+                            <li class="list-group-item">İzin İsteme Tarihi:             @izin.IzinIstemeTarihi.ToShortDateString()</li>
+                            <li class="list-group-item">İzin Başlangıç:                @izin.IzinBaslangicTarihi.ToShortDateString()</li>
+                            <li class="list-group-item">İzin Bitiş Tarihi:                  @izin.IzinBitisTarihi.ToShortDateString()</li>
+                        </ul>
+                    </div>
                 }
 
 
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                            </div>
-                            </div>
-                            </div>             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
         <i class="material-icons py-2">settings</i>

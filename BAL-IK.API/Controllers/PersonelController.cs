@@ -46,7 +46,7 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.IzinleriGetir(guid);
         }
-         [HttpGet("VardiyalariGetir")]
+        [HttpGet("VardiyalariGetir")]
         public VardiyalarResponse VardiyalariGetir(string guid)
         {
             return _pService.VardiyalariGetir(guid);
@@ -56,7 +56,16 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.MolalariGetir(guid);
         }
-       
+        [HttpPost("IzinEkle")]
+        public EkleizinResponse Ekleizin(Ekleizin izinEkle)
+        {
+            return _pService.Ekleizin(izinEkle);
+        }
+        [HttpGet("IzinTurleriGetir")]
+        public IzinTurlerResponse IzinTurleriGetir()
+        {
+            return _pService.IzinTurleriGetir();
+        }
 
     }
 }

@@ -59,18 +59,14 @@ namespace BAL_IK.Data.Servisler
                 {
                     IzinBaslangicTarihi = izinEkle.IzinBaslangicTarihi,
                     IzinBitisTarihi = izinEkle.IzinBitisTarihi,
-                    IzinSuresi = izinEkle.IzinSuresi,
+                    //String diff2 = (secondDate - firstDate).TotalDays.ToString();
+                    IzinSuresi = (int)(izinEkle.IzinBitisTarihi-izinEkle.IzinBaslangicTarihi ).TotalDays,
                     IzinIstemeTarihi = izinEkle.IzinIstemeTarihi,
-                    IzinTur =
-                    {
-                        IzinTurId=izinEkle.IzinTur.IzinTurId,
-                        IzinTur=izinEkle.IzinTur.IzinTur
-                    },
+                    IzinTurId=izinEkle.IzinTurId,
                     OnayDurumu = izinEkle.OnayDurumu,
-                    OnaylanmaTarihi = izinEkle.OnaylanmaTarihi,
-                    ReddilmeNedeni = izinEkle.ReddilmeNedeni,
+                    OnaylanmaTarihi = izinEkle.OnaylanmaTarihi,                   
                     PersonelId = izinEkle.PersonelId,
-                    SirketYoneticisiId = izinEkle.SirketYoneticisiId
+                   
                 };
                 _db.Add(izinler);
                 _db.SaveChanges();
@@ -366,8 +362,31 @@ namespace BAL_IK.Data.Servisler
             }
         }
 
-       
-           
-        
+        public IzinTurlerResponse IzinTurleriGetir()
+        {
+            IzinTurlerResponse resp = new IzinTurlerResponse();
+            try
+            {
+                foreach (var izinTur in _db.IzinTurleri.ToList())
+                {
+                    IzinTurResponse izinTurResp = new IzinTurResponse()
+                    {
+                         IzinTur=izinTur.IzinTur,
+                          IzinTurId=izinTur.IzinTurId,
+                    };
+                    resp.IzinTurler.Add(izinTurResp);
+                }
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "İzin türler getirildi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
     }
 }
