@@ -55,9 +55,8 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             IzinlerViewModel izin = new IzinlerViewModel();          
             var personelGuid = HttpContext.Session.GetString("personel");
             var response = _personelService.PersonelGetir(personelGuid);
-            izin.Izinler = _personelService.IzinleriGetir(personelGuid).Izinler;
-            IzinlerViewModel vardiyalar = new IzinlerViewModel();
-            vardiyalar.Vardiyalar = _personelService.VardiyalariGetir(personelGuid).Vardiyalar;          
+            izin.Izinler = _personelService.IzinleriGetir(personelGuid).Izinler;            
+           izin.Vardiyalar = _personelService.VardiyalariGetir(personelGuid).Vardiyalar;          
             izin.Molalar = _personelService.MolalariGetir(personelGuid).Molalar;
 
             var resmiTatiller = await Tools.ResmiTatillerGetir();
