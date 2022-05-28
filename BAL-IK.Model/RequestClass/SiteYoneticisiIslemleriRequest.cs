@@ -59,6 +59,17 @@ namespace BAL_IK.Model.RequestClass
             public DateTime UyelikBitisTarihi { get; set; }
             public int? YorumId { get; set; }
         }
+
+        public class IzinTuruEkleReq
+        {
+            public string IzinTur { get; set; }
+        }
+
+        public class IzinTuruGuncelle
+        {
+            public int IzinTurId { get; set; }
+            public string IzinTur { get; set; }
+        }
     }
 
     

@@ -68,5 +68,30 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.SirketGuncelleme(s);
         }
+
+        [HttpGet("IzinTurleriListele")]
+        public IzinTurleriListeleResponse IzinTurleriListele()
+        {
+            return _sService.IzinTurleriListele();
+        }
+
+        [HttpPost("IzinTurleriEkle")]
+        public IzinTurleriEkleResponse IzinTurleriEkle(IzinTuruEkleReq ıt)
+        {
+            return _sService.IzinTurleriEkle(ıt);
+        }
+
+        [HttpPost("IzinTurleriGuncelleme")]
+        public IzinTurleriGuncelleResponse IzinTurleriGuncelleme(IzinTuruGuncelle ıtgun)
+        {
+            return _sService.IzinTurleriGuncelleme(ıtgun);
+        }
+
+
+        [HttpGet("IzinTuruGetir")]
+        public IzinTurleriResponse IzinTuruGetir(int id)
+        {
+            return _sService.IzinTuruGetir(id);
+        }
     }
 }

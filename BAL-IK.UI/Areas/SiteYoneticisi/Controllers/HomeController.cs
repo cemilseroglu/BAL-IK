@@ -1,6 +1,7 @@
 ﻿using BAL_IK.Data.Interfaceler;
 using BAL_IK.Model.Entities;
 using BAL_IK.UI.Filters;
+using BAL_IK.UI.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -109,7 +110,58 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
             return RedirectToAction("SirketAyarlari", "Home");
         }
 
+        public IActionResult Tanimlamalar()
+        {
+            return View();
+        }
 
+        public IActionResult IzinTuru()
+        {
+            //var response = _siteyoneticisiService.IzinTurleriListele();
+            SiteYoneticisiIzinTurleriWM wm = new SiteYoneticisiIzinTurleriWM()
+            {
+                IzinTurleriListesi = _siteyoneticisiService.IzinTurleriListele(),
+            };
+            if(wm == null)
+            {
+                return ViewBag.Mesaj = "Listelenecek herhangi bir izin türü yok.";
+            }
+            else
+            {
+                return View(wm);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult IzinTuruEkle(SiteYoneticisiIzinTurleriWM wm)
+        {
+            var response = _siteyoneticisiService.IzinTurleriEkle(wm.IzinTuruEkleReq);
+            wm.IzinTurleriListesi = _siteyoneticisiService.IzinTurleriListele();
+            return RedirectToAction("IzinTuru","Home");
+        }
+
+        public IActionResult IzinTuruGuncelleme(int id)
+        {
+            var response = _siteyoneticisiService.IzinTuruGetir(id);
+            IzinTuruGuncelle itgun = new IzinTuruGuncelle();
+            itgun.IzinTur = response.IzinTur;
+            itgun.IzinTurId = id;
+
+            return View(itgun);
+        }
+
+        [HttpPost]
+        public IActionResult IzinTuruGuncelleme(IzinTuruGuncelle it)
+        {
+            var response = _siteyoneticisiService.IzinTurleriGuncelleme(it);
+            return RedirectToAction("IzinTuru", "Home");
+        }
+
+
+        public IActionResult ZimmetTuru()
+        {
+            return View();
+        }
         public IActionResult LogOut()
         {
             HttpContext.Session.Remove("siteYoneticisi");

@@ -1,6 +1,7 @@
 ﻿using BAL_IK.Model.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,28 @@ namespace BAL_IK.Model.ResponseClass
 
         }
         public class VardiyaEkleResponse : BaseResponse
+        {
+
+        }
+
+        public class IzinTurleriResponse : BaseResponse
+        {
+            public int IzinTurId { get; set; }
+            [MaxLength(30)]
+            public string IzinTur { get; set; }
+        }
+
+        public class IzinTurleriListeleResponse : BaseResponse
+        {
+            public List<IzinTurleriResponse> IzinTurleriListele { get; set; }
+        }
+
+        public class IzinTurleriEkleResponse : BaseResponse
+        {
+
+        }
+
+        public class IzinTurleriGuncelleResponse : BaseResponse
         {
 
         }

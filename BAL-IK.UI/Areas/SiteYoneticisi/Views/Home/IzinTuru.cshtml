@@ -1,0 +1,74 @@
+﻿@using BAL_IK.UI.ViewModels
+@model SiteYoneticisiIzinTurleriWM
+@{
+
+    ViewData["Title"] = "Tanımlamalar";
+    Layout = "~/Areas/SiteYoneticisi/Views/Shared/_LayoutSiteYoneticisi.cshtml";
+}
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Sayfalar</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">İzin Türleri</li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">İzin Türleri</h6>
+            </nav>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                    <div class="input-group input-group-outline">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="col-12 col-xl-4">
+        <form method="post" asp-action="IzinTuruEkle" asp-controller="Home" class="text-end">
+            <div class="m-2 text-black text-start">
+                <label class="ms-3" asp-for="IzinTuruEkleReq.IzinTur">İzin Türü</label>
+                <span>
+                    <input asp-for="IzinTuruEkleReq.IzinTur" type="text" class="form-control bg-dark text-white ms-3" value="@Model.IzinTuruEkleReq.IzinTur" />
+                <button class="mt-2 btn  btn-primary rounded-pill float-start mb-2 ms-3 btn-sm">İzin türü Ekle</button>
+                    </span>
+            </div>
+        </form>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="col-12 col-xl-4 card card-body mx-3 mx-md-4 mt-n6 float-start" style="width:fit-content; width:40%;">
+        <div class="container table-responsive-xxl table">
+            <div class="row">
+                <div class="col-12 col-xl-12 ">
+                    <table class="align-middle">
+                        <thead>
+                            <tr class="text-center d-xl-table-row">
+                                <th class="pe-5">İzin Tür Id</th>
+                                <th class="pe-5">İzin Türü</th>
+                                <th>Düzenle/Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @ViewBag.Mesaj
+                            @foreach (var item in @Model.IzinTurleriListesi.IzinTurleriListele)
+                            {
+                                <tr class="align-bottom text-center d-lg-table-row">
+                                    
+                                    <td class="align-top">@item.IzinTurId</td>
+                                    <td class="align-top">@item.IzinTur</td>
+                                    <td>
+                                        <a class="btn btn-facebook" asp-controller="Home" asp-action="IzinTuruGuncelleme" asp-route-id="@item.IzinTurId">Düzenle</a>
+                                        <a class="btn btn-primary" asp-controller="Home" asp-action="IzinTurSil" asp-route-id="@item.IzinTurId">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
