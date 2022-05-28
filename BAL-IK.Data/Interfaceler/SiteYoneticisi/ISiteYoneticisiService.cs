@@ -18,6 +18,10 @@ namespace BAL_IK.Data.Interfaceler
         SirketGuncelleResponse SirketGuncelleme(SirketGuncelle sy);
         SirketListeleResponse SirketleriListele();
         SirketResp SirketGetir(int id);
+        IzinTurleriListeleResponse IzinTurleriListele();
+        IzinTurleriEkleResponse IzinTurleriEkle(IzinTuruEkleReq ıt);
+        IzinTurleriGuncelleResponse IzinTurleriGuncelleme(IzinTuruGuncelle ıtgun);
+        IzinTurleriResponse IzinTuruGetir(int id);
         //List<SiteYoneticisi> SiteYoneticileriGetir();
         //List<Sirket> SirketleriGetir();
     }

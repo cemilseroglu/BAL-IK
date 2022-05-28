@@ -56,5 +56,35 @@ namespace BAL_IK.UI.ServislerUI
         {
             throw new System.NotImplementedException();
         }
+
+        public IzinTurleriListeleResponse IzinTurleriListele()
+        {
+
+            var request = new RestRequest("api/SiteYoneticisi/IzinTurleriListele", Method.GET, DataFormat.Json);
+            var response = Globals.ApiClient.Execute<IzinTurleriListeleResponse>(request);
+            return response.Data;
+        }
+
+        public IzinTurleriEkleResponse IzinTurleriEkle(SiteYoneticisiIslemleriRequest.IzinTuruEkleReq ıt)
+        {
+            var request = new RestRequest("api/SiteYoneticisi/IzinTurleriEkle", Method.POST, DataFormat.Json).AddJsonBody(ıt);
+            var response = Globals.ApiClient.Execute<IzinTurleriEkleResponse>(request);
+            return response.Data;
+        }
+
+        public IzinTurleriGuncelleResponse IzinTurleriGuncelleme(SiteYoneticisiIslemleriRequest.IzinTuruGuncelle ıtgun)
+        {
+            var request = new RestRequest("api/SiteYoneticisi/IzinTurleriGuncelleme", Method.POST, DataFormat.Json).AddJsonBody(ıtgun);
+            var response = Globals.ApiClient.Execute<IzinTurleriGuncelleResponse>(request);
+            return response.Data;
+        }
+
+        public IzinTurleriResponse IzinTuruGetir(int id)
+        {
+            var request = new RestRequest("api/SiteYoneticisi/IzinTuruGetir", Method.GET, DataFormat.Json).AddParameter("id", id);
+            var response = Globals.ApiClient.Execute<IzinTurleriResponse>(request);
+
+            return response.Data;
+        }
     }
 }

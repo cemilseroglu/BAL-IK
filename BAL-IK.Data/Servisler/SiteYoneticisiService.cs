@@ -264,5 +264,113 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+
+        public IzinTurleriListeleResponse IzinTurleriListele()
+        {
+            IzinTurleriListeleResponse liste = new IzinTurleriListeleResponse();
+            liste.IzinTurleriListele = new List<IzinTurleriResponse>();
+            foreach (var item in _db.IzinTurleri.ToList())
+            {
+                IzinTurleriResponse resp = new IzinTurleriResponse()
+                {
+                    IzinTurId = item.IzinTurId,
+                    IzinTur = item.IzinTur
+            };
+                liste.IzinTurleriListele.Add(resp);
+            }
+            return liste;
+        }
+
+        public IzinTurleriEkleResponse IzinTurleriEkle(IzinTuruEkleReq ıt)
+        {
+            IzinTurleriEkleResponse resp = new IzinTurleriEkleResponse();
+
+            try
+            {
+                IzinTuru izinturu = new IzinTuru()
+                {
+                    IzinTur = ıt.IzinTur
+                };
+                _db.Add(izinturu);
+                _db.SaveChanges();
+                resp.Mesaj = ("Başarılı");
+                resp.BasariliMi = true;
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public IzinTurleriGuncelleResponse IzinTurleriGuncelleme(IzinTuruGuncelle ıtgun)
+        {
+            IzinTurleriGuncelleResponse resp = new IzinTurleriGuncelleResponse();
+            try
+            {
+
+                IzinTuru izinturgun = _db.IzinTurleri.Find(ıtgun.IzinTurId);
+                if (izinturgun == null)
+                {
+                    resp.Mesaj = "Kullanıcı Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                if (ıtgun.IzinTur != null)
+                    izinturgun.IzinTur = ıtgun.IzinTur;
+                
+                _db.Update(izinturgun);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarıyla güncellendi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
+            }
+        }
+
+        public IzinTurleriResponse IzinTuruGetir(int id)
+        {
+            IzinTurleriResponse resp = new IzinTurleriResponse();
+            if (id == 0)
+            {
+                resp.Mesaj = "Kullanıcı bulunamadı.";
+                resp.BasariliMi = false;
+                return resp;
+            }
+            try
+            {
+                IzinTuru izinturu = _db.IzinTurleri.FirstOrDefault(x => x.IzinTurId == id);
+                if (izinturu == null)
+                {
+                    resp.Mesaj = "İzin türü bulunamadı.";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                else
+                {
+                    resp.IzinTurId = id;
+                    resp.IzinTur = izinturu.IzinTur;
+                    resp.BasariliMi = true;
+                    resp.Mesaj = "İzin türü düzenlendi.";
+                    return resp;
+                }
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                throw;
+            }
+        }
     }
 }
