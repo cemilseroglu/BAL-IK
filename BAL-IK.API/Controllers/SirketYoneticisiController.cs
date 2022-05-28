@@ -73,7 +73,11 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.OzlukBelgesiSil(ozlukBelgesiId);
         }
-
+        [HttpGet("OzlukBelgesiGetir")]
+        public OzlukBelgesiGetirResponse OzlukBelgesiGetirme(int ozlukBelgesiId)
+        {
+            return _sService.OzlukBelgesiGetir(ozlukBelgesiId);
+        }
         //[HttpGet("SirketYoneticisiIzinListele")]
         //public IzinListelemeResponse IzinListeleme()
         //{
@@ -124,6 +128,11 @@ namespace BAL_IK.API.Controllers
         public PersonelleriGetirResponse PersonelleriGetir()
         {
             return _sService.PersonelleriGetir();
+        }
+        [HttpGet("PersonelGetir")]
+        public PersonelResp PersonelGetir(string guid)
+        {
+            return _sService.PersGetir(guid);
         }
 
     }

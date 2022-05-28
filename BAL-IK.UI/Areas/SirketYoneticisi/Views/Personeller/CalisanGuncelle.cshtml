@@ -1,30 +1,39 @@
 ﻿@using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest
-@model PersonelEkle
 
+@model PersonelGuncelle
 
 <form method="post">
+    <input type="hidden" asp-for="PersonelId" />
     <h6>Ad</h6>
     <input required type="text" asp-for="Ad" />
+    <br />
     <h6>Soyad</h6>
     <input required type="text" asp-for="Soyad" />
+    <br />
     <h6>Doğum Tarihi</h6>
     <input required type="date" asp-for="DogumTarihi" />
-    <h6>E-Mail</h6>
-    <input required type="email" asp-for="Eposta" />
+    <br />
     <h6>Cinsiyet</h6>
     <div class="input-group input-group-outline mb-3">
         <select asp-for="Cinsiyet" asp-items="Html.GetEnumSelectList<Cinsiyet>()" class="3col active form-control">
         </select>
     </div>
-    <h6>Personel Aktif</h6>
-    <input required asp-for="AktifMi" />
-    <h6>Şirket Id</h6>
-    <input required asp-for="SirketId" />
-    <h6>İşe Başlama Tarihi</h6>
-    <input required type="date" asp-for="IseBaslama" />
+    
+    <h6>E-Posta</h6>
+    <input required type="email" asp-for="Eposta" />
+    <br />
+    <h6>Personel Aktif mi?</h6>
+    <input asp-for="AktifMi" />
+    @*<input required type="date" asp-for="YillikIzinHakki" />
+        <input required type="date" asp-for="IseBaslama" />
+        <input required type="date" asp-for="IstenAyrilma" />*@
+    <br />
     <h6>Maaş</h6>
     <input required type="number" asp-for="TemelMaasBilgisi" />
     <br />
     <br />
-    <button class="btn btn-primary" @*onclick="confirmAction(@Model.PersonelId)"asp-action="CalisanGuncelle" asp-controller="Personeller"*@>Personel Ekle</button>
+
+
+
+    <button class="btn btn-primary" onclick="confirmAction(@Model.PersonelId)">Güncelle</button>
 </form>

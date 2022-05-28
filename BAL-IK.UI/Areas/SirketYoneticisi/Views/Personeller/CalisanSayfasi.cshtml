@@ -1,0 +1,71 @@
+﻿@using static BAL_IK.Model.ResponseClass.SirketIslemleriResponse
+@model PersonelleriGetirResponse
+
+<a class="btn btn-primary" asp-action="CalisanEkle" asp-controller="Personeller" asp-area="SirketYoneticisi">Personel Ekle</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Personel Adı Soyadı</th>
+            <th scope="col">E-Posta</th>
+            <th scope="col">Cinsiyet</th>
+            <th scope="col">Personel Aktif Mi</th>
+            <th scope="col">Maaş</th>
+            <th scope="col">İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Personeller.Count > 0)
+        {
+            @foreach (var personel in Model.Personeller.OrderByDescending(x => x.PersonelId))
+            {
+                <tr>
+                    <input asp-for="@personel.PersonelId" type="hidden" />
+                    <td>@personel.Ad @personel.Soyad</td>
+                    <td>@personel.Eposta</td>
+                    <td>@personel.Cinsiyet</td>
+                    <td>@personel.AktifMi</td>
+                    <td>@personel.TemelMaasBilgisi</td>
+                    <td><a class="btn btn-dark" asp-action="CalisanGuncelle" asp-controller="Personeller" asp-route-guid="@personel.Guid">Güncelle</a><a class="btn btn-danger" onclick="confirmAction(@personel.PersonelId)">Sil</a></td>
+
+
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+
+@section scripts
+{
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        });
+
+        function confirmAction(id) {
+            let confirmAction = confirm("Personel silinecek. Emin misiniz?");
+            if (confirmAction) {
+                $.ajax(
+                    {
+                        url: 'http://localhost:46375/api/SirketYoneticisi/PersonelSil?pers=' + id,
+                        method: "POST",
+                        success: function (data) {
+
+                        },
+
+                    });
+            } else {
+
+            }
+            location.reload();
+        }
+
+    </script>
+}

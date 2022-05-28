@@ -205,22 +205,22 @@ namespace BAL_IK.Data.Servisler
                     SirketId = personel.SirketId,
                     TemelMaasBilgisi = personel.TemelMaasBilgisi
                 };
-               
+
 
                 _db.Add(newPers);
                 _db.SaveChanges();
-                Tools.MailGonder(newPers.Eposta,"Hoşgeldiniz Sisteme Eklendiniz.",$"<h3>Merhaba Sayın {newPers.Ad}  {newPers.Soyad}</h3><p>BAL-IK Sistemine Yöneticiniz tarafından kaydınız yapılmıştır.<a href='http://localhost:47578/Login'>Buraya Tıklayarak Sisteme Giriş Yapabilirsiniz</a></p>");
+                Tools.MailGonder(newPers.Eposta, "Hoşgeldiniz Sisteme Eklendiniz.", $"<h3>Merhaba Sayın {newPers.Ad}  {newPers.Soyad}</h3><p>BAL-IK Sistemine Yöneticiniz tarafından kaydınız yapılmıştır.<a href='http://localhost:47578/Login'>Buraya Tıklayarak Sisteme Giriş Yapabilirsiniz</a></p>");
 
                 for (int i = 1; i <= 12; i++)
                 {
                     MaasBilgisi maas = new MaasBilgisi()
                     {
-                        AlacagiTarih = newPers.IseBaslama.AddMonths(i),                    
+                        AlacagiTarih = newPers.IseBaslama.AddMonths(i),
                         MaasTutari = newPers.TemelMaasBilgisi,
-                        PersonelId = newPers.PersonelId,                        
+                        PersonelId = newPers.PersonelId,
 
                     };
-                    _db.Add(maas);                    
+                    _db.Add(maas);
                 }
                 _db.SaveChanges();
                 resp.BasariliMi = true;
@@ -328,9 +328,10 @@ namespace BAL_IK.Data.Servisler
 
                 pergun.Cinsiyet = pr.Cinsiyet;
                 pergun.AktifMi = pr.AktifMi;
-                pergun.SirketId = pr.SirketId;
-                pergun.DepartmanId = pr.DepartmanId;
-                pergun.VardiyaId = pr.VardiyaId;
+                pergun.TemelMaasBilgisi = pr.TemelMaasBilgisi;
+                //pergun.SirketId = pr.SirketId;
+                //pergun.DepartmanId = pr.DepartmanId;
+                //pergun.VardiyaId = pr.VardiyaId;
 
 
                 _db.Update(pergun);
@@ -707,9 +708,9 @@ namespace BAL_IK.Data.Servisler
             {
                 VardiyaTur vardiyaTur = new VardiyaTur()
                 {
-                     VardiyaTuru=req.VardiyaTuru,
-                     VardiyaBaslangicTarihi=req.VardiyaBaslangicTarihi,
-                     VardiyaBitisTarihi=req.VardiyaBitisTarihi
+                    VardiyaTuru = req.VardiyaTuru,
+                    VardiyaBaslangicTarihi = req.VardiyaBaslangicTarihi,
+                    VardiyaBitisTarihi = req.VardiyaBitisTarihi
                 };
                 _db.Add(vardiyaTur);
                 _db.SaveChanges();
@@ -723,6 +724,84 @@ namespace BAL_IK.Data.Servisler
                 resp.Mesaj = ex.Message;
                 resp.BasariliMi = false;
                 return resp;
+            }
+        }
+
+        public PersonelResp PersGetir(string guid)
+        {
+            PersonelResp resp = new PersonelResp();
+            if (string.IsNullOrEmpty(guid))
+            {
+                resp.Mesaj = "Parametre boş olamaz.";
+                resp.BasariliMi = false;
+                return resp;
+
+            }
+            try
+            {
+                Personeller personeller = _db.Personeller.FirstOrDefault(x => x.Guid.ToString() == guid);
+                if (personeller == null)
+                {
+                    resp.Mesaj = "Kullanıcı Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                resp.PersonelId = personeller.PersonelId;
+                resp.Eposta = personeller.Eposta;
+                resp.Cinsiyet = personeller.Cinsiyet;
+                resp.Ad = personeller.Ad;
+                resp.Soyad = personeller.Soyad;
+                resp.AktifMi = personeller.AktifMi;
+                resp.TemelMaasBilgisi = personeller.TemelMaasBilgisi;
+                resp.DepartmanId = personeller.DepartmanId;
+                resp.DogumTarihi = personeller.DogumTarihi;
+                resp.SirketId = personeller.SirketId;
+                resp.VardiyaId = personeller.VardiyaId;
+                resp.YillikIzinHakki = personeller.YillikIzinHakki;
+                resp.IseBaslama = personeller.IseBaslama;
+                resp.IstenAyrilma = personeller.IstenAyrilma;
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarılı";
+                resp.Guid = personeller.Guid;
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                throw;
+            }
+        }
+
+
+
+        public OzlukBelgesiGetirResponse OzlukBelgesiGetir(int ozlukBelgesiId)
+        {
+            OzlukBelgesiGetirResponse resp = new OzlukBelgesiGetirResponse();
+            //if (string.IsNullOrEmpty(guid))
+            //{
+            //    resp.Mesaj = "Parametre boş olamaz.";
+            //    resp.BasariliMi = false;
+            //    return resp;
+
+            //}
+            try
+            {
+                OzlukBelgesi ozluk = _db.OzlukBelgeleri.FirstOrDefault(x => x.PersonelId == ozlukBelgesiId);
+                if (ozluk == null)
+                {
+                    resp.Mesaj = "Belge Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                //resp
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                throw;
             }
         }
     }

@@ -1,0 +1,29 @@
+﻿@using static BAL_IK.Model.ResponseClass.PersonelIslemleriResponse
+@model OzlukBelgesiGetirResponse
+
+<a class="btn btn-primary" asp-action="OzlukBelgesiEkle" asp-controller="Personeller" asp-area="SirketYoneticisi">Özlük Belgesi Ekle</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Özlük Belgesi Adı</th>
+            <th scope="col">Belge Yolu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @*@if (Model.OzlukBelgeleri.Count > 0)
+        {*@
+            @*@foreach (var personel in Model.OzlukBelgeleri.OrderByDescending(x => x.PersonelId))
+            {
+                <tr>
+                    <input asp-for="@personel.PersonelId" type="hidden" />
+                    <td>@personel.OzlukBelgesiAdi</td>
+                    <td>@personel.OzlukBelgesiYolu</td>                    
+                    <td><a class="btn btn-secondary" asp-action="OzlukBelgesiGuncelle" asp-controller="Personeller" asp-route-guid="@personel.PersonelId">Güncelle</a><a class="btn btn-warning">Sil</a></td>
+
+
+                </tr>
+            }*@
+        
+
+    </tbody>
+</table>

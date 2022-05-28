@@ -1,0 +1,11 @@
+﻿@using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest
+@model OzlukBelgesiEkle
+
+
+<form method="post">
+
+    <input type="hidden" asp-for="PersonelId" />
+    <input required type="text" asp-for="OzlukBelgesiAdi" />
+    <input required type="text" asp-for="OzlukBelgesiYolu" />
+    <button class="btn btn-primary" @*onclick="confirmAction(@Model.PersonelId)"asp-action="CalisanGuncelle" asp-controller="Personeller"*@>Personel Ekle</button>
+</form>

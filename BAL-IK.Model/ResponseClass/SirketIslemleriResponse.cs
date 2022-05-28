@@ -19,6 +19,7 @@ namespace BAL_IK.Model.ResponseClass
             public List<PersonelResponse> Personeller { get; set; } =new List<PersonelResponse> ();
             
         }
+        
 
         public class PersonelResponse
         {
