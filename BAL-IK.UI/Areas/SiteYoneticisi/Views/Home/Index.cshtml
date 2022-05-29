@@ -1,5 +1,5 @@
-﻿@using static BAL_IK.UI.Areas.SirketYoneticisi.Controllers.HomeController
-@model GelenData
+﻿@using BAL_IK.UI.ViewModels
+@model SiteYoneticisiIndexWM
 @{
 
     ViewData["Title"] = "Anasayfa";
@@ -36,7 +36,7 @@
                         </div>
                         <div class="text-end pt-1">
                             <p class="text-sm mb-0 text-capitalize">Sitede bulunan şirket sayısı</p>
-                            <h4 class="mb-0">2,300</h4>
+                            <h4 class="mb-0">@Model.sirketSayisi.SirketSayisi</h4>
                         </div>
                     </div>
                     <hr class="dark horizontal my-0">
@@ -50,7 +50,7 @@
                         </div>
                         <div class="text-end pt-1">
                             <p class="text-sm mb-0 text-capitalize">Kayıtlı şirket yöneticisi sayısı</p>
-                            <h4 class="mb-0">3,462</h4>
+                            <h4 class="mb-0">@Model.sirketYoneticisiSayisi.SirketYoneticisiSayisi</h4>
                         </div>
                     </div>
 
@@ -64,22 +64,45 @@
                         </div>
                         <div class="text-end pt-1">
                             <p class="text-sm mb-0 text-capitalize">Kayıtlı personel sayısı</p>
-                            <h4 class="mb-0">3,462</h4>
+                            <h4 class="mb-0">@Model.personelSayisiResponse.PersonelSayisi</h4>
                         </div>
                     </div>
-
                 </div>
             </div>
-            <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4 mt-3">
-                <div class="card">
-                    <div class="card-header p-3 pt-2">
-                            Yaklaşan Üyelik Sonlandırma Listesi buraya yazılacak...
+            <div class="card card-body mx-3 mx-md-4 mt-5" style="width:fit-content; width:110%;">
+                <div class="container table-responsive-xxl table text-center">
+                    <div class="row">
+                        <div class="col-12 col-xl-12 ">
+                            <table class="align-middle">
+                                <thead>
+                                    <p>Üyelik bitiş tarihi yaklaşan şirketlerin tablosu</p>
+                                    <tr class="text-center d-xl-table-row align-middle">
+                                        <th class="pe-5">Şirket Adı</th>
+                                        <th class="pe-5">E-mail</th>
+                                        <th class="pe-5">Şirket Yöneticileri</th>
+                                        <th class="pe-5">Üyelik Kayıt Tarihi</th>
+                                        <th class="pe-5">Üyelik Bitiş Tarihi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.askiyaAlinacaklarListesi.AskiyaAlinacakSirketleriListele)
+                                    {
+                                        <tr class="align-bottom text-center d-lg-table-row">
+                                            <td class="align-top">@item.SirketAdi</td>
+                                            <td class="align-top">@item.SirketEmail</td>
+                                            <td class="align-top">@item.SirketYoneticileri</td>
+                                            <td class="align-top">@item.KayitTarihi.ToShortDateString()</td>
+                                            <td class="align-top">@item.UyelikBitisTarihi.ToShortDateString()</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+    </div>
 
     <div class="row mb-4 py-4 ms-2">
         <div class="col-lg-12 col-md-12 mb-md-0 mb-4" style="width:50%">
@@ -105,7 +128,7 @@
                                     <ul>
                                         @for (var i = 0; i < 4; i++)
                                         {
-                                            <li>@Model.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @Model.ResmiTatiller[i].gun <br/></li>
+                                            <li>@Model.resmiTatiller.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @Model.resmiTatiller.ResmiTatiller[i].gun <br /></li>
                                         }
                                     </ul>
                                 </tr>
