@@ -388,5 +388,43 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+
+        public ZimmetlerResponse ZimmetTurleriGetir(string guid)
+        {
+            Personeller personel = _db.Personeller.Include(x => x.Zimmetler).FirstOrDefault(x => x.Guid.ToString() == guid);
+            List<Zimmetler> zimmetList = _db.Zimmetler.Include(x => x.ZimmetTuru).Where(x => x.PersonelId == personel.PersonelId).ToList();
+            ZimmetlerResponse  resp = new ZimmetlerResponse();
+            try
+            {
+                foreach (var zimmet in zimmetList)
+                {
+                    ZimmetResponse gidecekzimmet = new ZimmetResponse()
+                    {
+                        PersonelId = zimmet.PersonelId,
+                        ZimmetId = zimmet.ZimmetId,
+                        NotIcerik = zimmet.NotIcerik,
+                        TeslimEdildiMi = zimmet.TeslimEdildiMi,
+                        ZimmetTarihi = zimmet.ZimmetTarihi,
+                        ZimmetTeslimTarihi = zimmet.ZimmetTeslimTarihi,
+                        ZimmetTuru =
+                        {
+                            ZimmetTuruId = zimmet.ZimmetTuru.ZimmetTuruId,
+                            ZimmetTuru = zimmet.ZimmetTuru.ZimmetTur
+                        }
+                    };
+                    resp.Zimmetler.Add(gidecekzimmet);  
+                }
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "İzin türler getirildi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = "Zimmetleri getirirken hata oluştu" + ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
     }
 }

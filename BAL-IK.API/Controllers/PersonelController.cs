@@ -66,6 +66,14 @@ namespace BAL_IK.API.Controllers
         {
             return _pService.IzinTurleriGetir();
         }
+        [HttpGet("ZimmetTurleriGetir")]
+        public ZimmetlerResponse ZimmetTurleriGetir(string guid)
+        {
+            return _pService.ZimmetTurleriGetir(guid);
+        }
 
     }
+            
+
+    
 }
