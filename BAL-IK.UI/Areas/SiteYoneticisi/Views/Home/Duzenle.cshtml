@@ -66,7 +66,7 @@
                             <input asp-for="Sifre" type="password" class="form-control bg-dark text-white" value="@Model.Sifre"  />
                             <span asp-validation-for="Soyad" class="text-danger"></span>
                             <label asp-for="DogumTarihi">Kuruluş Tarihi</label>
-                            <input asp-for="DogumTarihi" type="date" class="form-control bg-dark text-white" placeholder="@Model.DogumTarihi.ToShortDateString()" />
+                            <input asp-for="DogumTarihi" type="date" max="@DateTime.Now.Date" class="form-control bg-dark text-white" placeholder="@Model.DogumTarihi.ToShortDateString()" />
                             <span asp-validation-for="DogumTarihi" class="text-danger"></span>
                         </div>
                             <button class="mt-2 btn  btn-primary rounded-pill float-start mb-2 ms-2 btn-sm"onclick="location.href='@Url.Action("Profil", "Home")'">Değiştir</button> 

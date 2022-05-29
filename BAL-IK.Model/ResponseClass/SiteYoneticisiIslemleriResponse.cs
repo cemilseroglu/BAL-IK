@@ -61,6 +61,14 @@ namespace BAL_IK.Model.ResponseClass
         {
 
         }
+        public class IzinTuruSilResponse : BaseResponse
+        {
+
+        }
+        public class ZimmetTuruSilResponse : BaseResponse
+        {
+
+        }
         public class VardiyaEkleResponse : BaseResponse
         {
 
@@ -72,13 +80,27 @@ namespace BAL_IK.Model.ResponseClass
             [MaxLength(30)]
             public string IzinTur { get; set; }
         }
+        public class ZimmetTurleriResponse : BaseResponse
+        {
+            public int ZimmetTurId { get; set; }
+            [MaxLength(30)]
+            public string ZimmetTur { get; set; }
+        }
 
         public class IzinTurleriListeleResponse : BaseResponse
         {
             public List<IzinTurleriResponse> IzinTurleriListele { get; set; }
         }
+        public class ZimmetTurleriListeleResponse : BaseResponse
+        {
+            public List<ZimmetTurleriResponse> ZimmetTurleriListele { get; set; }
+        }
 
         public class IzinTurleriEkleResponse : BaseResponse
+        {
+
+        }
+        public class ZimmetTurleriEkleResponse : BaseResponse
         {
 
         }
@@ -86,6 +108,34 @@ namespace BAL_IK.Model.ResponseClass
         public class IzinTurleriGuncelleResponse : BaseResponse
         {
 
+        }
+        public class ZimmetTurleriGuncelleResponse : BaseResponse
+        {
+
+        }
+
+        public class SirketSayisiResponse : BaseResponse
+        {
+            public int SirketSayisi { get; set; }
+        }
+
+        public class SirketYoneticisiSayisiResponse : BaseResponse
+        {
+            public int SirketYoneticisiSayisi { get; set; }
+        }
+        public class PersonelSayisiResponse : BaseResponse
+        {
+            public int PersonelSayisi { get; set; }
+        }
+
+        public class AskiyaAlinacakSirketleriListeleResponse : BaseResponse
+        {
+            public List<Sirket> AskiyaAlinacakSirketleriListele { get; set; }
+        }
+
+        public class UyelikAskiyaAlmaResponse : BaseResponse
+        {
+            public List<Sirket> AskiyaAlinacakSirketler { get; set; }
         }
     }
 }

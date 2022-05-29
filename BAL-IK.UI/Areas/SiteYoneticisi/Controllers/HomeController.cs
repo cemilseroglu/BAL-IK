@@ -21,7 +21,7 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         private readonly ISiteYoneticisiService _siteyoneticisiService;
         private readonly IWebHostEnvironment _env;
 
-        public HomeController(ISiteYoneticisiService siteyoneticisiService , IWebHostEnvironment env)
+        public HomeController(ISiteYoneticisiService siteyoneticisiService, IWebHostEnvironment env)
         {
             _siteyoneticisiService = siteyoneticisiService;
             _env = env;
@@ -29,8 +29,14 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         public async Task<IActionResult> Index()
         {
             var siteyoneticisiGuid = HttpContext.Session.GetString("siteYoneticisi");
-            var resmitatiller = await ResmiTatillerGetir();
-            return View(resmitatiller);
+            SiteYoneticisiIndexWM wm = new SiteYoneticisiIndexWM();
+            wm.resmiTatiller = await Tools.ResmiTatillerGetir();
+            wm.personelSayisiResponse = _siteyoneticisiService.PersonelSayisiGetir();
+            wm.sirketSayisi = _siteyoneticisiService.SirketSayisiGetir();
+            wm.sirketYoneticisiSayisi = _siteyoneticisiService.SirketYoneticisiSayisiGetir();
+            wm.askiyaAlinacaklarListesi = _siteyoneticisiService.AskiyaAlinacakSirketleriListele();  // Üyelik bitiş tarihine 1 hafta ve daha az kalanları listeler.
+            wm.askiyaAl = _siteyoneticisiService.UyelikAskiyaAlma();
+            return View(wm);
         }
 
         public IActionResult Profil()
@@ -57,7 +63,7 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         public IActionResult Duzenle(SiteYoneticisiGuncelle sy)
         {
             var response = _siteyoneticisiService.SiteYoneticisiGuncelleme(sy);
-            return RedirectToAction("Profil","Home");
+            return RedirectToAction("Profil", "Home");
         }
 
         public IActionResult SirketAyarlari()
@@ -87,21 +93,21 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         {
             var responseKarsilastirma = _siteyoneticisiService.SirketGetir(s.SirketId);
             var response = _siteyoneticisiService.SirketGuncelleme(s);
-            if(s.Durum != responseKarsilastirma.Durum)
-            { 
-            if (s.Durum == Durum.Pasif)
+            if (s.Durum != responseKarsilastirma.Durum)
             {
-               Data.Servisler.Tools.MailGonder(s.SirketEmail,"Şirketinizin durumu değiştirilmiştir.","Şirketinizin durumu pasif olarak değiştirilmiştir.");
+                if (s.Durum == Durum.Pasif)
+                {
+                    Data.Servisler.Tools.MailGonder(s.SirketEmail, "Şirketinizin durumu değiştirilmiştir.", "Şirketinizin durumu pasif olarak değiştirilmiştir.");
 
-            }
-            else if(s.Durum == Durum.Aktif)
-            {
-                Data.Servisler.Tools.MailGonder(s.SirketEmail, "Şirketinizin durumu değiştirilmiştir.", "Şirketinizin durumu aktif olarak değiştirilmiştir.Artık rahatlıkla giriş yapabilirsiniz.");
-            }
-            else if (s.Durum == Durum.Askıda)
-            {
-                Data.Servisler.Tools.MailGonder(s.SirketEmail, "Şirketiniz askıye alınmıştır!", "Şirketiniz askıya alınmıştır.Lütfen teknik ekiple görüşünüz.");
-            }
+                }
+                else if (s.Durum == Durum.Aktif)
+                {
+                    Data.Servisler.Tools.MailGonder(s.SirketEmail, "Şirketinizin durumu değiştirilmiştir.", "Şirketinizin durumu aktif olarak değiştirilmiştir.Artık rahatlıkla giriş yapabilirsiniz.");
+                }
+                else if (s.Durum == Durum.Askıda)
+                {
+                    Data.Servisler.Tools.MailGonder(s.SirketEmail, "Şirketiniz askıye alınmıştır!", "Şirketiniz askıya alınmıştır.Lütfen teknik ekiple görüşünüz.");
+                }
             }
             else
             {
@@ -122,7 +128,7 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
             {
                 IzinTurleriListesi = _siteyoneticisiService.IzinTurleriListele(),
             };
-            if(wm == null)
+            if (wm == null)
             {
                 return ViewBag.Mesaj = "Listelenecek herhangi bir izin türü yok.";
             }
@@ -137,7 +143,7 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         {
             var response = _siteyoneticisiService.IzinTurleriEkle(wm.IzinTuruEkleReq);
             wm.IzinTurleriListesi = _siteyoneticisiService.IzinTurleriListele();
-            return RedirectToAction("IzinTuru","Home");
+            return RedirectToAction("IzinTuru", "Home");
         }
 
         public IActionResult IzinTuruGuncelleme(int id)
@@ -158,10 +164,50 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         }
 
 
+
+
         public IActionResult ZimmetTuru()
         {
-            return View();
+            //var response = _siteyoneticisiService.IzinTurleriListele();
+            SiteYoneticisiZimmetTurleriWM wm = new SiteYoneticisiZimmetTurleriWM()
+            {
+                ZimmetTurleriListesi = _siteyoneticisiService.ZimmetTurleriListele(),
+            };
+            if (wm == null)
+            {
+                return ViewBag.Mesaj = "Listelenecek herhangi bir izin türü yok.";
+            }
+            else
+            {
+                return View(wm);
+            }
         }
+
+        [HttpPost]
+        public IActionResult ZimmetTuruEkle(SiteYoneticisiZimmetTurleriWM wm)
+        {
+            var response = _siteyoneticisiService.ZimmetTurleriEkle(wm.ZimmetTuruEkleReq);
+            wm.ZimmetTurleriListesi = _siteyoneticisiService.ZimmetTurleriListele();
+            return RedirectToAction("ZimmetTuru", "Home");
+        }
+
+        public IActionResult ZimmetTuruGuncelleme(int id)
+        {
+            var response = _siteyoneticisiService.ZimmetTuruGetir(id);
+            ZimmetTuruGuncelle ztgun = new ZimmetTuruGuncelle();
+            ztgun.ZimmetTur = response.ZimmetTur;
+            ztgun.ZimmetTurId = id;
+
+            return View(ztgun);
+        }
+
+        [HttpPost]
+        public IActionResult ZimmetTuruGuncelleme(ZimmetTuruGuncelle zt)
+        {
+            var response = _siteyoneticisiService.ZimmetTurleriGuncelleme(zt);
+            return RedirectToAction("ZimmetTuru", "Home");
+        }
+
         public IActionResult LogOut()
         {
             HttpContext.Session.Remove("siteYoneticisi");
@@ -171,43 +217,5 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
 
 
 
-        #region ResmiTatillerAPI
-        public static async Task<GelenData> ResmiTatillerGetir()
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://api.ubilisim.com/");
-                var result = await client.GetAsync("resmitatiller");
-
-                if (result.IsSuccessStatusCode)
-                {
-                    var data = await result.Content.ReadAsStringAsync();  //JSON formattan okuyacak hale getirdik.
-                    var durum = JsonConvert.DeserializeObject<GelenData>(data);
-
-                    return durum;
-
-                }
-                else
-                    return null;
-            }
-        }
-
-        public class GelenData
-        {
-            public bool success { get; set; }
-            public string status { get; set; }
-            public string pagecreatedate { get; set; }
-            public List<ResmiTatiller> ResmiTatiller { get; set; }
-        }
-        public class ResmiTatiller
-        {
-            public string gun { get; set; }
-            public string en { get; set; }
-            public string haftagunu { get; set; }
-            public string tarih { get; set; }
-            public string uzuntarih { get; set; }
-
-        }
-    }
-    #endregion
+    }    
 }

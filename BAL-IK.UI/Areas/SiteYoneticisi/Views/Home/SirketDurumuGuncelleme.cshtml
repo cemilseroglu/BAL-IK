@@ -59,10 +59,10 @@
                                             <input asp-for="SirketTelefonu" type="text" class="form-control bg-dark text-white" value="@Model.SirketTelefonu" />
                                             <span asp-validation-for="SirketTelefonu" class="text-danger"></span>
                                             <label asp-for="KayitTarihi">Kayıt Tarihi</label>
-                                            <input asp-for="KayitTarihi" type="date" class="form-control bg-dark text-white" placeholder="@Model.KayitTarihi.ToShortDateString() readonly" />
+                                            <input asp-for="KayitTarihi" type="date" class="form-control bg-dark text-white" placeholder="@Model.KayitTarihi.ToShortDateString()" readonly />
                                             <span asp-validation-for="KayitTarihi" class="text-danger"></span>
                                             <label asp-for="UyelikBitisTarihi">Üyelik Bitiş Tarihi</label>
-                                            <input asp-for="UyelikBitisTarihi" type="date" class="form-control bg-dark text-white" placeholder="@Model.UyelikBitisTarihi.ToShortDateString()" />
+                                            <input asp-for="UyelikBitisTarihi" type="date" class="form-control bg-dark text-white" min="@DateTime.Now.Date" placeholder="@Model.UyelikBitisTarihi.ToShortDateString()" />
                                             <span asp-validation-for="UyelikBitisTarihi" class="text-danger"></span>
                                             <div>
                                                 <label asp-for="OdemePlani">Ödeme Planı</label>

@@ -64,11 +64,20 @@ namespace BAL_IK.Model.RequestClass
         {
             public string IzinTur { get; set; }
         }
+        public class ZimmetTuruEkleReq
+        {
+            public string ZimmetTur { get; set; }
+        }
 
         public class IzinTuruGuncelle
         {
             public int IzinTurId { get; set; }
             public string IzinTur { get; set; }
+        }
+        public class ZimmetTuruGuncelle
+        {
+            public int ZimmetTurId { get; set; }
+            public string ZimmetTur { get; set; }
         }
     }
 

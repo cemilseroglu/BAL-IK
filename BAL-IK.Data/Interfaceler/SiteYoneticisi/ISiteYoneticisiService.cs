@@ -22,6 +22,17 @@ namespace BAL_IK.Data.Interfaceler
         IzinTurleriEkleResponse IzinTurleriEkle(IzinTuruEkleReq ıt);
         IzinTurleriGuncelleResponse IzinTurleriGuncelleme(IzinTuruGuncelle ıtgun);
         IzinTurleriResponse IzinTuruGetir(int id);
+        IzinTuruSilResponse IzinTuruSil(int id);
+        ZimmetTurleriListeleResponse ZimmetTurleriListele();
+        ZimmetTurleriEkleResponse ZimmetTurleriEkle(ZimmetTuruEkleReq ıt);
+        ZimmetTurleriGuncelleResponse ZimmetTurleriGuncelleme(ZimmetTuruGuncelle ıtgun);
+        ZimmetTurleriResponse ZimmetTuruGetir(int id);
+        ZimmetTuruSilResponse ZimmetTuruSil(int id);
+        SirketSayisiResponse SirketSayisiGetir();
+        SirketYoneticisiSayisiResponse SirketYoneticisiSayisiGetir();
+        PersonelSayisiResponse PersonelSayisiGetir();
+        AskiyaAlinacakSirketleriListeleResponse AskiyaAlinacakSirketleriListele();
+        UyelikAskiyaAlmaResponse UyelikAskiyaAlma();
         //List<SiteYoneticisi> SiteYoneticileriGetir();
         //List<Sirket> SirketleriGetir();
     }

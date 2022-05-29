@@ -93,5 +93,72 @@ namespace BAL_IK.API.Controllers
         {
             return _sService.IzinTuruGetir(id);
         }
+
+        [HttpPost("IzinTuruSil")]
+        public IzinTuruSilResponse IzinTuruSil(int id)
+        {
+            return _sService.IzinTuruSil(id);
+        }
+
+        [HttpGet("ZimmetTurleriListele")]
+        public ZimmetTurleriListeleResponse ZimmetTurleriListele()
+        {
+            return _sService.ZimmetTurleriListele();
+        }
+
+        [HttpPost("ZimmetTurleriEkle")]
+        public ZimmetTurleriEkleResponse ZimmetTurleriEkle(ZimmetTuruEkleReq zt)
+        {
+            return _sService.ZimmetTurleriEkle(zt);
+        }
+
+        [HttpPost("ZimmetTurleriGuncelleme")]
+        public ZimmetTurleriGuncelleResponse ZimmetTurleriGuncelleme(ZimmetTuruGuncelle ztgun)
+        {
+            return _sService.ZimmetTurleriGuncelleme(ztgun);
+        }
+
+
+        [HttpGet("ZimmetTuruGetir")]
+        public ZimmetTurleriResponse ZimmetTuruGetir(int id)
+        {
+            return _sService.ZimmetTuruGetir(id);
+        }
+
+        [HttpPost("ZimmetTuruSil")]
+        public ZimmetTuruSilResponse ZimmetTuruSil(int id)
+        {
+            return _sService.ZimmetTuruSil(id);
+        }
+
+        [HttpGet("SirketSayisiGetir")]
+        public SirketSayisiResponse SirketSayisiGetir()
+        {
+            return _sService.SirketSayisiGetir();
+        }
+
+        [HttpGet("SirketYoneticisiSayisiGetir")]
+        public SirketYoneticisiSayisiResponse SirketYoneticisiSayisiGetir()
+        {
+            return _sService.SirketYoneticisiSayisiGetir();
+        }
+
+        [HttpGet("PersonelSayisiGetir")]
+        public PersonelSayisiResponse PersonelSayisiGetir()
+        {
+            return _sService.PersonelSayisiGetir();
+        }
+
+        [HttpGet("AskiyaAlinacakSirketleriListele")]
+        public AskiyaAlinacakSirketleriListeleResponse AskiyaAlinacakSirketleriListele()
+        {
+            return _sService.AskiyaAlinacakSirketleriListele();
+        }
+
+        [HttpGet("UyelikAskiyaAlma")]
+        public UyelikAskiyaAlmaResponse UyelikAskiyaAlma()
+        {
+            return _sService.UyelikAskiyaAlma();
+        }
     }
 }

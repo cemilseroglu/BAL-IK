@@ -372,5 +372,201 @@ namespace BAL_IK.Data.Servisler
                 throw;
             }
         }
+
+        public IzinTuruSilResponse IzinTuruSil(int id)
+        {
+            IzinTuruSilResponse resp = new IzinTuruSilResponse();
+            try
+            {
+                IzinTuru izinturu = _db.IzinTurleri.Find(id);
+                _db.Remove(izinturu);
+                _db.SaveChanges();
+                resp.Mesaj = "İzin türü silindi";
+                resp.BasariliMi = true;
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public ZimmetTurleriListeleResponse ZimmetTurleriListele()
+        {
+            ZimmetTurleriListeleResponse liste = new ZimmetTurleriListeleResponse();
+            liste.ZimmetTurleriListele = new List<ZimmetTurleriResponse>();
+            foreach (var item in _db.ZimmetTurleri.ToList())
+            {
+                ZimmetTurleriResponse resp = new ZimmetTurleriResponse()
+                {
+                    ZimmetTurId = item.ZimmetTuruId,
+                    ZimmetTur = item.ZimmetTur
+                };
+                liste.ZimmetTurleriListele.Add(resp);
+            }
+            return liste;
+        }
+
+        public ZimmetTurleriEkleResponse ZimmetTurleriEkle(ZimmetTuruEkleReq ıt)
+        {
+            ZimmetTurleriEkleResponse resp = new ZimmetTurleriEkleResponse();
+
+            try
+            {
+                ZimmetTuru zimmeturu = new ZimmetTuru()
+                {
+                    ZimmetTur = ıt.ZimmetTur
+                };
+                _db.Add(zimmeturu);
+                _db.SaveChanges();
+                resp.Mesaj = ("Başarılı");
+                resp.BasariliMi = true;
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public ZimmetTurleriGuncelleResponse ZimmetTurleriGuncelleme(ZimmetTuruGuncelle ıtgun)
+        {
+            ZimmetTurleriGuncelleResponse resp = new ZimmetTurleriGuncelleResponse();
+            try
+            {
+
+                ZimmetTuru zimmetturgun = _db.ZimmetTurleri.Find(ıtgun.ZimmetTurId);
+                if (zimmetturgun == null)
+                {
+                    resp.Mesaj = "Kullanıcı Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                if (zimmetturgun.ZimmetTur != null)
+                    zimmetturgun.ZimmetTur = ıtgun.ZimmetTur;
+
+                _db.Update(zimmetturgun);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarıyla güncellendi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                return resp;
+            }
+        }
+
+        public ZimmetTurleriResponse ZimmetTuruGetir(int id)
+        {
+            ZimmetTurleriResponse resp = new ZimmetTurleriResponse();
+            if (id == 0)
+            {
+                resp.Mesaj = "Kullanıcı bulunamadı.";
+                resp.BasariliMi = false;
+                return resp;
+            }
+            try
+            {
+                ZimmetTuru zimmetturu = _db.ZimmetTurleri.FirstOrDefault(x => x.ZimmetTuruId == id);
+                if (zimmetturu == null)
+                {
+                    resp.Mesaj = "İzin türü bulunamadı.";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                else
+                {
+                    resp.ZimmetTurId = id;
+                    resp.ZimmetTur = zimmetturu.ZimmetTur;
+                    resp.BasariliMi = true;
+                    resp.Mesaj = "İzin türü düzenlendi.";
+                    return resp;
+                }
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                throw;
+            }
+        }
+
+        public ZimmetTuruSilResponse ZimmetTuruSil(int id)
+        {
+            ZimmetTuruSilResponse resp = new ZimmetTuruSilResponse();
+            try
+            {
+                ZimmetTuru zimmetturu = _db.ZimmetTurleri.Find(id);
+                _db.Remove(zimmetturu);
+                _db.SaveChanges();
+                resp.Mesaj = "Zimmet türü silindi";
+                resp.BasariliMi = true;
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public SirketSayisiResponse SirketSayisiGetir()
+        {
+            SirketSayisiResponse sirketSayisi = new SirketSayisiResponse();
+            var resp = _db.Sirketler.Count();
+            sirketSayisi.SirketSayisi = resp;
+            return sirketSayisi;
+        }
+
+        public SirketYoneticisiSayisiResponse SirketYoneticisiSayisiGetir()
+        {
+            SirketYoneticisiSayisiResponse sirketyoneticisiSayisi = new SirketYoneticisiSayisiResponse();
+            var resp = _db.SirketYoneticileri.Count();
+            sirketyoneticisiSayisi.SirketYoneticisiSayisi = resp;
+            return sirketyoneticisiSayisi;
+        }
+
+        public PersonelSayisiResponse PersonelSayisiGetir()
+        {
+            PersonelSayisiResponse personelSayisi = new PersonelSayisiResponse();
+            var resp = _db.Personeller.Count();
+            personelSayisi.PersonelSayisi = resp;
+            return personelSayisi;
+        }
+
+        public AskiyaAlinacakSirketleriListeleResponse AskiyaAlinacakSirketleriListele()
+        {
+            AskiyaAlinacakSirketleriListeleResponse askiyaAlinacakSirketler = new AskiyaAlinacakSirketleriListeleResponse();
+            var resp = _db.Sirketler.Where(x=>x.UyelikBitisTarihi.Date >= DateTime.Now.Date && x.UyelikBitisTarihi.Date<DateTime.Now.Date.AddDays(7) && x.Durum==Durum.Aktif).ToList();
+            askiyaAlinacakSirketler.AskiyaAlinacakSirketleriListele = resp;
+            return askiyaAlinacakSirketler;
+        }
+
+        public UyelikAskiyaAlmaResponse UyelikAskiyaAlma()
+        {
+            UyelikAskiyaAlmaResponse uyelikAskiyaAlinacaklar = new UyelikAskiyaAlmaResponse();
+            var resp = _db.Sirketler.Where(x => x.UyelikBitisTarihi.Date < DateTime.Now.Date && x.Durum == Durum.Aktif).ToList();
+            foreach (var item in resp)
+            {
+                item.Durum=Durum.Askıda;
+                Tools.MailGonder(item.SirketEmail,"Üyelik bitiş tarihiniz geçmiştir.","Bu sebeple hesabınız askıya alınmıştır.Hizmete devam etmek için ödeme işlemini gerçekleştiriniz.");
+            }
+            uyelikAskiyaAlinacaklar.AskiyaAlinacakSirketler = resp;
+            _db.SaveChanges();
+            return uyelikAskiyaAlinacaklar;
+        }
     }
 }
