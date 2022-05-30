@@ -23,6 +23,7 @@ namespace BAL_IK.Data.Interfaceler.Personeller
         MolalarResponse MolalariGetir(string guid);
         EkleizinResponse Ekleizin(Ekleizin izinEkle);
         IzinTurlerResponse IzinTurleriGetir();
+        ZimmetlerResponse ZimmetTurleriGetir(string guid);
 
 
 

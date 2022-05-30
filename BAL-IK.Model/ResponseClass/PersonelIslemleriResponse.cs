@@ -199,5 +199,30 @@ namespace BAL_IK.Model.ResponseClass
         {
             public List<IzinTurResponse> IzinTurler { get; set; } = new List<IzinTurResponse>();
         }
+        public class ZimmetResponse:BaseResponse
+        {
+            public int ZimmetId { get; set; }
+            
+            public int ZimmetTuruId { get; set; }           
+            public DateTime ZimmetTarihi { get; set; }
+            public DateTime? ZimmetTeslimTarihi { get; set; }
+            public bool TeslimEdildiMi { get; set; } = false;            
+            public int PersonelId { get; set; }          
+            public Durumu Durumu { get; set; } = Durumu.Beklemede;
+            public string NotIcerik { get; set; }
+            public ZimmetTur ZimmetTuru{ get; set; } = new ZimmetTur();
+
+        }
+        public class ZimmetTur:BaseResponse
+        {
+            public int ZimmetTuruId { get; set; }
+            
+            public string ZimmetTuru { get; set; }
+            public List<Zimmetler> Zimmetler { get; set; }
+        }
+        public class ZimmetlerResponse:BaseResponse
+        {
+            public List<ZimmetResponse> Zimmetler{ get; set; } = new List<ZimmetResponse>();
+        }
     }
 }

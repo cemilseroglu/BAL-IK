@@ -150,11 +150,37 @@ namespace BAL_IK.UI.Areas.Personel.Controllers
             harcama.HarcamaListele = resp.HarcamaListele;
             return View(harcama);
         }
-        #region
-      
+        public IActionResult Zimmetler()
+        {
+            ZimmetlerWM zimmet = new ZimmetlerWM();
+            var personelGuid = HttpContext.Session.GetString("personel");
+            var response = _personelService.PersonelGetir(personelGuid);
+            zimmet.Zimmetler = _personelService.ZimmetTurleriGetir(personelGuid).Zimmetler;
+            return View(zimmet);
+        }
+        [HttpPost]
+        public IActionResult Zimmetler(ZimmetlerWM zimmet)
+        {
+            var guid = HttpContext.Session.GetString("personel");
+            var response = _personelService.PersonelGetir(guid);
 
-    #endregion
+            if (response == null)
+                return BadRequest();
+            if (response.BasariliMi == false)
+            {
+                ViewBag.Mesaj = response.Mesaj;
+                return View();
+            }
+            return View();
+        }
+    
        
+
+        #region
+
+
+        #endregion
+
     }
 
 

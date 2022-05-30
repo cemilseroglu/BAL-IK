@@ -1,0 +1,87 @@
+﻿@using static BAL_IK.UI.ViewModels.IzinlerViewModel
+@using BAL_IK.UI.ViewModels
+@model ZimmetlerWM
+
+
+@{
+
+
+
+    ViewData["Title"] = "Zimmetler";
+
+
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Personeller/Harcamalar/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="~/Personeller/Harcamalar/img/favicon.png">
+    <title>
+        Material Dashboard 2 by Creative Tim
+    </title>
+    <link href="~/Personeller/Harcamalar/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="~/Personeller/Harcamalar/css/nucleo-svg.css" rel="stylesheet" />
+
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <link id="pagestyle" href="~/Personeller/Harcamalar/css/material-dashboard.min.css?v=3.0.2" rel="stylesheet" />
+
+</head>
+
+<form method="post" asp-action="Zimmetler" asp-controller="Personel" class="text-start" enctype="multipart/form-data">
+    @*<input asp-for=Ekleizin.PersonelId hidden />*@
+    <div class="card">
+        <div class="card-header pb-0 px-3">
+            <h6 class="mb-0">Zimmetler</h6>
+        </div>
+        <div class="card-body  input-group input-group-outline my-3" style="background-image: url('https://images.unsplash.com/photo-1641351898219-fdb79d77153e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-white" scope="col">#</th>
+                        <th class="text-white" scope="col">Zimmet Türü</th>
+                        <th class="text-white" scope="col">Zimmet Tarihi</th>
+                        <th class="text-white" scope="col">Zimmet Teslim Tarihi</th>
+                        <th class="text-white" scope="col">Durumu</th>
+                        <th class="text-white" scope="col">Not</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="text-white" scope="row">1</th>
+                        @foreach (var item in Model.Zimmetler)
+                        {
+                            var shortString = "";
+                            if (@item.ZimmetTeslimTarihi.HasValue)
+                            {
+                                shortString = @item.ZimmetTeslimTarihi.Value.ToShortDateString();
+                            }
+                            <td class="text-white">@item.ZimmetTuru.ZimmetTuru</td>
+                            <td class="text-white">@item.ZimmetTarihi.ToShortDateString()</td>
+                            <td class="text-white">@shortString</td>
+                            <td class="text-white">@item.Durumu</td>
+                              <td class="text-white">@item.NotIcerik<input asp-for=Zimmetler required type="text" id="textkutu" class="form-control" /></td>
+
+                        }
+
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</form>
+
+

@@ -90,5 +90,13 @@ namespace BAL_IK.UI.ServislerUI
             var response = Globals.ApiClient.Execute<IzinTurlerResponse>(request);
             return response.Data;
         }
+
+        public ZimmetlerResponse ZimmetTurleriGetir(string guid)
+        {
+            var request = new RestRequest("api/Personel/ZimmetTurleriGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+            var response = Globals.ApiClient.Execute<ZimmetlerResponse>(request);
+
+            return response.Data;
+        }
     }
 }
