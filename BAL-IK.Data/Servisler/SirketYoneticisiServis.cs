@@ -864,15 +864,15 @@ namespace BAL_IK.Data.Servisler
                     resp.BasariliMi = false;
                     return resp;
                 }
-                //resp
-                    
+                return resp;
+
             }
             catch (Exception ex)
             {
 
                 resp.BasariliMi = false;
                 resp.Mesaj = ex.Message;
-                throw;
+                return resp;
             }
         }
 

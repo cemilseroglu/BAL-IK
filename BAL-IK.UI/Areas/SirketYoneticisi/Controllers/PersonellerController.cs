@@ -79,9 +79,9 @@ namespace BAL_IK.UI.Areas.SirketYoneticisi.Controllers
         }
         public IActionResult CalisanSayfasi()
         {
-            var resp = _syServis.PersonelleriGetir();
+            //var resp = _syServis.PersonelleriGetir();
 
-            return View(resp);
+            return View();
         }
         public IActionResult CalisanGuncelle(string guid)
         {

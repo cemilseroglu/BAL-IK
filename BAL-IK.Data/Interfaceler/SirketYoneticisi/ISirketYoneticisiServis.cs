@@ -44,7 +44,7 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
         ZimmetSilResponse ZimmetSil(int id);
         ZimmetGuncelleResponse ZimmetGuncelle(ZimmetGuncelleRequest req);
 
-        PersonelleriGetirResponse PersonelleriGetir();
+    
         PersonelResp PersGetir(string guid);
     
 
