@@ -50,6 +50,39 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+        public EkleizinResponse Ekleizin(PersonelIslemleriRequest.Ekleizin izinEkle)
+        {
+            EkleizinResponse resp = new EkleizinResponse();
+            try
+            {
+                Izinler izinler = new Izinler()
+                {
+                    IzinBaslangicTarihi = izinEkle.IzinBaslangicTarihi,
+                    IzinBitisTarihi = izinEkle.IzinBitisTarihi,
+                    //String diff2 = (secondDate - firstDate).TotalDays.ToString();
+                    IzinSuresi = (int)(izinEkle.IzinBitisTarihi-izinEkle.IzinBaslangicTarihi ).TotalDays,
+                    IzinIstemeTarihi = izinEkle.IzinIstemeTarihi,
+                    IzinTurId=izinEkle.IzinTurId,
+                    OnayDurumu = izinEkle.OnayDurumu,
+                    OnaylanmaTarihi = izinEkle.OnaylanmaTarihi,                   
+                    PersonelId = izinEkle.PersonelId,
+                   
+                };
+                _db.Add(izinler);
+                _db.SaveChanges();
+                resp.BasariliMi = true;
+                resp.Mesaj = "İzinler başarıyla eklendi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+
+                return resp;
+            }
+        }
 
         public PersonelIslemleriResponse.HarcamaListelemeResponse HarcamalarıGetir()
         {
@@ -91,7 +124,7 @@ namespace BAL_IK.Data.Servisler
             {
                 Personeller personel = _db.Personeller.Include(x => x.Izinler).FirstOrDefault(x => x.Guid.ToString() == guid);
                 List<Izinler> izinlerList = _db.Izinler.Include(x => x.IzinTur).Where(x => x.PersonelId == personel.PersonelId).ToList();
-                foreach (var izin in izinlerList)
+                foreach (var izin in  _db.Izinler.Include(x=>x.IzinTur).Where(x => x.PersonelId == personel.PersonelId).ToList())
                 {
                     IzinResponse gidecekizin = new IzinResponse()
                     {
@@ -125,11 +158,8 @@ namespace BAL_IK.Data.Servisler
             }
 
         }
-
-        public IzinlerResponse IzinleriGetir()
-        {
-            throw new NotImplementedException();
-        }
+      
+    
 
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
         {
@@ -288,6 +318,110 @@ namespace BAL_IK.Data.Servisler
             catch (Exception ex)
             {
                 resp.Mesaj = "Vardiyaları getirirken hata oluştu" + ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+
+        }
+
+        public MolalarResponse MolalariGetir(string guid)
+        {
+            MolalarResponse resp = new MolalarResponse();
+            try
+            {
+                Personeller personel = _db.Personeller.Include(x => x.Vardiya).FirstOrDefault(x => x.Guid.ToString() == guid);
+                List<Mola> molaList = _db.Molalar.Include(x => x.MolaTur).Where(x => x.PersonelId == personel.PersonelId).ToList();
+                foreach (var mola in molaList)
+                {
+                    MolaResponse gidecekmola = new MolaResponse()
+                    {
+                        PersonelId = mola.PersonelId,
+                       MolaId=mola.MolaId,
+                        MolaTurId=mola.MolaTurId,  
+                        OlusturulduguTarih=mola.OlusturulduguTarih,
+                        
+                        MolaTuru={
+                            MolaTurId = mola.MolaTur.MolaTurId,
+                          MolaTuru = mola.MolaTur.MolaTuru,
+                          MolaSuresi=mola.MolaTur.MolaSuresi
+                           
+                        }
+
+                    };
+                    resp.Molalar.Add(gidecekmola);
+                }
+                resp.BasariliMi = true;
+                resp.Mesaj = "Molalar başarıyla getirildi.";
+                return (resp);
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = "Molaları getirirken hata oluştu" + ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public IzinTurlerResponse IzinTurleriGetir()
+        {
+            IzinTurlerResponse resp = new IzinTurlerResponse();
+            try
+            {
+                foreach (var izinTur in _db.IzinTurleri.ToList())
+                {
+                    IzinTurResponse izinTurResp = new IzinTurResponse()
+                    {
+                         IzinTur=izinTur.IzinTur,
+                          IzinTurId=izinTur.IzinTurId,
+                    };
+                    resp.IzinTurler.Add(izinTurResp);
+                }
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "İzin türler getirildi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = ex.Message;
+                resp.BasariliMi = false;
+                return resp;
+            }
+        }
+
+        public ZimmetlerResponse ZimmetTurleriGetir(string guid)
+        {
+            Personeller personel = _db.Personeller.Include(x => x.Zimmetler).FirstOrDefault(x => x.Guid.ToString() == guid);
+            List<Zimmetler> zimmetList = _db.Zimmetler.Include(x => x.ZimmetTuru).Where(x => x.PersonelId == personel.PersonelId).ToList();
+            ZimmetlerResponse  resp = new ZimmetlerResponse();
+            try
+            {
+                foreach (var zimmet in zimmetList)
+                {
+                    ZimmetResponse gidecekzimmet = new ZimmetResponse()
+                    {
+                        PersonelId = zimmet.PersonelId,
+                        ZimmetId = zimmet.ZimmetId,
+                        NotIcerik = zimmet.NotIcerik,
+                        TeslimEdildiMi = zimmet.TeslimEdildiMi,
+                        ZimmetTarihi = zimmet.ZimmetTarihi,
+                        ZimmetTeslimTarihi = zimmet.ZimmetTeslimTarihi,
+                        ZimmetTuru =
+                        {
+                            ZimmetTuruId = zimmet.ZimmetTuru.ZimmetTuruId,
+                            ZimmetTuru = zimmet.ZimmetTuru.ZimmetTur
+                        }
+                    };
+                    resp.Zimmetler.Add(gidecekzimmet);  
+                }
+
+                resp.BasariliMi = true;
+                resp.Mesaj = "İzin türler getirildi.";
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.Mesaj = "Zimmetleri getirirken hata oluştu" + ex.Message;
                 resp.BasariliMi = false;
                 return resp;
             }

@@ -180,5 +180,58 @@ namespace BAL_IK.Model.ResponseClass
         {
             public List<VardiyaResponse> Vardiyalar { get; set; } = new List<VardiyaResponse>();
         }
+        public class MolaResponse:BaseResponse
+        {             
+            public int MolaId { get; set; }
+            public int MolaTurId { get; set; }
+            public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
+            public MolaTur MolaTuru { get; set; } = new MolaTur();
+            public int PersonelId { get; set; }
+        }
+        public class MolaTur:BaseResponse
+        {
+            public int MolaTurId { get; set; }
+            public string MolaTuru { get; set; }
+            public double MolaSuresi { get; set; }
+            public int SirketId { get; set; }
+        }
+        public class MolalarResponse:BaseResponse
+        {
+            public List<MolaResponse> Molalar { get; set; } = new List<MolaResponse>();
+        }
+        public class IzinTurResponse:BaseResponse
+        {
+            public int IzinTurId { get; set; }     
+            public string IzinTur { get; set; }
+        }
+        public class IzinTurlerResponse:BaseResponse
+        {
+            public List<IzinTurResponse> IzinTurler { get; set; } = new List<IzinTurResponse>();
+        }
+        public class ZimmetResponse:BaseResponse
+        {
+            public int ZimmetId { get; set; }
+            
+            public int ZimmetTuruId { get; set; }           
+            public DateTime ZimmetTarihi { get; set; }
+            public DateTime? ZimmetTeslimTarihi { get; set; }
+            public bool TeslimEdildiMi { get; set; } = false;            
+            public int PersonelId { get; set; }          
+            public Durumu Durumu { get; set; } = Durumu.Beklemede;
+            public string NotIcerik { get; set; }
+            public ZimmetTur ZimmetTuru{ get; set; } = new ZimmetTur();
+
+        }
+        public class ZimmetTur:BaseResponse
+        {
+            public int ZimmetTuruId { get; set; }
+            
+            public string ZimmetTuru { get; set; }
+            public List<Zimmetler> Zimmetler { get; set; }
+        }
+        public class ZimmetlerResponse:BaseResponse
+        {
+            public List<ZimmetResponse> Zimmetler{ get; set; } = new List<ZimmetResponse>();
+        }
     }
 }

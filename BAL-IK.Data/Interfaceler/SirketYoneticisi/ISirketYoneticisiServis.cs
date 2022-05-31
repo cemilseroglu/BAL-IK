@@ -31,19 +31,42 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
         EkleizinResponse Ekleizin(Ekleizin izinEkle);
         ListelemeizinResponse Listeleizin();
         PersonelSilResponse PersonelSil(int personelId);   
+        PersonelleriGetirResponse PersonelleriGetir(string guid);
 
         string HarcamaOnayla(int id, bool durum);
+
+        #region Zimmet        
+
         ZimmetEkleResponse ZimmetEkle(ZimmetEkleRequest zimmet);
 
         ZimmetleriGetirResponse ZimmetleriGetir(string guid);
         ZimmetTurleriResponse ZimmetTurleriniGetir();
         ZimmetSilResponse ZimmetSil(int id);
         ZimmetGuncelleResponse ZimmetGuncelle(ZimmetGuncelleRequest req);
+
         PersonelleriGetirResponse PersonelleriGetir();
         PersonelResp PersGetir(string guid);
+    
+
+        #endregion
+
+
+        #region Vardiya      
         VardiyaTurEkleResponse VardiyaTurEkle(VardiyaTurEkleRequest req);
+        VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId);
+        VardiyaTurleriGetirResponse VardiyaTurleriGetir(string guid);
+        CalisanVardiyaMolaEkleResponse CalisanVardiyaEkle(CalisanVardiyaMolaEkleRequest req);
+        #endregion
 
+        #region Mola
+        MolaTurEkleResponse MolaTurEkle(MolaTurRequest req);
+        MolaTurSilResponse MolaTurSil(int id);
+        MolaTurlerResponse MolaTurleriGetir(string guid);
+        #endregion
 
-
+        SirketVerileri sirketVerileri(string guid);
+        YorumEkleResponse sirketYorum(YorumEkleRequest req);
+        YorumResponse sirketYorumGetir(string guid);
+        YorumGuncelleResponse sirketYorumGuncelle(YorumGuncelleRequest req);
     }
 }

@@ -105,6 +105,92 @@ namespace BAL_IK.Model.ResponseClass
         {
 
         }
+        public class VardiyaTurSilResponse : BaseResponse
+        {
+
+        }
+        public class VardiyaTurResponse : BaseResponse
+        {
+
+            public int VardiyaTurId { get; set; }
+            public string VardiyaTuru { get; set; }
+            public DateTime VardiyaBaslangicTarihi { get; set; }
+            public DateTime VardiyaBitisTarihi { get; set; }
+            public int SirketId { get; set; }
+            public List<VardiyaResponse> Vardiyalar { get; set; } = new List<VardiyaResponse>();
+        }
+        public class VardiyaResponse : BaseResponse
+        {
+            public int VardiyaId { get; set; }
+            public int PersonelId { get; set; }
+            public int VardiyaTurId { get; set; }
+        }
+        public class VardiyaTurleriGetirResponse : BaseResponse
+        {
+            public List<VardiyaTurResponse> VardiyaTurleri { get; set; } = new List<VardiyaTurResponse>();
+        }
+
+        public class CalisanVardiyaMolaEkleResponse : BaseResponse
+        {
+
+        }
         #endregion
+
+        #region Molalar
+
+        public class MolaTurResponse : BaseResponse
+        {
+            public int MolaTurId { get; set; }
+            public string MolaTuru { get; set; }
+            public double MolaSuresi { get; set; }
+            public int SirketId { get; set; }
+            public List<MolaResponse> Molalar { get; set; } = new List<MolaResponse>();
+        }
+        public class MolaTurEkleResponse : BaseResponse
+        {
+
+        }
+        public class MolaTurlerResponse : BaseResponse
+        {
+            public List<MolaTurResponse> MolaTurleri { get; set; } = new List<MolaTurResponse>();
+
+        }
+        public class MolaTurSilResponse : BaseResponse
+        {
+
+        }
+        public class MolaResponse
+        {
+            public int MolaId { get; set; }
+            public int MolaTurId { get; set; }
+            public int PersonelId { get; set; }
+            public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
+        }
+
+        #endregion
+
+
+        public class SirketVerileri : BaseResponse
+        {
+            public int ZimmetSayisi { get; set; }
+            public decimal AylikHarcama { get; set; }
+            public int BekleyenIzinTalebiSayisi { get; set; }
+        }
+        public class YorumGuncelleResponse :BaseResponse
+        {
+
+        }
+        public class YorumResponse : BaseResponse
+        {
+
+            public int YorumId { get; set; }
+            public string YorumBaslik { get; set; }
+            public string YorumIcerik { get; set; }
+            public DateTime OlusturulmaTarihi { get; set; }
+        }
+        public class YorumEkleResponse : BaseResponse
+        {
+
+        }
     }
 }

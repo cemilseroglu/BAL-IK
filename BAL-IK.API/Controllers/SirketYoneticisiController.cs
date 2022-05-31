@@ -83,12 +83,12 @@ namespace BAL_IK.API.Controllers
         //{
         //    return _sService.IzinListele();
         //}
-        [HttpPost]
-        public EkleizinResponse Eklemeizin(Ekleizin izin)
-        {
-            return _sService.Ekleizin(izin);
-        }
-        [HttpGet]
+        //[HttpPost("IzinEkle")]
+        //public EkleizinResponse Eklemeizin(Ekleizin izin)
+        //{
+        //    return _sService.Ekleizin(izin);
+        //}
+        [HttpGet("IzinListeme")]
         public ListelemeizinResponse Listeleizin()
         {
             return _sService.Listeleizin();
@@ -125,15 +125,75 @@ namespace BAL_IK.API.Controllers
             return _sService.ZimmetGuncelle(req);
         }
         [HttpGet("PersonelleriGetir")]
-        public PersonelleriGetirResponse PersonelleriGetir()
+        public PersonelleriGetirResponse PersonelleriGetir(string guid)
         {
-            return _sService.PersonelleriGetir();
+            return _sService.PersonelleriGetir(guid);
         }
+        [HttpPost("VardiyaTurEkle")]
+        public VardiyaTurEkleResponse VardiyaTurEkle(VardiyaTurEkleRequest req)
+        {
+            return _sService.VardiyaTurEkle(req);
+        }
+        [HttpPost("VardiyaTurSil")]
+        public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
+        {
+            return _sService.VardiyaTurSil(vardiyaTurId);
+        }
+        [HttpGet("VardiyaTurleriGetir")]
+        public VardiyaTurleriGetirResponse VardiyaTurlerGetir(string guid)
+        {
+            return _sService.VardiyaTurleriGetir(guid);
+        }
+        [HttpPost("CalisanVardiyaEkle")]
+        public CalisanVardiyaMolaEkleResponse CalisanVardiyaEkle(CalisanVardiyaMolaEkleRequest req)
+        {
+            return _sService.CalisanVardiyaEkle(req);
+        }
+        [HttpGet("MolaTurleriGetir")]
+        public MolaTurlerResponse MolaTurleriGetir(string guid)
+        {
+            return _sService.MolaTurleriGetir(guid);
+        }
+
         [HttpGet("PersonelGetir")]
         public PersonelResp PersonelGetir(string guid)
         {
             return _sService.PersGetir(guid);
         }
+
+        [HttpPost("MolaTurEkle")]
+        public MolaTurEkleResponse MolaTurEkle(MolaTurRequest req)
+        {
+            return _sService.MolaTurEkle(req);
+        }
+        [HttpPost("MolaTurSil")]
+        public MolaTurSilResponse MolaTurSil(int id)
+        {
+            return _sService.MolaTurSil(id);
+        }
+        [HttpGet("SirketVerisiGetir")]
+        public SirketVerileri sirketVerileri(string guid)
+        {
+            return _sService.sirketVerileri(guid);
+        }
+        [HttpGet("sirketYorumGetir")]
+        public YorumResponse sirketYorumGetir(string guid)
+        {
+            return _sService.sirketYorumGetir(guid);
+        }
+        [HttpPost("sirketYorumEkle")]
+        public YorumEkleResponse sirketYorum(YorumEkleRequest req)
+        {
+            return _sService.sirketYorum(req);
+        }
+        [HttpPost("sirketYorumGuncelle")]
+        public YorumGuncelleResponse sirketYorumGuncelle(YorumGuncelleRequest req)
+        {
+            return _sService.sirketYorumGuncelle(req);
+        }
+
+
+
 
     }
 }

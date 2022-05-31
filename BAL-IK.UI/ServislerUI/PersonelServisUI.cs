@@ -30,7 +30,9 @@ namespace BAL_IK.UI.ServislerUI
 
             return response.Data;
         }
+
       
+
         public PersonelIslemleriResponse.PersonelEkleResponse PersonelEkleme(PersonelIslemleriRequest.PersonelEkle pr)
         {
             var request = new RestRequest("api/Personel/PersonelEkleme",Method.POST,DataFormat.Json).AddJsonBody(pr);
@@ -60,7 +62,41 @@ namespace BAL_IK.UI.ServislerUI
 
         public VardiyalarResponse VardiyalariGetir(string guid)
         {
-            throw new System.NotImplementedException();
+            var request = new RestRequest("api/Personel/VardiyalariGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+            var response = Globals.ApiClient.Execute<VardiyalarResponse>(request);
+
+            return response.Data;
+        }
+        public MolalarResponse MolalariGetir(string guid)
+        {
+            var request = new RestRequest("api/Personel/MolalariGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+            var response = Globals.ApiClient.Execute<MolalarResponse>(request);
+
+            return response.Data;
+        }
+
+        public EkleizinResponse Ekleizin(PersonelIslemleriRequest.Ekleizin izinEkle)
+        {
+            
+            var request = new RestRequest("api/Personel/IzinEkle", Method.POST, DataFormat.Json).AddJsonBody(izinEkle);
+            var response = Globals.ApiClient.Execute<EkleizinResponse>(request);
+            return response.Data;
+        }
+
+        public IzinTurlerResponse IzinTurleriGetir()
+        {
+
+            var request = new RestRequest("api/Personel/IzinTurleriGetir", Method.GET, DataFormat.Json);
+            var response = Globals.ApiClient.Execute<IzinTurlerResponse>(request);
+            return response.Data;
+        }
+
+        public ZimmetlerResponse ZimmetTurleriGetir(string guid)
+        {
+            var request = new RestRequest("api/Personel/ZimmetTurleriGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+            var response = Globals.ApiClient.Execute<ZimmetlerResponse>(request);
+
+            return response.Data;
         }
     }
 }

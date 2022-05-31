@@ -1,0 +1,105 @@
+﻿@using BAL_IK.UI.ViewModels
+@model SiteYoneticisiZimmetTurleriWM
+@{
+
+    ViewData["Title"] = "Tanımlamalar";
+    Layout = "~/Areas/SiteYoneticisi/Views/Shared/_LayoutSiteYoneticisi.cshtml";
+}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Sayfalar</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Zimmet Türleri</li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Zimmet Türleri</h6>
+            </nav>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                    <div class="input-group input-group-outline">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="col-12 col-xl-4">
+        <form method="post" asp-action="ZimmetTuruEkle" asp-controller="Home" class="text-end">
+            <div class="m-2 text-black text-start">
+                <label class="ms-3" asp-for="ZimmetTuruEkleReq.ZimmetTur">Zimmet Türü</label>
+                <span>
+                    <input asp-for="ZimmetTuruEkleReq.ZimmetTur" type="text" class="form-control bg-dark text-white ms-3" value="@Model.ZimmetTuruEkleReq.ZimmetTur" />
+                    <button class="mt-2 btn  btn-primary rounded-pill float-start mb-2 ms-3 btn-sm">Zimmet türü Ekle</button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="col-12 col-xl-4 card card-body mx-3 mx-md-4 mt-n6 float-start" style="width:fit-content; width:32.4%;">
+        <div class="container table-responsive-xxl table">
+            <div class="row">
+                <div class="col-12 col-xl-12">
+                    <table class="align-middle table">
+                        <thead>
+                            <tr class="text-center d-xl-table-row">
+                                <th class="me-5">Zimmet Türü</th>
+                                <th class="ms-5">Düzenle/Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @ViewBag.Mesaj
+                            @foreach (var item in @Model.ZimmetTurleriListesi.ZimmetTurleriListele)
+                            {
+                                <tr class="align-bottom text-center d-xl-table-row">
+
+                                    <td class="align-top me-10">@item.ZimmetTur</td>
+                                    <td>
+                                        <a class="btn btn-facebook " asp-controller="Home" asp-action="ZimmetTuruGuncelleme" asp-route-id="@item.ZimmetTurId">Düzenle</a>
+                                        <button class="btn btn-primary " onclick="confirmAction(@item.ZimmetTurId)">Sil</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section scripts
+    {
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+        function confirmAction(id) {
+            let confirmAction = confirm("İzin türü silinecek emin misiniz?");
+            if (confirmAction) {
+                $.ajax(
+                    {
+                        url: 'http://localhost:46375/api/SiteYoneticisi/ZimmetTuruSil?id=' + id,
+                        method: "POST",
+                        success: function(data) {
+
+                        },
+
+                    });
+            } else {
+
+            }
+            location.reload();
+            location.url('http://localhost:46375/api/SiteYoneticisi/ZimmetTuru');
+
+
+        }
+
+    </script>
+}
+

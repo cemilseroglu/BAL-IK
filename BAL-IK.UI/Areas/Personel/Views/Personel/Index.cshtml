@@ -25,29 +25,57 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="mb-0 ">Kalan</h6>
-                    <p class="text-sm ">Buraya kalan izin gelecek</p>
-                    <h6 class="mb-0 ">Kullanılan</h6>
-                    <p class="text-sm ">Buraya kullanılan izin gelecek</p>
-                    <h6 class="mb-0 ">Son İzinlerim</h6>
-                     @foreach (var item in Model.Izinler)
-                   {
-                    <div class="dropdown float-lg-end pe-4">
-                        <!-- Button trigger modal -->
+                    <div id="tst" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div>
+                            <h6 class="mb-0">Kalan</h6>
+                            <p class="text-2xl">12</p>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">Kullanılan</h6>
+                            <p class="text-2xl">2</p>
+                        </div>
+                    </div>
+                    <div>
+                        @{
+                            double sonuc = 2 * 100 / 12;
+                        }
+                        <progress max="100" value="@sonuc" style="width:100%;height:10px"></progress>
+                    </div>
+                    <h6 class="mb-3">Son İzinlerim</h6>
+                    @foreach (var item in Model.Izinler.Where(x => x.OnayDurumu == OnayDurumu.Onaylandi))
+                    {
+
+                            <div class="dropdown float-lg-end pe-4">
+                                <!-- Button trigger modal -->
                         <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-ellipsis-v text-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                        </a>
-                        <!-- Modal -->
+                                    <i onclick="izinDetay('@item.IzinTur.IzinTur')" class="fa fa-ellipsis-v text-secondary" style="text-decoration:none" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                                </a>
+                                <!-- Modal -->
 
                     </div>
-                        <p class="text-sm ">@item.IzinTur.IzinTur.</p>
-                   }
-                   
-                   
+                            <p class="text-sm ">@item.IzinTur.IzinTur</p>
+                    }
+
+                    <button type="button" style="float:right" class="btn bg-gradient-primary text-center fw-bold text-white" onclick="location.href='@Url.Action("IzinEkleme", "Personel")'">
+                        İZİN TALEBİ
+                    </button>
+
+
+
                 </div>
 
             </div>
         </div>
+        <script>
+            function izinDetay(izinTipi){
+                var d = document.getElementById(izinTipi);
+                var c = document.getElementById("ParentModal").children;
+                for(i = 0; i < c.length ; i++) {
+                 c[i].style.display = "none";
+                }
+                d.style.display="block";
+            }
+        </script>
 
         <div class="col-lg-4 col-md-6 mt-4 mb-4">
             <div class="card z-index-2  ">
@@ -59,15 +87,21 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @foreach (var item in Model.Izinler)
+                    @foreach (var item in Model.Izinler.Where(x => x.IzinIstemeTarihi.Month == DateTime.Now.Month))
                     {
                         if (item.OnayDurumu == OnayDurumu.OnayBekliyor)
                         {
-                                                 <p class="text-sm "> @item.IzinTur.IzinTur </p>
+                                    <p class="text-sm ">Talep adı: @item.IzinTur.IzinTur <br /><b style="text-decoration:underline">  Süre:</b> @item.IzinSuresi Gün
+                                        <b style="text-decoration:underline">Talep Tarihi:</b> @item.IzinIstemeTarihi.ToShortDateString()</p>
+
+                        }
+                        else
+                        {
+                                    <p class="text-sm "> Onayınızı bekleyen izin talebi yok. </p>
+
                         }
 
                     }
-                    <p class="text-sm "> Onayınızı bekleyen izin talebi yok. </p>
                     <hr class="dark horizontal">
                     <div class="d-flex ">
                         <i class="material-icons text-sm my-auto me-1">schedule</i>
@@ -99,7 +133,7 @@
                                         <ul>
                                             @for (var i = 0; i < 4; i++)
                                             {
-                                                            <li>@ViewBag.resmitatiller.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @ViewBag.resmitatiller.ResmiTatiller[i].gun <br /></li>
+                                                    <li>@ViewBag.resmitatiller.ResmiTatiller[i].uzuntarih<span>&nbsp;</span> @ViewBag.resmitatiller.ResmiTatiller[i].gun <br /></li>
                                             }
                                         </ul>
                                     </tr>
@@ -111,351 +145,44 @@
             </div>
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
-            <div class="card">
-                <div class="card-header pb-0">
-                    <div class="row">
-                        <div class="col-lg-6 col-7">
-                            <h6>Projects</h6>
-                            <p class="text-sm mb-0">
-                                <i class="fa fa-check text-info" aria-hidden="true"></i>
-                                <span class="font-weight-bold ms-1">30 done</span> this month
-                            </p>
+    <<div class="card">
+                        <div class="card-header pb-0 px-3">
+                            <h6 class="mb-0">İzin Ekle</h6>
                         </div>
-                        <div class="col-lg-6 col-5 my-auto text-end">
-                            <div class="dropdown float-lg-end pe-4">
-                                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v text-secondary"></i>
-                                </a>
-                                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
-                                    <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body px-0 pb-2">
-                    <div class="table-responsive">
-                        <table class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Companies</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Members</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Budget</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div>
-                                                <img src="../SirketYoneticisi/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">Material XD Version</h6>
-                                            </div>
-                                        </div>
+                        <div class="card-body pt-4 p-3 input-group input-group-outline my-3" style="background-image: url('https://images.unsplash.com/photo-1549989317-6f14743af1bf?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887')">
+                            <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th class="text-white" scope="col">#</th>
+                                      <th class="text-white" scope="col">Vardiya Türü</th>
+                                      <th class="text-white" scope="col">Vardiya Başlangıç Tarihi</th>
+                                      <th class="text-white" scope="col">Vardiya Bitiş tarihi</th>
+                                      <th class="text-white" scope="col">Mola Türü</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th class="text-white" scope="row">1</th>
+                                      @foreach (var item in Model.Vardiyalar)
+                                     {
+                                         <td class="text-white">@item.VardiyaTuru.VardiyaTuru</td>
+                                          <td class="text-white">@item.VardiyaBaslangicTarihi.ToShortDateString()</td>
+                                            <td class="text-white">@item.VardiyaBitisTarihi.ToShortDateString()</td>
+                                            <td class="text-white">
+                                             @foreach (var item2 in Model.Molalar)
+                                    {
+                                        @item2.MolaTuru.MolaTuru<span>,</span>
+                                    }  
                                     </td>
-                                    <td>
-                                        <div class="avatar-group mt-2">
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                                                <img src="../SirketYoneticisi/img/team-1.jpg" alt="team1">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                                                <img src="../SirketYoneticisi/img/team-2.jpg" alt="team2">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alexander Smith">
-                                                <img src="../SirketYoneticisi/img/team-3.jpg" alt="team3">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                                                <img src="../SirketYoneticisi/img/team-4.jpg" alt="team4">
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="text-xs font-weight-bold"> $14,000 </span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="progress-wrapper w-75 mx-auto">
-                                            <div class="progress-info">
-                                                <div class="progress-percentage">
-                                                    <span class="text-xs font-weight-bold">60%</span>
-                                                </div>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div>
-                                                <img src="../SirketYoneticisi/img/small-logos/logo-atlassian.svg" class="avatar avatar-sm me-3" alt="atlassian">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">Add Progress Track</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="avatar-group mt-2">
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                                                <img src="../SirketYoneticisi/img/team-2.jpg" alt="team5">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                                                <img src="../SirketYoneticisi/img/team-4.jpg" alt="team6">
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="text-xs font-weight-bold"> $3,000 </span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="progress-wrapper w-75 mx-auto">
-                                            <div class="progress-info">
-                                                <div class="progress-percentage">
-                                                    <span class="text-xs font-weight-bold">10%</span>
-                                                </div>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-info w-10" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div>
-                                                <img src="../SirketYoneticisi/img/small-logos/logo-slack.svg" class="avatar avatar-sm me-3" alt="team7">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">Fix Platform Errors</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="avatar-group mt-2">
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                                                <img src="../SirketYoneticisi/img/team-3.jpg" alt="team8">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                                                <img src="../SirketYoneticisi/img/team-1.jpg" alt="team9">
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="text-xs font-weight-bold"> Not set </span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="progress-wrapper w-75 mx-auto">
-                                            <div class="progress-info">
-                                                <div class="progress-percentage">
-                                                    <span class="text-xs font-weight-bold">100%</span>
-                                                </div>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div>
-                                                <img src="../SirketYoneticisi/img/small-logos/logo-spotify.svg" class="avatar avatar-sm me-3" alt="spotify">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">Launch our Mobile App</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="avatar-group mt-2">
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                                                <img src="../SirketYoneticisi/img/team-4.jpg" alt="user1">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                                                <img src="../SirketYoneticisi/img/team-3.jpg" alt="user2">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alexander Smith">
-                                                <img src="../SirketYoneticisi/img/team-4.jpg" alt="user3">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                                                <img src="../SirketYoneticisi/img/team-1.jpg" alt="user4">
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="text-xs font-weight-bold"> $20,500 </span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="progress-wrapper w-75 mx-auto">
-                                            <div class="progress-info">
-                                                <div class="progress-percentage">
-                                                    <span class="text-xs font-weight-bold">100%</span>
-                                                </div>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div>
-                                                <img src="../SirketYoneticisi/img/small-logos/logo-jira.svg" class="avatar avatar-sm me-3" alt="jira">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">Add the New Pricing Page</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="avatar-group mt-2">
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                                                <img src="../SirketYoneticisi/img/team-4.jpg" alt="user5">
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="text-xs font-weight-bold"> $500 </span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="progress-wrapper w-75 mx-auto">
-                                            <div class="progress-info">
-                                                <div class="progress-percentage">
-                                                    <span class="text-xs font-weight-bold">25%</span>
-                                                </div>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-info w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="25"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div>
-                                                <img src="../SirketYoneticisi/img/small-logos/logo-invision.svg" class="avatar avatar-sm me-3" alt="invision">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">Redesign New Online Shop</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="avatar-group mt-2">
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                                                <img src="../SirketYoneticisi/img/team-1.jpg" alt="user6">
-                                            </a>
-                                            <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                                                <img src="../SirketYoneticisi/img/team-4.jpg" alt="user7">
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="text-xs font-weight-bold"> $2,000 </span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="progress-wrapper w-75 mx-auto">
-                                            <div class="progress-info">
-                                                <div class="progress-percentage">
-                                                    <span class="text-xs font-weight-bold">40%</span>
-                                                </div>
-                                            </div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-info w-40" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="40"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="card h-100">
-                <div class="card-header pb-0">
-                    <h6>Orders overview</h6>
-                    <p class="text-sm">
-                        <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                        <span class="font-weight-bold">24%</span> this month
-                    </p>
-                </div>
-                <div class="card-body p-3">
-                    <div class="timeline timeline-one-side">
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="material-icons text-success text-gradient">notifications</i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
-                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
-                            </div>
-                        </div>
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="material-icons text-danger text-gradient">code</i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
-                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
-                            </div>
-                        </div>
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="material-icons text-info text-gradient">shopping_cart</i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for April</h6>
-                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
-                            </div>
-                        </div>
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="material-icons text-warning text-gradient">credit_card</i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order #4395133</h6>
-                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
-                            </div>
-                        </div>
-                        <div class="timeline-block mb-3">
-                            <span class="timeline-step">
-                                <i class="material-icons text-primary text-gradient">key</i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for development</h6>
-                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
-                            </div>
-                        </div>
-                        <div class="timeline-block">
-                            <span class="timeline-step">
-                                <i class="material-icons text-dark text-gradient">payments</i>
-                            </span>
-                            <div class="timeline-content">
-                                <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
-                                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
-                            </div>
+                                     }
+                                                                                                           
+                                    </tr>
+                                   
+                                  </tbody>
+                            </table>
+
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <footer class="footer py-4  ">
         <div class="container-fluid">
             <div class="row align-items-center justify-content-lg-between">
@@ -490,34 +217,36 @@
     </footer>
 </main>
 <div class="modal" tabindex="-1" id="exampleModal">
-                            <div class="modal-dialog">
-                            <div class="modal-content" >
-                            <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            <div class="card" style="width: 18rem;">
-                                @foreach (var izin in Model.Izinler.ToList())
-                               {
-                                     <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Durumu                        @izin.OnayDurumu </li>
-                                <li class="list-group-item">İzin Türü                     @izin.IzinTur.IzinTur</li>
-                                 <li class="list-group-item">Toplam izin                   @izin.IzinSuresi</li>
-                                 <li class="list-group-item">izin İsteme Tarihi             @izin.IzinIstemeTarihi</li>
-                                <li class="list-group-item">izin Başlangıç                @izin.IzinBaslangicTarihi</li>
-                                 <li class="list-group-item">izin Bitiş                  @izin.IzinBitisTarihi</li>                                
-                              </ul>
-                               }
-                            
-                            </div>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                            </div>
-                            </div>
-                            </div>             
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="ParentModal">
+
+                @foreach (var izin in Model.Izinler.ToList())
+                {
+                        <div class="card" id="@izin.IzinTur.IzinTur" style="width: 18rem;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Durumu:                        @izin.OnayDurumu </li>
+                                <li class="list-group-item">İzin Türü:                     @izin.IzinTur.IzinTur</li>
+                                <li class="list-group-item">Toplam izin:                   @izin.IzinSuresi</li>
+                                <li class="list-group-item">İzin İsteme Tarihi:             @izin.IzinIstemeTarihi.ToShortDateString()</li>
+                                <li class="list-group-item">İzin Başlangıç:                @izin.IzinBaslangicTarihi.ToShortDateString()</li>
+                                <li class="list-group-item">İzin Bitiş Tarihi:                  @izin.IzinBitisTarihi.ToShortDateString()</li>
+                            </ul>
+                        </div>
+                }
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
         <i class="material-icons py-2">settings</i>
@@ -591,3 +320,4 @@
         </div>
     </div>
 </div>
+

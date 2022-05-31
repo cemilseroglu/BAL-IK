@@ -1,0 +1,65 @@
+﻿@using static BAL_IK.UI.ViewModels.IzinlerViewModel
+@using BAL_IK.UI.ViewModels
+@model PersonelIzinEkleWm
+
+
+@{
+
+
+
+    ViewData["Title"] = "IzinEkleme";   
+
+
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Personeller/Harcamalar/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="~/Personeller/Harcamalar/img/favicon.png">
+    <title>
+        Material Dashboard 2 by Creative Tim
+    </title>
+    <link href="~/Personeller/Harcamalar/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="~/Personeller/Harcamalar/css/nucleo-svg.css" rel="stylesheet" />
+
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <link id="pagestyle" href="~/Personeller/Harcamalar/css/material-dashboard.min.css?v=3.0.2" rel="stylesheet" />
+
+</head>
+
+<form method="post" asp-action="IzinEkleme" asp-controller="Personel" class="text-start" enctype="multipart/form-data">
+                    <input asp-for=Ekleizin.PersonelId hidden />
+<div class="card">
+                        <div class="card-header pb-0 px-3">
+                            <h6 class="mb-0">İzin Ekle</h6>
+                        </div>
+                        <div class="card-body pt-4 p-3 input-group input-group-outline my-3" style="background-image: url('https://images.unsplash.com/photo-1549989317-6f14743af1bf?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887')">
+
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                    <div class="d-flex flex-column">
+
+                                        <span class="mb-2 text-xs "> <span class="text-dark font-weight-bold ms-sm-2">Izin Türü : &nbsp;
+                    <select class="form-select mb-2" aria-label="Default select example" asp-for="Ekleizin.IzinTurId"
+                        asp-items="@(new SelectList(Model.IzinTurler,"IzinTurId","IzinTur"))">
+                        <option>İzin Türü Seç</option>
+                    </select> </span></span>
+
+
+
+                                          <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin Başlangıç : &nbsp;<input asp-for=Ekleizin.IzinBaslangicTarihi required type="date" id="textkutu2" class="form-control" /></span></span>   
+                                            <span class="mb-2 text-xs"> <span class="text-dark ms-sm-2 font-weight-bold">İzin Bitiş Tarihi : &nbsp;<input asp-for=Ekleizin.IzinBitisTarihi required type="date" id="textkutu2" class="form-control" /></span></span>                                             
+                                        <div class="ms-auto text-end">
+                                            <button class="btn btn-secondary btn-lg active" role="button"  aria-pressed="true">İzin Ekle</button>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+

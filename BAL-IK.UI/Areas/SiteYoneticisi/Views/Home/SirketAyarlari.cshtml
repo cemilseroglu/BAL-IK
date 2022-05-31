@@ -1,0 +1,70 @@
+﻿@using static BAL_IK.Model.ResponseClass.SiteYoneticisiIslemleriResponse
+@model SirketListeleResponse
+@{
+
+    ViewData["Title"] = "Profil";
+    Layout = "~/Areas/SiteYoneticisi/Views/Shared/_LayoutSiteYoneticisi.cshtml";
+}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Sayfalar</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Şirket Ayarları</li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Şirket Ayarları</h6>
+            </nav>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                    <div class="input-group input-group-outline">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid px-2 px-md-4" style="width:105%;">
+        <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
+            <span class="mask  bg-gradient-primary  opacity-6"></span>
+        </div>
+        <div class="card card-body mx-3 mx-md-4 mt-n6" style="width:fit-content; width:95%;">
+            <div class="container table-responsive-xxl table">
+                <div class="row">
+                    <div class="col-12 col-xl-12 ">
+                        <table class="align-middle">
+                            <thead>
+                                <tr class="text-center d-xl-table-row">
+                                    <th class="pe-5">Adı</th>
+                                    <th class="pe-5">Adresi</th>
+                                    <th class="pe-5">E-Mail</th>
+                                    <th class="pe-5">Üyelik Oluşturulma Tarihi</th>
+                                    <th class="pe-5">Sözleşme Bitiş Tarihi</th>
+                                    <th class="pe-5">Durum</th>
+                                    <th>Düzenle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.SirketListele)
+                                {
+                                    <tr class="align-bottom text-center d-lg-table-row">
+                                        <td class="align-top">@item.SirketAdi</td>
+                                        <td class="align-top">@item.SirketAdresi</td>
+                                        <td class="align-top">@item.SirketEmail</td>
+                                        <td class="align-top">@item.KayitTarihi.ToShortDateString()</td>
+                                        <td class="align-top">@item.UyelikBitisTarihi.ToShortDateString()</td>
+                                        <td class="align-top">@item.Durum</td>
+                                        <td>
+                                            <a class="btn btn-success" asp-controller="Home" asp-action="SirketDurumuGuncelleme" asp-route-id="@item.SirketId">Durumunu Güncelle</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

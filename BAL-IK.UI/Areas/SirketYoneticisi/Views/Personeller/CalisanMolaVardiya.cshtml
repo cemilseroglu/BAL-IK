@@ -1,0 +1,159 @@
+﻿@using BAL_IK.UI.ViewModels
+@model CalisaVardiyaEkleWM
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Personel Adı</th>
+            <th scope="col">Vardiyası</th>
+            <th scope="col">Molaları</th>
+            <th scope="col">İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var personel in Model.Personeller.ToList())
+        {
+
+        
+            string VardiyaBilgi = @personel.Guid.ToString() + "VardiyaBilgi";
+
+            string VardiyaSec = @personel.Guid.ToString() + "VardiyaSec";
+
+            string MolaBilgi = @personel.Guid.ToString() + "MolaBilgi";
+
+            string MolaSec = @personel.Guid.ToString() + "MolaSec";
+
+            string BtnDuzenle = @personel.Guid.ToString() + "BtnDuzenle";
+
+            string BtnIptal = @personel.Guid.ToString() + "BtnIptal";
+
+            string BtnKaydet = @personel.Guid.ToString() + "BtnKaydet";
+
+            <form method="post">
+            <tr>
+                <input asp-for="PersonelId" value="@personel.PersonelId" hidden />
+                <td>@personel.Ad @personel.Soyad</td>
+                <td hidden id="@{
+                        @VardiyaSec
+}">
+                    <select class="form-select mb-2" aria-label="Default select example" asp-for="VardiyaTurId"
+                        asp-items="@(new SelectList(Model.VardiyaTurleri,"VardiyaTurId","VardiyaTuru"))">
+                        <option>Vardiya Seç</option>
+                    </select>
+                </td>
+                <td id="@{
+                            @VardiyaBilgi
+}">
+
+                        @foreach (var vardiyalar in @Model.VardiyaTurleri.Select(x => x.Vardiyalar).ToList())
+                        {
+                            @foreach (var vardiya in vardiyalar)
+                            {
+
+                                if (vardiya.PersonelId == personel.PersonelId)
+                                {
+                                <p>@Model.VardiyaTurleri.FirstOrDefault(x=>x.VardiyaTurId==vardiya.VardiyaTurId).VardiyaTuru</p>
+
+                                }
+                            }
+                        }
+
+
+
+                </td>
+                <td hidden id="@{
+                            @MolaSec
+}">
+                    <select multiple="" class="form-control pb-4" aria-label="Default select example" asp-for="MolaTurIds"
+                        asp-items="@(new SelectList(Model.MolaTurleri,"MolaTurId","MolaTuru"))">
+                    </select>
+                </td>
+                <td id="@{
+                            @MolaBilgi
+}">
+                        @foreach (var molaTurleri in @Model.MolaTurleri.ToList())
+                        {
+                            @foreach (var item in molaTurleri.Molalar.Where(x => x.PersonelId == personel.PersonelId).ToList())
+                            {
+                            <span>@molaTurleri.MolaTuru ,</span>
+                            }
+                        }
+                </td>
+                <td>
+                    <a class="btn btn-warning" id="@{
+                        @BtnDuzenle
+}" onclick="Duzenle('@personel.Guid.ToString()')">Düzenle</a>
+                    <a hidden class="btn btn-danger" id="@{
+                            @BtnIptal
+}" onclick="Iptal('@personel.Guid.ToString()')">İptal</a>
+                    <button hidden id="@{
+                                @BtnKaydet
+}" class="btn btn-info">
+                        Kaydet
+                    </button>
+                </td>
+
+
+
+
+
+            </tr>
+
+
+            </form>
+
+
+        }
+
+
+    </tbody>
+</table>
+
+<script>
+    function Duzenle(guid){
+        var VardiyaBilgi=guid+"VardiyaBilgi";
+        var VardiyaSec=guid+"VardiyaSec";
+        var MolaBilgi=guid+"MolaBilgi";
+        var MolaSec=guid+"MolaSec";
+        var BtnDuzenle=guid+"BtnDuzenle";
+        var BtnIptal=guid+"BtnIptal";
+        var BtnKaydet=guid+"BtnKaydet";
+        document.getElementById(VardiyaBilgi).hidden=true;
+        document.getElementById(VardiyaSec).hidden=false;
+        document.getElementById(MolaBilgi).hidden=true;
+        document.getElementById(MolaSec).hidden=false;
+        document.getElementById(BtnDuzenle).hidden=true;
+        document.getElementById(BtnIptal).hidden=false;
+        document.getElementById(BtnKaydet).hidden=false;
+
+
+
+    }
+       function Iptal(guid){
+          var VardiyaBilgi=guid+"VardiyaBilgi";
+        var VardiyaSec=guid+"VardiyaSec";
+        var MolaBilgi=guid+"MolaBilgi";
+        var MolaSec=guid+"MolaSec";
+        var BtnDuzenle=guid+"BtnDuzenle";
+        var BtnIptal=guid+"BtnIptal";
+        var BtnKaydet=guid+"BtnKaydet";
+        document.getElementById(VardiyaBilgi).hidden=false;
+        document.getElementById(VardiyaSec).hidden=true;
+        document.getElementById(MolaBilgi).hidden=false;
+        document.getElementById(MolaSec).hidden=true;
+        document.getElementById(BtnDuzenle).hidden=false;
+        document.getElementById(BtnIptal).hidden=true;
+        document.getElementById(BtnKaydet).hidden=true;
+
+    }
+
+
+
+</script>
+
+
+

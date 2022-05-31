@@ -168,9 +168,9 @@ namespace BAL_IK.UI.ServislerUI
 
             return response.Data;
         }
-        public SirketIslemleriResponse.PersonelleriGetirResponse PersonelleriGetir()
+        public SirketIslemleriResponse.PersonelleriGetirResponse PersonelleriGetir(string guid)
         {
-            var request = new RestRequest("api/SirketYoneticisi/PersonelleriGetir", Method.GET, DataFormat.Json);
+            var request = new RestRequest("api/SirketYoneticisi/PersonelleriGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
 
             var response = Globals.ApiClient.Execute<PersonelleriGetirResponse>(request);
 
@@ -188,7 +188,101 @@ namespace BAL_IK.UI.ServislerUI
 
         public VardiyaTurEkleResponse VardiyaTurEkle(SirketYoneticisiIslemleriRequest.VardiyaTurEkleRequest req)
         {
-            throw new System.NotImplementedException();
+            var request = new RestRequest("api/SirketYoneticisi/VardiyaTurEkle", Method.POST, DataFormat.Json).AddJsonBody(req);
+
+            var response = Globals.ApiClient.Execute<VardiyaTurEkleResponse>(request);
+
+            return response.Data;
+        }
+
+        public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/VardiyaTurSil", Method.POST, DataFormat.Json).AddParameter("vardiyaTurId", vardiyaTurId);
+
+            var response = Globals.ApiClient.Execute<VardiyaTurSilResponse>(request);
+
+            return response.Data;
+        }
+
+        public VardiyaTurleriGetirResponse VardiyaTurleriGetir(string guid)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/VardiyaTurleriGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+
+            var response = Globals.ApiClient.Execute<VardiyaTurleriGetirResponse>(request);
+
+            return response.Data;
+        }
+
+        public CalisanVardiyaMolaEkleResponse CalisanVardiyaEkle(SirketYoneticisiIslemleriRequest.CalisanVardiyaMolaEkleRequest req)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/CalisanVardiyaEkle", Method.POST, DataFormat.Json).AddJsonBody(req);
+
+            var response = Globals.ApiClient.Execute<CalisanVardiyaMolaEkleResponse>(request);
+
+            return response.Data;
+        }
+
+        public MolaTurEkleResponse MolaTurEkle(SirketYoneticisiIslemleriRequest.MolaTurRequest req)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/MolaTurEkle", Method.POST, DataFormat.Json).AddJsonBody(req);
+
+            var response = Globals.ApiClient.Execute<MolaTurEkleResponse>(request);
+
+            return response.Data;
+        }
+
+        public MolaTurSilResponse MolaTurSil(int id)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/MolaTurSil", Method.POST, DataFormat.Json).AddParameter("id", id);
+
+            var response = Globals.ApiClient.Execute<MolaTurSilResponse>(request);
+
+            return response.Data;
+        }
+
+        public MolaTurlerResponse MolaTurleriGetir(string guid)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/MolaTurleriGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+
+            var response = Globals.ApiClient.Execute<MolaTurlerResponse>(request);
+
+            return response.Data;
+        }
+
+        public SirketVerileri sirketVerileri(string guid)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/SirketVerisiGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+
+            var response = Globals.ApiClient.Execute<SirketVerileri>(request);
+
+            return response.Data;
+        }
+
+        public YorumEkleResponse sirketYorum(SirketYoneticisiIslemleriRequest.YorumEkleRequest req)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/sirketYorumEkle", Method.POST, DataFormat.Json).AddJsonBody(req);
+
+            var response = Globals.ApiClient.Execute<YorumEkleResponse>(request);
+
+            return response.Data;
+        }
+
+        public YorumResponse sirketYorumGetir(string guid)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/sirketYorumGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+
+            var response = Globals.ApiClient.Execute<YorumResponse>(request);
+
+            return response.Data;
+        }
+        
+        public YorumGuncelleResponse sirketYorumGuncelle(SirketYoneticisiIslemleriRequest.YorumGuncelleRequest req)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/sirketYorumGuncelle", Method.POST, DataFormat.Json).AddJsonBody(req);
+
+            var response = Globals.ApiClient.Execute<YorumGuncelleResponse>(request);
+
+            return response.Data;
         }
 
         public PersonelResp PersGetir(string guid)

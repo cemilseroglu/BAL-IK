@@ -39,6 +39,46 @@ namespace BAL_IK.Model.RequestClass
             [MaxLength(250)]
             public string Sifre { get; set; }
         }
+
+
+        public class SirketGuncelle
+        {
+            public int SirketId { get; set; }
+            [MaxLength(50)]
+            public string SirketAdi { get; set; }
+            [MaxLength(100)]
+            public string SirketAdresi { get; set; }
+            [MaxLength(13)]
+            public string SirketTelefonu { get; set; }
+            [MaxLength(50)]
+            public string SirketEmail { get; set; }  //BENZERSİZ OLMALI!!!
+            public string SirketLogoURL { get; set; }
+            public Durum Durum { get; set; }
+            public OdemePlani OdemePlani { get; set; }
+            public DateTime KayitTarihi { get; set; }
+            public DateTime UyelikBitisTarihi { get; set; }
+            public int? YorumId { get; set; }
+        }
+
+        public class IzinTuruEkleReq
+        {
+            public string IzinTur { get; set; }
+        }
+        public class ZimmetTuruEkleReq
+        {
+            public string ZimmetTur { get; set; }
+        }
+
+        public class IzinTuruGuncelle
+        {
+            public int IzinTurId { get; set; }
+            public string IzinTur { get; set; }
+        }
+        public class ZimmetTuruGuncelle
+        {
+            public int ZimmetTurId { get; set; }
+            public string ZimmetTur { get; set; }
+        }
     }
 
     

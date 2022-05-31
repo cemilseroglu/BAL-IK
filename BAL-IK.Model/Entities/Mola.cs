@@ -12,14 +12,14 @@ namespace BAL_IK.Model
     {
         public Mola()
         {
-            Personeller=new HashSet<Personeller>();
+           
         }
         [Required,Key]
         public int MolaId { get; set; }
         public int MolaTurId { get; set; }
-        public MolaTur MolaTur { get; set; }
-        [Required]
-        public ICollection<Personeller> Personeller { get; set; }
+        public MolaTur MolaTur { get; set; }      
+        public int PersonelId { get; set; }
+        public Personeller Personel { get; set; }
         public DateTime OlusturulduguTarih { get; set; } = DateTime.Now;
         
     }

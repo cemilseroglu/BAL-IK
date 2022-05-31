@@ -236,8 +236,6 @@ namespace BAL_IK.Data.Migrations
 
                     b.HasIndex("SirketId");
 
-                    b.HasIndex("VardiyaId");
-
                     b.ToTable("Personeller");
                 });
 
@@ -411,7 +409,7 @@ namespace BAL_IK.Data.Migrations
                             Ad = "BALIK",
                             AktifMi = true,
                             Cinsiyet = 0,
-                            DogumTarihi = new DateTime(2022, 5, 25, 14, 4, 56, 907, DateTimeKind.Local).AddTicks(3219),
+                            DogumTarihi = new DateTime(2022, 5, 25, 15, 28, 55, 312, DateTimeKind.Local).AddTicks(909),
                             Eposta = "admin@bal-ik.com",
                             Guid = new Guid("c96ce224-3473-4d45-93fd-56b5f1d594ac"),
                             Sifre = "123456",
@@ -578,9 +576,14 @@ namespace BAL_IK.Data.Migrations
                     b.Property<DateTime>("OlusturulduguTarih")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PersonelId")
+                        .HasColumnType("int");
+
                     b.HasKey("MolaId");
 
                     b.HasIndex("MolaTurId");
+
+                    b.HasIndex("PersonelId");
 
                     b.ToTable("Molalar");
                 });
@@ -652,24 +655,11 @@ namespace BAL_IK.Data.Migrations
 
                     b.HasKey("VardiyaId");
 
+                    b.HasIndex("PersonelId");
+
                     b.HasIndex("VardiyaTurId");
 
                     b.ToTable("Vardiyalar");
-                });
-
-            modelBuilder.Entity("MolaPersoneller", b =>
-                {
-                    b.Property<int>("MolalarMolaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonellerPersonelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MolalarMolaId", "PersonellerPersonelId");
-
-                    b.HasIndex("PersonellerPersonelId");
-
-                    b.ToTable("MolaPersoneller");
                 });
 
             modelBuilder.Entity("BAL_IK.Model.Entities.Departmanlar", b =>
@@ -750,15 +740,9 @@ namespace BAL_IK.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BAL_IK.Model.Vardiyalar", "Vardiya")
-                        .WithMany("Personeller")
-                        .HasForeignKey("VardiyaId");
-
                     b.Navigation("Departman");
 
                     b.Navigation("Sirket");
-
-                    b.Navigation("Vardiya");
                 });
 
             modelBuilder.Entity("BAL_IK.Model.Entities.SirketYoneticisi", b =>
@@ -830,7 +814,15 @@ namespace BAL_IK.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BAL_IK.Model.Entities.Personeller", "Personel")
+                        .WithMany("Molalar")
+                        .HasForeignKey("PersonelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("MolaTur");
+
+                    b.Navigation("Personel");
                 });
 
             modelBuilder.Entity("BAL_IK.Model.MolaTur", b =>
@@ -865,28 +857,21 @@ namespace BAL_IK.Data.Migrations
 
             modelBuilder.Entity("BAL_IK.Model.Vardiyalar", b =>
                 {
+                    b.HasOne("BAL_IK.Model.Entities.Personeller", "Personel")
+                        .WithMany("Vardiya")
+                        .HasForeignKey("PersonelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BAL_IK.Model.Entities.VardiyaTur", "VardiyaTur")
                         .WithMany("Vardiyalar")
                         .HasForeignKey("VardiyaTurId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Personel");
+
                     b.Navigation("VardiyaTur");
-                });
-
-            modelBuilder.Entity("MolaPersoneller", b =>
-                {
-                    b.HasOne("BAL_IK.Model.Mola", null)
-                        .WithMany()
-                        .HasForeignKey("MolalarMolaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BAL_IK.Model.Entities.Personeller", null)
-                        .WithMany()
-                        .HasForeignKey("PersonellerPersonelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BAL_IK.Model.Entities.Departmanlar", b =>
@@ -907,9 +892,13 @@ namespace BAL_IK.Data.Migrations
 
                     b.Navigation("MaasBilgileri");
 
+                    b.Navigation("Molalar");
+
                     b.Navigation("OzlukBelgeleri");
 
                     b.Navigation("Primler");
+
+                    b.Navigation("Vardiya");
 
                     b.Navigation("Zimmetler");
                 });
@@ -947,11 +936,6 @@ namespace BAL_IK.Data.Migrations
             modelBuilder.Entity("BAL_IK.Model.MolaTur", b =>
                 {
                     b.Navigation("Molalar");
-                });
-
-            modelBuilder.Entity("BAL_IK.Model.Vardiyalar", b =>
-                {
-                    b.Navigation("Personeller");
                 });
 #pragma warning restore 612, 618
         }

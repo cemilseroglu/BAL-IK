@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BAL_IK.Model.RequestClass;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,10 @@ namespace BAL_IK.Data.Interfaceler.Personeller
 
         IzinlerResponse IzinleriGetir(string guid);
         VardiyalarResponse VardiyalariGetir(string guid);
-       
-
+        MolalarResponse MolalariGetir(string guid);
+        EkleizinResponse Ekleizin(Ekleizin izinEkle);
+        IzinTurlerResponse IzinTurleriGetir();
+        ZimmetlerResponse ZimmetTurleriGetir(string guid);
 
 
 
