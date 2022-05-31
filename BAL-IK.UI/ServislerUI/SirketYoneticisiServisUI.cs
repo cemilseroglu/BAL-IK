@@ -284,5 +284,22 @@ namespace BAL_IK.UI.ServislerUI
 
             return response.Data;
         }
+
+        public PersonelResp PersGetir(string guid)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/PersonelGetir", Method.GET, DataFormat.Json).AddParameter("guid", guid);
+            var response = Globals.ApiClient.Execute<PersonelResp>(request);
+
+            return response.Data;
+        }
+
+        public OzlukBelgesiGetirResponse OzlukBelgesiGetir(int ozlukBelgesiId)
+        {
+            var request = new RestRequest("api/SirketYoneticisi/OzlukBelgelesiGetir", Method.GET, DataFormat.Json);
+
+            var response = Globals.ApiClient.Execute<OzlukBelgesiGetirResponse>(request);
+
+            return response.Data;
+        }
     }
 }

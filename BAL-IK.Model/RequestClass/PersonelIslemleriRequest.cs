@@ -40,6 +40,8 @@ namespace BAL_IK.Model.RequestClass
             public int DepartmanId { get; set; }
             public int VardiyaId { get; set; }
             public Cinsiyet Cinsiyet { get; set; }
+            public decimal TemelMaasBilgisi { get; set; }
+
 
         }
         public class HarcamaEkle

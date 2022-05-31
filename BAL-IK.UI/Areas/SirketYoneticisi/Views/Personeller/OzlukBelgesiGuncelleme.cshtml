@@ -1,0 +1,19 @@
+﻿@using static BAL_IK.Model.RequestClass.PersonelIslemleriRequest
+
+@model OzlukBelgesiGuncelle
+
+<form method="post">
+    <input type="hidden" asp-for="PersonelId" />
+    <input type="hidden" asp-for="OzlukBelgesiId" />
+    <h6>Belge Adı</h6>
+    <input required type="text" asp-for="OzlukBelgesiAdi" />
+    <br />
+    <h6>Belge Yolu</h6>
+    <input required type="text" asp-for="OzlukBelgesiYolu" />
+    <br />
+    <h6>E-Posta</h6>
+    <input required type="date" asp-for="OlusturulmaZamani" />
+    <br />
+    <br />
+    <button class="btn btn-primary" onclick="confirmAction(@Model.PersonelId)">Güncelle</button>
+</form>

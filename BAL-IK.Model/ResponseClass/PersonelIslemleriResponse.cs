@@ -46,6 +46,7 @@ namespace BAL_IK.Model.ResponseClass
             public int? DepartmanId { get; set; }
             public int? VardiyaId { get; set; }
             public Cinsiyet Cinsiyet { get; set; }
+            public decimal TemelMaasBilgisi { get; set; }
 
         }
         public class PersonelHarcamaEkle : BaseResponse
@@ -94,7 +95,15 @@ namespace BAL_IK.Model.ResponseClass
         {
             public List<IzinResponse> Izinler { get; set; } = new List<IzinResponse>();
         }
-
+        public class OzlukBelgesiGetirResponse : BaseResponse
+        {
+            public int OzlukBelgesiId { get; set; }
+            public int PersonelId { get; set; }
+            public string OzlukBelgesiAdi { get; set; }
+            public string OzlukBelgesiYolu { get; set; }
+            public DateTime OlusturulmaZamani { get; set; }
+            //public List<OzlukBelgesiEkleResponse> OzlukBelgeleri { get; set; }
+        }
         public class OzlukBelgesiEkleResponse : BaseResponse
         {
             public int OzlukBelgesiId { get; set; }

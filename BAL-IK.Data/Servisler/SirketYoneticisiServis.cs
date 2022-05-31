@@ -331,9 +331,10 @@ namespace BAL_IK.Data.Servisler
 
                 pergun.Cinsiyet = pr.Cinsiyet;
                 pergun.AktifMi = pr.AktifMi;
-                pergun.SirketId = pr.SirketId;
-                pergun.DepartmanId = pr.DepartmanId;
-                pergun.VardiyaId = pr.VardiyaId;
+                pergun.TemelMaasBilgisi = pr.TemelMaasBilgisi;
+                //pergun.SirketId = pr.SirketId;
+                //pergun.DepartmanId = pr.DepartmanId;
+                //pergun.VardiyaId = pr.VardiyaId;
 
 
                 _db.Update(pergun);
@@ -707,6 +708,7 @@ namespace BAL_IK.Data.Servisler
                 SirketYoneticisi sirketYoneticisi = _db.SirketYoneticileri.Include(x => x.Sirket).FirstOrDefault(x => x.Guid.ToString() == req.SirketYoneticisiGuid);
                 VardiyaTur vardiyaTur = new VardiyaTur()
                 {
+
                     SirketId = sirketYoneticisi.Sirket.SirketId,
                     VardiyaTuru = req.VardiyaTuru,
                     VardiyaBaslangicTarihi = req.VardiyaBaslangicTarihi,
@@ -726,6 +728,53 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+
+
+        public PersonelResp PersGetir(string guid)
+        {
+            PersonelResp resp = new PersonelResp();
+            if (string.IsNullOrEmpty(guid))
+            {
+                resp.Mesaj = "Parametre boş olamaz.";
+                resp.BasariliMi = false;
+                return resp;
+
+            }
+            try
+            {
+                Personeller personeller = _db.Personeller.FirstOrDefault(x => x.Guid.ToString() == guid);
+                if (personeller == null)
+                {
+                    resp.Mesaj = "Kullanıcı Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                resp.PersonelId = personeller.PersonelId;
+                resp.Eposta = personeller.Eposta;
+                resp.Cinsiyet = personeller.Cinsiyet;
+                resp.Ad = personeller.Ad;
+                resp.Soyad = personeller.Soyad;
+                resp.AktifMi = personeller.AktifMi;
+                resp.TemelMaasBilgisi = personeller.TemelMaasBilgisi;
+                resp.DepartmanId = personeller.DepartmanId;
+                resp.DogumTarihi = personeller.DogumTarihi;
+                resp.SirketId = personeller.SirketId;
+                resp.VardiyaId = personeller.VardiyaId;
+                resp.YillikIzinHakki = personeller.YillikIzinHakki;
+                resp.IseBaslama = personeller.IseBaslama;
+                resp.IstenAyrilma = personeller.IstenAyrilma;
+                resp.BasariliMi = true;
+                resp.Mesaj = "Başarılı";
+                resp.Guid = personeller.Guid;
+                 return resp;
+            }
+            catch (Exception ex)
+            {
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                 return resp;
+            }
+          }
 
         public VardiyaTurSilResponse VardiyaTurSil(int vardiyaTurId)
         {
@@ -782,15 +831,51 @@ namespace BAL_IK.Data.Servisler
 
                 resp.BasariliMi = true;
                 resp.Mesaj = "Vardiya Turleri Getirildi";
+
                 return resp;
             }
             catch (Exception ex)
             {
-                resp.Mesaj = ex.Message;
+
                 resp.BasariliMi = false;
-                return resp;
+                resp.Mesaj = ex.Message;
+                throw;
             }
         }
+
+
+
+        public OzlukBelgesiGetirResponse OzlukBelgesiGetir(int ozlukBelgesiId)
+        {
+            OzlukBelgesiGetirResponse resp = new OzlukBelgesiGetirResponse();
+            //if (string.IsNullOrEmpty(guid))
+            //{
+            //    resp.Mesaj = "Parametre boş olamaz.";
+            //    resp.BasariliMi = false;
+            //    return resp;
+
+            //}
+            try
+            {
+                OzlukBelgesi ozluk = _db.OzlukBelgeleri.FirstOrDefault(x => x.PersonelId == ozlukBelgesiId);
+                if (ozluk == null)
+                {
+                    resp.Mesaj = "Belge Bulunamadı";
+                    resp.BasariliMi = false;
+                    return resp;
+                }
+                //resp
+                    
+            }
+            catch (Exception ex)
+            {
+
+                resp.BasariliMi = false;
+                resp.Mesaj = ex.Message;
+                throw;
+            }
+        }
+
 
         public CalisanVardiyaMolaEkleResponse CalisanVardiyaEkle(SirketYoneticisiIslemleriRequest.CalisanVardiyaMolaEkleRequest req)
         {
@@ -926,15 +1011,18 @@ namespace BAL_IK.Data.Servisler
 
                 resp.BasariliMi = true;
                 resp.Mesaj = "Molalar getirildi";
+
                 return resp;
             }
             catch (Exception ex)
             {
-                resp.Mesaj = ex.Message;
+            resp.Mesaj = ex.Message;
                 resp.BasariliMi = false;
                 return resp;
             }
         }
+
+          
 
         public SirketVerileri sirketVerileri(string guid)
         {
@@ -1040,6 +1128,7 @@ namespace BAL_IK.Data.Servisler
                 return resp;
             }
         }
+
 
     }
 }

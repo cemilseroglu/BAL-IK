@@ -27,7 +27,7 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
         OzlukBelgesiEkleResponse OzlukBelgesiEkle(OzlukBelgesiEkle ozlukBelgesi);
         OzlukBelgesiGuncelleResponse OzlukBelgesiGuncelle(OzlukBelgesiGuncelle ozlukBelgesiGuncelle);
         OzlukBelgesiSilResponse OzlukBelgesiSil(int ozlukBelgesiId);
-
+        OzlukBelgesiGetirResponse OzlukBelgesiGetir(int ozlukBelgesiId);
         EkleizinResponse Ekleizin(Ekleizin izinEkle);
         ListelemeizinResponse Listeleizin();
         PersonelSilResponse PersonelSil(int personelId);   
@@ -43,7 +43,13 @@ namespace BAL_IK.Data.Interfaceler.SirketYoneticisi
         ZimmetTurleriResponse ZimmetTurleriniGetir();
         ZimmetSilResponse ZimmetSil(int id);
         ZimmetGuncelleResponse ZimmetGuncelle(ZimmetGuncelleRequest req);
+
+        PersonelleriGetirResponse PersonelleriGetir();
+        PersonelResp PersGetir(string guid);
+    
+
         #endregion
+
 
         #region Vardiya      
         VardiyaTurEkleResponse VardiyaTurEkle(VardiyaTurEkleRequest req);
