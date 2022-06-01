@@ -153,22 +153,22 @@
                             <table class="table">
                                   <thead>
                                     <tr>
-                                      <th class="text-white" scope="col">#</th>
-                                      <th class="text-white" scope="col">Vardiya Türü</th>
-                                      <th class="text-white" scope="col">Vardiya Başlangıç Tarihi</th>
-                                      <th class="text-white" scope="col">Vardiya Bitiş tarihi</th>
-                                      <th class="text-white" scope="col">Mola Türü</th>
+                                      <th class="text-white text-center" scope="col">#</th>
+                                      <th class="text-white text-center" scope="col">Vardiya Türü</th>
+                                      <th class="text-white text-center" scope="col">Vardiya Başlangıç Tarihi</th>
+                                      <th class="text-white text-center" scope="col">Vardiya Bitiş tarihi</th>
+                                      <th class="text-white text-center" scope="col">Mola Türü</th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <tr>
-                                      <th class="text-white" scope="row">1</th>
+                                      <th class="text-white text-center" scope="row">1</th>
                                       @foreach (var item in Model.Vardiyalar)
                                      {
-                                         <td class="text-white">@item.VardiyaTuru.VardiyaTuru</td>
-                                          <td class="text-white">@item.VardiyaBaslangicTarihi.ToShortDateString()</td>
-                                            <td class="text-white">@item.VardiyaBitisTarihi.ToShortDateString()</td>
-                                            <td class="text-white">
+                                         <td class="text-white text-center">@item.VardiyaTuru.VardiyaTuru</td>
+                                          <td class="text-white text-center">@item.VardiyaBaslangicTarihi.ToShortDateString()</td>
+                                            <td class="text-white text-center">@item.VardiyaBitisTarihi.ToShortDateString()</td>
+                                            <td class="text-white text-center">
                                              @foreach (var item2 in Model.Molalar)
                                     {
                                         @item2.MolaTuru.MolaTuru<span>,</span>
