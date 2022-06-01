@@ -27,7 +27,8 @@
         <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
             <span class="mask  bg-gradient-primary  opacity-6"></span>
         </div>
-        <div class="card card-body mx-3 mx-md-4 mt-n6" style="width:fit-content; width:95%;">
+        <div class="d-flex justify-content-center">
+        <div class="card card-body mx-3 mx-md-4 mt-n6" style="width:fit-content;">
             <div class="container table-responsive-xxl table">
                 <div class="row">
                     <div class="col-12 col-xl-12 ">
@@ -54,7 +55,7 @@
                                         <td class="align-top">@item.UyelikBitisTarihi.ToShortDateString()</td>
                                         <td class="align-top">@item.Durum</td>
                                         <td>
-                                            <a class="btn btn-success" asp-controller="Home" asp-action="SirketDurumuGuncelleme" asp-route-id="@item.SirketId">Durumunu Güncelle</a>
+                                            <a class="btn btn-success text-wrap" style="height:56px;"  asp-controller="Home" asp-action="SirketDurumuGuncelleme" asp-route-id="@item.SirketId">Durumunu Güncelle</a>
                                         </td>
                                     </tr>
                                 }
@@ -65,6 +66,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </main>
