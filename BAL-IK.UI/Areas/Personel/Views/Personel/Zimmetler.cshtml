@@ -1,15 +1,8 @@
 ﻿@using static BAL_IK.UI.ViewModels.IzinlerViewModel
 @using BAL_IK.UI.ViewModels
 @model ZimmetlerWM
-
-
 @{
-
-
-
     ViewData["Title"] = "Zimmetler";
-
-
 }
 <head>
     <meta charset="utf-8" />
@@ -41,18 +34,16 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="text-white" scope="col">#</th>
-                        <th class="text-white" scope="col">Zimmet Türü</th>
-                        <th class="text-white" scope="col">Zimmet Tarihi</th>
-                        <th class="text-white" scope="col">Zimmet Teslim Tarihi</th>
-                        <th class="text-white" scope="col">Durumu</th>
-                        <th class="text-white" scope="col">Not</th>
+                        <th class="text-white bg-gray-900 text-center" scope="col">#</th>
+                        <th class="text-white bg-gray-900 text-center" scope="col">Zimmet Türü</th>
+                        <th class="text-white bg-gray-900 text-center" scope="col">Zimmet Tarihi</th>
+                        <th class="text-white bg-gray-900 text-center" scope="col">Zimmet Teslim Tarihi</th>                                                                
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th class="text-white" scope="row">1</th>
+                        <th class="text-white bg-gray-900 text-center" scope="row">1</th>                      
                         @foreach (var item in Model.Zimmetler)
                         {
                             var shortString = "";
@@ -60,11 +51,10 @@
                             {
                                 shortString = @item.ZimmetTeslimTarihi.Value.ToShortDateString();
                             }
-                            <td class="text-white">@item.ZimmetTuru.ZimmetTuru</td>
-                            <td class="text-white">@item.ZimmetTarihi.ToShortDateString()</td>
-                            <td class="text-white">@shortString</td>
-                            <td class="text-white">@item.Durumu</td>
-                              <td class="text-white">@item.NotIcerik<input asp-for=Zimmetler required type="text" id="textkutu" class="form-control" /></td>
+                            <td class="text-white bg-gray-900 text-center">@item.ZimmetTuru.ZimmetTuru</td>
+                            <td class="text-white bg-gray-900 text-center">@item.ZimmetTarihi.ToShortDateString()</td>
+                            <td class="text-white bg-gray-900 text-center">@shortString</td>
+                            <td class="text-white bg-gray-900 text-center"></td>
 
                         }
 
@@ -72,14 +62,6 @@
 
                 </tbody>
             </table>
-
-
-
-
-
-
-
-
         </div>
     </div>
 </form>
